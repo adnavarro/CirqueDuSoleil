@@ -1,5 +1,5 @@
 INSERT INTO public.cirqueshow VALUES
-	(1, 'OVO', 'Itinerante', 'C:\CirqueDuSoleil\img\ovo.jpg', 
+	(1, 'OVO', 'Itinerante', 'http://127.0.0.1:8080/img/ovo.jpg', 
   CAST(ARRAY [
 		('Opening', 'El emocionante y ajetreado mundo está representado por la música de samba y las luces brillantes, luego una calma repentina, las luces brillantes cambian a luz natural cálida y la samba pesada se convierte en una canción de guitarra calmante'),
 		('Malabarismo de Pies y Juegos Icarianos','un grupo de hormigas hacen malabares con kiwis, maíz, rebanadas de berenjena y otras		hormigas, todas en sus pies'),
