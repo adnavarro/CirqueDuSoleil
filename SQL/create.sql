@@ -1,27 +1,27 @@
 create type Persona as(
-	nombre varchar(20), /* Obligatorio */
-	nombre2 varchar(20),
-	apellido varchar(20), /* Obligatorio */
-	apellido2 varchar(20),
+	nombre varchar(32), /* Obligatorio */
+	nombre2 varchar(32),
+	apellido varchar(32), /* Obligatorio */
+	apellido2 varchar(32),
 	genero varchar(1), /* Obligatorio, solo M,F,O */
 	fech_nac date /* Obligatorio */
 );
 
-create type DatosDirector as(
-	nombre varchar(20), /* Obligatorio */
-	apellido varchar(20), /* Obligatorio */
-	cargo varchar(20) /* Obligatorio */
+create type DatosExtra as(
+	nombre varchar(128), /* Obligatorio */
+	apellido varchar(128), /* Obligatorio */
+	cargo varchar(128) /* Obligatorio */
 );
 
 create type Acto as(
-	nombre varchar(20), /* Obligatorio */
-	descrip varchar(20) /* Obligatorio */
+	nombre varchar(256), /* Obligatorio */
+	descrip text /* Obligatorio */
 );
 
 create type dir as(
-	calle varchar(20),
+	calle varchar(32),
 	codPostal numeric,
-	detalle varchar(100)
+	detalle varchar(256)
 );
 
 create table Hist_Precio(
@@ -35,15 +35,15 @@ create table Hist_Precio(
 
 create table Artist(
 	id numeric(2) not null primary key,
-	idiomas varchar(20) array[3] not null,
+	idiomas varchar(32) array[3] not null,
 	passport numeric(3) array[3] not null,
-	apodo varchar(20),
+	apodo varchar(32),
 	datos_per persona not null
 );
 
 create table Aspirante(
 	id numeric(2) not null primary key,
-	idiomas varchar(20) array[3] not null,
+	idiomas varchar(32) array[3] not null,
 	passport numeric(3) array[3] not null,
 	telefonos numeric array[3] not null,
 	datos_per persona not null
@@ -51,23 +51,23 @@ create table Aspirante(
 
 create table Disciplina(
 	id numeric(2) not null primary key,
-	nombre varchar(20) not null,
-	tipo varchar(20) not null,
-	descrip varchar(300)
+	nombre varchar(128) not null,
+	tipo varchar(128) not null,
+	descrip text
 );
 
 create table D_A(
 	id_Disci numeric(2) not null references Disciplina(id),
 	id_Artist numeric(2) not null references Artist(id),
-	descrip varchar(300),
+	descrip text,
 	constraint id_DA primary key(id_Disci, id_Artist)
 );
 
 create table LugarGeo(
 	id numeric(2) not null primary key,
-	nombre varchar(20) not null,
+	nombre varchar(128) not null,
 	tipo_geo varchar(1) check (tipo_geo='M' or tipo_geo='E' or tipo_geo='P'),
-	idiomas varchar(20) array[3], /* Obligatorio para pais */
+	idiomas varchar(32) array[3], /* Obligatorio para pais */
 	moneda varchar(5), /* Obligatorio para pais */
 	contine varchar(2) check (contine='AM' or contine='AS' or contine='EU' or 
 							  contine='OC' or contine='AF'), /* Obligatorio para pais */
@@ -78,7 +78,7 @@ create table LugarPresent(
 	id numeric(2) not null primary key,
 	tipo varchar(6) not null check(tipo='Arena' or tipo='Teatro' or tipo='Gym' 
 								   or tipo='Hotel' or tipo='Otro'),
-	nombre varchar(20) not null,
+	nombre varchar(128) not null,
 	capacidad numeric not null,
 	direccion dir,
 	id_LugarGeo numeric(2) not null references LugarGeo(id)
@@ -86,21 +86,21 @@ create table LugarPresent(
 
 create table CirqueShow(
 	id numeric(2) not null primary key,
-	nombre varchar(20) not null,
+	nombre varchar(256) not null,
 	tipo varchar(10) check (tipo='Itinerante' or tipo='Residente') not null,
-	imagen bytea not null,
+	imagen varchar(256) not null,
 	show_acto Acto array[3] not null,
-	datos_extra DatosDirector array[3] not null,
-	musica varchar(20) array[7] not null,
-	descrip varchar(300),
+	datos_extra DatosExtra array[3] not null,
+	musica varchar(256) array[7] not null,
+	descrip text,
 	id_LugarPresent numeric(2) references LugarPresent(id) /* Obligatorio para residente */
 );
 
 create table Personaje(
 	id numeric(2) not null primary key,
-	nombre varchar(20) not null,
-	descrip varchar(300) not null,
-	id_Show numeric(2) unique not null references CirqueShow(id)
+	nombre varchar(256) not null,
+	descrip text not null,
+	id_Show numeric(2) not null references CirqueShow(id)
 );
 
 create table Hist_Show_Per_Art(
