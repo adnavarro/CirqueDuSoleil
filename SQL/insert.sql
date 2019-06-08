@@ -56,8 +56,27 @@ INSERT INTO public.cirqueshow VALUES
   	CAST(ARRAY [('FRANCO', 'DRAGONE','DIRECTOR'),
 	('MICHEL', 'CRETE','ESCENARIO'),('RENÉ','DUPÉRÉ','COMPOSITOR'),('DOMINIQUE','LEMIEUX','VESTUARIO')] AS DatosExtra[]),
   	ARRAY [ 'Alegría (Final)','Vai Vedrai (Trapecio Sincronizado)','Kalandéro','Querer (Instalación de Barra Alta)','Irna (Power Track)','Taruka (Contorsionismo)','Jeux Denfants (Intermedio)','Mirko (Apertura)','Icare (Barra Alta)','Ibis','Valsapena(Power Track)','Nocturne (Tormenta de Nieve)','Cerceaux (Manipulación/Aros)','Malioumba (Hombre Volador)'],
-	'Alegría fue el show más popular y más querido por todo el público del Cirque du Soleil. Desde su estreno en abril de 1994, se ha presentado más de 7.000 veces y visto por más de 14 millones de espectadores en más de 250 ciudades alrededor del mundo. Alegría se originó para ser un espectáculo superior con gira en carpa. Sin embargo, Alegría tomó un breve respiro y pasó a ser un show residente en la MGM Beau Rivage casino desde mayo de 1999 a octubre de 2000, año en el que retomó su gira mundial en carpa. Comenzando con su tour 2009 - 2010 América del Norte, el show fue convertido en formato de arena (sin carpa), que le permitió visitar ciudades que antes eran inaccesibles para el tour debido a su gran carpa. Realizó su última función el 29 de diciembre de 2015 en Ambéres (Bélgica), pero ya se anunció su regreso en algún momento del 2019.', 
-	null);
+	'Alegría fue el show más popular y más querido por todo el público del Cirque du Soleil. Desde su estreno en abril de 1994, se ha presentado más de 7.000 veces y visto por más de 14 millones de espectadores en más de 250 ciudades alrededor del mundo. Alegría se originó para ser un espectáculo superior con gira en carpa. Sin embargo, Alegría tomó un breve respiro y pasó a ser un show residente en la MGM Beau Rivage casino desde mayo de 1999 a octubre de 2000, año en el que retomó su gira mundial en carpa. Comenzando con su tour 2009 - 2010 América del Norte, el show fue convertido en formato de arena (sin carpa), que le permitió visitar ciudades que antes eran inaccesibles para el tour debido a su gran carpa. Realizó su última función el 29 de diciembre de 2018 en Ambéres (Bélgica).', 
+	null),
+--INSERT KURIOS
+	(4, 'Kurios', 'Itinerante', 'abc\\030',  
+  	CAST(ARRAY [('Chaos Synchro 1900 (Juggling / Drums)', 'Un malabarista, percusionistas y bailarines realizan una fusión de acrobacias, excéntricos, acróbatas.'),
+	('Russian Cradle Duo','Un catcher arroja a su compañero al aire, donde ella realiza saltos más y más intrincados.'),
+	('Bicicleta aérea', 'Una mujer monta una bicicleta que despega al aire y realiza varios trucos parecidos a un trapecio.'),
+	('The Invisible Circus', 'Nunca has visto algo así ... ¡y nunca lo harás!.'),
+	('Contorsión', 'Los cuatro artistas que se retuercen ejecutan una serie de pirámides y figuras utilizando la Mano Mecánica como plataforma.'),
+	('Mundo al revés (Balanceo de manos sobre sillas) ', 'Un rendimiento al revés y un lado derecho hacia arriba con dos acróbatas que hacen balance en una serie de sillas.'),
+	('Rola Bola', 'Un aviador se balancea en tubos en una plataforma suspendida en el aire.'),
+	('Acro Net', 'Los artistas saltan al aire utilizando una amplia red. Son atrapados y volteados en el aire.'),
+	('Ley Cómica', 'Un hombre trae a una mujer de la audiencia y la invita a subir a su mundo.'),
+	('Correas aéreas', 'Los "gemelos siameses" que cuelgan en el aire de las correas se separan cuando vuelan por encima del escenario en una serie de figuras acrobáticas, a veces como pareja, a veces en solitario.'),
+	('YoYos', 'El dos veces campeón mundial de YoYo NEGRO realiza un acto con YoYos como un personaje "Maestro de la época".'),
+	('Teatro de las manos', 'Los artistas presentan una historia de una persona que salta, salta y luego se enamora, usando sus manos como muñecos vestidos con sombreros y zapatos en miniatura.'),
+	('Banquine', 'Un grupo de artistas realiza secuencias espectaculares de acrobacias sincronizadas y pirámides humanas.')] AS ACTO[]),
+  	CAST(ARRAY [('MICHEL', 'LAPRISE','DIRECTOR'),
+	('STÉPHANE', 'ROY','ESCENARIO'),('RAPHAEL','BEAU','COMPOSITOR'),('PHILLIPPE','GUILLOTEL','VESTUARIO')] AS DatosExtra[]),
+  	ARRAY [ '11h11 (Apertura)','Telegrama Steampunk (Bicicleta Aérea)','Bella Donna Twist (Chaos Synchro 1900)','Gravedad levitas (cuna rusa)','Monde inversé (mundo al revés)','Hypnotique (Contorción)','Salida (Teatro de manos / Transición a Rola Bola)','Vuelo temible (Rola Bola)','Nubes (Acro Net)','Créature de siam (Aerial Straps Duo)','Wat U No Wen (Banquine)','Usted debe estar bromeando (final)'],
+	'Kurios es unaproducción itinerante del Cirque du Soleil que se estrenó el 24 de abril de 2014 en Montreal, Quebec , Canadá, bajo el título completo de Kurios: Gabinete de Curiosidades . Creado y dirigido por Michel Laprise, mira a un inventor mundial de finales del siglo XIX que inventa una máquina que desafía las leyes del tiempo, el espacio y la dimensión para reinventar todo a su alrededor conelementos steampunk con personajes de otra dimensión. Que interactúan con él y un homenaje al poder de la imaginación humana.', null);
 
 INSERT INTO public.personaje VALUES
 --INSERT PERSONAJES DE OVO
@@ -92,5 +111,14 @@ INSERT INTO public.personaje VALUES
 	(27,'Los Ángeles','Los Ángeles blancos son los elegantes guardianes de la Alegría. Ágiles, seguros de sí mismos y audaces, son la juventud del mañana que se ha posado en el palacio de los Cielos.',3),
 	(28,'La Cantante de Blanco','La Cantante de Blanco es el símbolo de todo lo que alguna vez fue bueno en el antiguo régimen. Ella es la narradora de este mundo, cuyo canto refleja todo lo que ve. Canta su melancolía y su desesperación, su dicha y su felicidad. Su luminoso vestido blanco es exquisito: metros y metros de ondulante crinolina bajo un corset y un miriñaque adornados con gemas y perlas. Con ese vestido y sus largos guantes blancos, sus movimientos recuerdan a los de la muñeca de porcelana de un joyero.',3),
 	(29,'La Cantante de Negro',' La Cantante de Negro es el alter-ego de la Cantante de Blanco. Aunque también expresa en canciones el ambiente de Alegría, hay maldad en ella, transpira una cierta maldad. Su elegante vestido negro, que es un reflejo del de la Cantante de Blanco, esconde los secretos de su alma atormentada. También esconde muchos secretos en su oscuro corazón.',3),
-	(30,'Los Payasos','Los payasos han sido capaces de resistir cambios en la política y transformaciones sociales. Testigos de los siglos que pasan, son los comentadores sociales de la Alegría. Los payasos reflejan el espíritu eterno de la humanidad, son visionarios, filósofos del absurdo. Son entrañables, cómicos e infantiles y convierten el mundo entero en su circo. Tienen los pies en el suelo, son realistas y narran pequeñas historias de la vida cotidiana, en las que todos somos héroes, todos podemos enamorarnos y a todos nos pueden romper el corazón.',3);
+	(30,'Los Payasos','Los payasos han sido capaces de resistir cambios en la política y transformaciones sociales. Testigos de los siglos que pasan, son los comentadores sociales de la Alegría. Los payasos reflejan el espíritu eterno de la humanidad, son visionarios, filósofos del absurdo. Son entrañables, cómicos e infantiles y convierten el mundo entero en su circo. Tienen los pies en el suelo, son realistas y narran pequeñas historias de la vida cotidiana, en las que todos somos héroes, todos podemos enamorarnos y a todos nos pueden romper el corazón.',3),
+--INSERT PERSONAJES DE KURIOS
+	(31,'El Buscador','Un científico, está en una búsqueda en la que crea una máquina para viajar a otra dimensión para encontrar el lugar donde se encuentran lo posible y lo imposible.',4),
+	(32,'Nico el hombre de acordeón','El traje de acordeón de Nico le permite agacharse o ponerse de pie para que pueda estar al nivel de la vista con absolutamente todo el mundo.',4),
+	(33,'Sr. Microcosmos','Una figura de autoridad, el Sr. Microcosmos es el líder del grupo. Este capítulo serio es la encarnación del progreso tecnológico.',4),
+	(34,'Klara, el telégrafo de lo invisible','Klara puede recibir ondas alfa girando sobre sus talones y apuntando su falda de aro en varias direcciones.',4),
+	(35,'Mini Lili','Ella representa la mente inconsciente del Sr. Microcosmos, su yo intuitivo, su lado frágil y poético.',4),
+	(36,'Jean-Claude','Gemelos unidos que son la encarnación de la unidad y la separación.',4),
+	(37,'The Kurios','El Buscador se rodea de una brigada de asistentes, entre ellos el Winch Kurios y la Succión Cup Kurios.',4)
+	(38,'Los curiosianos','Son los habitantes de un país imaginario llamado Curiosistán y aparecen en el mundo del Buscador para encender su imaginación.',4);
 
