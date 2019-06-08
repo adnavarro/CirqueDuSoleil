@@ -1,37 +1,66 @@
+
 INSERT INTO public.cirqueshow VALUES
-	(1, 'OVO', 'Itinerante', 'http://127.0.0.1:8080/img/ovo.jpg', 
-  CAST(ARRAY [
-		('Opening', 'El emocionante y ajetreado mundo está representado por la música de samba y las luces brillantes, luego una calma repentina, las luces brillantes cambian a luz natural cálida y la samba pesada se convierte en una canción de guitarra calmante'),
-		('Malabarismo de Pies y Juegos Icarianos','un grupo de hormigas hacen malabares con kiwis, maíz, rebanadas de berenjena y otras		hormigas, todas en sus pies'),
-		('Balance de Mano', 'Una libélula solitaria se balancea precariamente en un bloque alto y giratorio'),
-		('Correas Aéreas', 'Las artistas vuelan sobre la audiencia suspendidas de cuerdas que cuelgan de un transportador con un elemento rotativo sobre sus cabezas. Es un vuelo en cuatro dimensiones que exige precisión además de las habilidades y la fuerza física necesarias para moverse a alta velocidad en 360 grados'),
-		('Diábolo', ' una luciérnaga manipula y lanza múltiples diabolos a la vez'),
-		('Creatura', 'Parte sinuosa, parte insecto, la Criatura danza en un tema que es todo suyo, el se curva, tuerce en nudos sus 		miembros elásticos en constante movimiento.'),
-		('Marco Aéreo', 'Un hombre fuerte y una muñeca con cara de porcelana que despiertan por una descarga eléctrica emergen de su caja musical y cobran vida. Los dos artistas escalan a la cima del aparado de 4 metros de altura. En un número basado en la confianza mutua, 	el atrapador se convierte en un trapecio humano y lanza a su compañera en el aire donde realiza saltos mortales cada vez más intrincados'),
-		('Contorsión', 'Una araña usa la misma cuerda vertical que las mariposas para crear múltiples posturas flexibles, mientras que otra en el suelo usa los apoyabrazos para mantener el equilibrio mientras la espalda y las piernas se retuercen en múltiples posiciones'),
-		('Trío Acrobático', 'dos artistas varones usan técnicas similares a las de la gimnasia acrobática (acrosport) para lanzar al aire a una mujer'),
-		('Slack Wire', 'En un cable suelto (y algunas veces en movimiento), una araña se balancea con sus piernas y manos, y en un punto monta un monociclo'),
-		('Piernas', 'Un baile único, múltiples piernas emergen a través de agujeros en el escenario'),
-		('Trampolín, Power Track y Muro', 'los grillos rebotan en un trampolín largo en el suelo llamado una vía de poder, realizan giros a una velocidad asombrosa. Los grillos también utilizan un trampolín para saltar a la pared, en la pared el salto y aterrizar en el trampolín'),
-		('Banquete', 'El final del espectáculo')] AS ACTO[]),
-  CAST(ARRAY [
-		('DEBORAH', 'COLKE','DIRECTOR'), ('GRINGO', 'CARDIA','ESCENARIO'),
-		('BERNA','CEPPAS','COMPOSITOR'),('LIZ','VANDAL','VESTUARIO')] AS DatosExtra[]),
+--INSERT OVO
+	(1, 'OVO', 'Itinerante', 'abc\\030',  
+  	CAST(ARRAY [('Apertura', 'El emocionante y ajetreado mundo está representado por la música de samba y las luces brillantes, luego una 		calma repentina, las luces brillantes cambian a luz natural cálida y la samba pesada se convierte en una canción de guitarra calmante'),
+	('Malabarismo de Pies y Juegos Icarianos','Un grupo de hormigas hacen malabares con kiwis, maíz, rebanadas de berenjena y otras		hormigas, todas en sus pies'),
+	('Balance de Mano', 'Una libélula solitaria se balancea precariamente en un bloque alto y giratorio'),
+	('Correas Aéreas', 'Las artistas vuelan sobre la audiencia suspendidas de cuerdas que cuelgan de un transportador con un elemento 		rotativo sobre sus cabezas. Es un vuelo en cuatro dimensiones que exige precisión además de las habilidades y la fuerza física 		necesarias para moverse a alta velocidad en 360 grados'),
+	('Diábolo', 'Una luciérnaga manipula y lanza múltiples diabolos a la vez'),
+	('Creatura', 'Parte sinuosa, parte insecto, la Criatura danza en un tema que es todo suyo, el se curva, tuerce en nudos sus 		miembros elásticos en constante movimiento'),
+	('Marco Aéreo', 'Un hombre fuerte y una muñeca con cara de porcelana que despiertan por una descarga eléctrica emergen de su caja 		musical y cobran vida. Los dos artistas escalan a la cima del aparado de 4 metros de altura. En un número basado en la confianza mutua, 	el atrapador se convierte en un trapecio humano y lanza a su compañera en el aire donde realiza saltos mortales cada vez más 			intrincados'),
+	('Contorsión', 'Una araña usa la misma cuerda vertical que las mariposas para crear múltiples posturas flexibles, mientras que otra en el suelo usa los apoyabrazos para mantener el equilibrio mientras la espalda y las piernas se retuercen en múltiples posiciones'),
+	('Trío Acrobático', 'dos artistas varones usan técnicas similares a las de la gimnasia acrobática (acrosport) para lanzar al aire a una mujer'),
+	('Slack Wire', 'En un cable suelto (y algunas veces en movimiento), una araña se balancea con sus piernas y manos, y en un punto monta un monociclo'),
+	('Piernas', 'Un baile único, múltiples piernas emergen a través de agujeros en el escenario'),
+	('Trampolín, Power Track y Muro', 'Los grillos rebotan en un trampolín largo en el suelo llamado una vía de poder, realizan giros a una velocidad asombrosa. Los grillos también utilizan un trampolín para saltar a la pared, en la pared el salto y aterrizar en el trampolín'),
+	('Banquete', 'El final del espectáculo')] AS ACTO[]),
+  	CAST(ARRAY [('DEBORAH', 'COLKE','DIRECTOR'),
+	('GRINGO', 'CARDIA','ESCENARIO'),('BERNA','CEPPAS','COMPOSITOR'),('LIZ','VANDAL','VESTUARIO')] AS DatosExtra[]),
   	ARRAY [ 'Brisa Do Mar','Extranjero','Hormigas','Capullo','Frevo Zumbido','Orvalho (balanceo de manos)','Carimbo da Creatura','Dueto de amor','Correas Duo','Scarabee','Cuna rusa','Sexy Web','Piernas','Chicas de pulgas','Acro trio','Superhéroe (Slackwire)','Secret Samba Luv','Parede (Muro)','Banquete (Banquete y Arcos)'],
-	'Ovo es una producción de circo itinerante del Cirque du Soleil que se estrenó en Montreal , Canadá , en 2009. La creadora y directora de Ovo , Deborah Colker , se inspiró en el mundo de los insectos . La idea para Ovo no era ser sobre los actos, ni el baile, ni los insectos, sino sobre el movimiento. El movimiento de la vida impregna todo el espectáculo con criaturas que vuelan, saltan, saltan y se arrastran. La compositora Berna Ceppas le dio vida adicional a Ovo con una música inspirada en la música de Brasil . Ovo significa "huevo" en portuguésy representa el hilo subyacente a través del show. Gráficamente, dentro del logo de Ovo , hay un insecto. Las dos O representan los ojos y la V forma la nariz y las antenas.', null);
+	'Ovo es una producción de circo itinerante del Cirque du Soleil que se estrenó en Montreal , Canadá , en 2009. La creadora y directora de Ovo , Deborah Colker , se inspiró en el mundo de los insectos . La idea para Ovo no era ser sobre los actos, ni el baile, ni los insectos, sino sobre el movimiento. El movimiento de la vida impregna todo el espectáculo con criaturas que vuelan, saltan, saltan y se arrastran. La compositora Berna Ceppas le dio vida adicional a Ovo con una música inspirada en la música de Brasil . Ovo significa "huevo" en portugués y representa el hilo subyacente a través del show. Gráficamente, dentro del logo de Ovo , hay un insecto. Las dos O representan los ojos y la V forma la nariz y las antenas.', null),
+--INSERT AMALUNA
+	(2, 'Amaluna', 'Itinerante', 'abc\\030',  
+  	CAST(ARRAY [('Concurso de Magia', 'La diosa Prospera reúne a todas las personas de la isla para celebrar el viaje de su hija Miranda hacia la condición de mujer a través de esta secuencia de baile de apertura'),
+	('Uniciclo','Dos artistas realizarían trucos en pequeños monociclos juntos, lanzándose entre ellos y con los monociclos'),
+	('Correas Aéreas', 'La diosa de la tormenta se eleva sobre el escenario y la audiencia en un acto en solitario mientras Prospera evoca una tormenta que trae a un grupo de hombres a la isla, incluido Romeo, el nuevo amor de Miranda'),
+	('Danza del Pavo Real', 'La diosa del pavo real se encuentra con Romeo en el bosque y realiza una danza suave pero inquietante que simboliza la pureza del amor'),
+	('Payasos', 'Mainha, la niñera de la infancia de Miranda, y Papulya, la sirvienta de Romeo, se enamoran durante todo el espectáculo'),
+	('Cerceau y Waterbowl', 'La diosa de la luna se le aparece a Miranda montando un Cerceau, otorgándole su bendición con una canción inquietante. Romeo observa a Miranda mientras juega en la cuba de agua, descubriendo su propia fisicalidad y expresando su sinuosa sexualidad mientras realiza una desafiante rutina de equilibrio de manos antes de bucear y serpentear a través del agua'),
+	('Barras Desiguales', ' las amazonas, los feroces guerreros de la isla, muestran sus habilidades al voltear y saltar entre cuatro barras de altura irregular'),
+	('Teeterboard', 'Los hombres han sido capturados y usan un Teeterboard para impulsarse hacia arriba, escapando de la gravedad y de su prisión'),
+	('Diosa del Equilibrio', 'La diosa del equilibrio emerge y equilibra frondas de palmeras de varios tamaños una sobre la otra, antes de retirar el palo más pequeño y todo se derrumba. Esto representa la delicadeza del equilibrio y la confianza en una relación'),
+	('1000 Brazos y Palos', 'Durante esta secuencia de transición / baile, una línea de artistas se mueve en sincronía pero a intervalos ligeramente diferentes para crear el efecto de las plumas de pavo real'),
+	('Polo Chino', 'Romeo realiza hazañas de fuerza para impresionar a Miranda en un solo palo vertical mientras otros hombres bailan alrededor de la base con palos de bambú'),
+	('Malabares', 'En Cali, la lagartija mascota de Miranda se despoja de su piel y realizó un increíble acto de malabarismo con pelotas que a veces están en llamas, todo sobre el tazón de agua'),
+	('Banquine', 'Una tradición acrobática italiana que se remonta a la Edad Media que combina gimnasia y ballet. Exhibiendo la agilidad del cuerpo humano. Los artistas realizan una secuencia de hazañas y pirámides humanas con sus movimientos perfectamente sincronizados')] AS ACTO[]),
+  	CAST(ARRAY [('DIANE', 'PAULUS','DIRECTOR'),
+	('SCOTT PASK', 'CARDIA','ESCENARIO'),('GUY','DUBUC','COMPOSITOR'),('MÉRÉDITH','CARON','VESTUARIO')] AS DatosExtra[]),
+  	ARRAY [ 'Todos vienen juntos','Tempest ','Reunión encantada','Canción de Barras Desiguales','Esperanza','O Ma Ley','Burn Me Up ','Susurro','Ena Fee Alyne','Criatura de la luz ','Mutaciones','Run','Sexy Web','Piernas','Chicas de pulgas','Acro trio','Superhéroe (Slackwire)','Secret Samba Luv','Parede (Muro)','Banquete (Banquete y Arcos)'],
+	'Amaluna es un espectáculo itinerante del Cirque du Soleil , creado y dirigido por Diane Paulus . Se estrenó en Montreal , Quebec, Canadá, el 19 de abril de 2012. Inspirado libremente por William Shakespeare s The Tempest ,la historia tiene lugar en una isla gobernada por diosas. Durante una tormenta, un grupo de hombres son arrastrados a la orilla. La hija de la reina se enamora de uno de los jóvenes, y las pruebas de su amor son la base de la narrativa principal del programa. El programa es notable por tener un reparto que es 70% femenino.', 
+	null);
 
 INSERT INTO public.personaje VALUES
+--INSERT PERSONAJES DE OVO
 	(1,'Maestro Flipo','El personaje principal, Master Flipo, mantiene todo en orden en este mundo caótico',1),
 	(2,'La Mariquita','Es la tercera directora que trae vida y alegría al mundo de los insectos, y también termina enamorándose del extranjero',1),
 	(3,'El Extranjero','El extranjero, otro personaje principal, es una mosca de una tierra lejana que trae consigo el misterioso ovo',1),
 	(4,'La Libélula','La libélula revolotea a lo largo de toda la actuación y realiza el acto de equilibrio de la mano',1),
 	(5,'Arañas','Cuatro arañas proporcionan misterio y precaución a lo largo del espectáculo',1),
 	(6,'Pulgas','Tres pulgones saltan con destellos de rojo y amarillo mientras realizan acro-trío',1),
-	(7,'Hormigas','Las hormigas llevan kiwi y maíz con ellos en su viaje mientras realizan malabares con el pie',1),
+	(7,'Hormigas','Las hormigas llevan kiwi y maíz con ellos en su viaje mientras realizan malabares con el pie',1)
 	(8,'Mariposas','El dúo las mariposas vuelan por el aire',1),
 	(9,'La Luciérnaga','La luciérnaga revolotea acerca de actuar con diabolos',1),
 	(10,'El Mosquito','El mosquito agrega carácter a la actuación al tiempo que forma parte del powertrack, el trampolín y el acto de pared',1),
 	(11,'Escarabajos','Los escarabajos fuertes vuelan por el aire girando y girando',1),
 	(12,'Grillos','Los 10 grillos saltan y saltan en rayas verdes como lo hacen la pista de aire, el trampolín y la pared',1),
 	(13,'Creatura','Una misteriosa creatura le da vida a la fiesta con su baile',1),
-	(14,'Cucarachas','Las 9 cucarachas se ven cantando y tocando música durante toda la actuación',1);
+	(14,'Cucarachas','Las 9 cucarachas se ven cantando y tocando música durante toda la actuación',1),
+--INSERT PERSONAJES DE AMALUNA
+	(15,'Prospera','Prospera es una chamán con poderes mágicos, pero ella está muy impulsada por emociones humanas. El bienestar de su hija es su preocupación más importante. Ella sabe que debe dejar que Miranda encuentre el amor y que haga su propio camino en el mundo, pero ella puede usar sus poderes para influir en la forma en que esto se produce, y ella siempre será una fuerza de protección en la vida de su hija',2),
+	(16,'Miranda','Miranda es una chica a punto de ser mujer. Ella es una romántica, llena de diversión, entusiasmo, sueños y travesuras, que se deleita en el mundo estimulante de Amaluna con todas sus ricas tradiciones, la cultura y la espléndida flora y fauna',2),
+	(17,'Romeo','Prospera evoca la tormenta que conduce a la llegada de un grupo de hombres jóvenes, y ella influye en los eventos que llevan a su líder, el príncipe apuesto Romeo, y Miranda juntos. Él es tan hambriento de amor verdadero, pero él todavía no sabe lo difícil que el camino por delante será',2),
+	(18,'Cali','La mitad lagarto, mitad humano, celoso, Cali ha conocido Miranda toda su vida y aunque ella piensa en él sólo como una mascota, él está enamorado de ella. Y está decidido a evitar que Romeo gane a Miranda primero',2),
+	(19,'Jeeves y Deeda','Jeeves criado de Romeo llega con los jóvenes y rápidamente se enamora de Deeda, enfermera de la infancia de Miranda. El sentimiento es mutuo, y muy pronto estarán empezando una familia',2),
+	(20,'Diosas y Amazonas','La Diosa del Pavo Real, La Diosa de la Luna, La Diosa del Balance, Las Valquirias y Las Amazonas son una fuerte presencia femenina en Amaluna. Ellas usan sus poderes para ayudar a veces y a veces para obstaculizar a los jóvenes amantes en su búsqueda de la felicidad',2);
+
