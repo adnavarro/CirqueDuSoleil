@@ -1,26 +1,27 @@
 
 INSERT INTO public.cirqueshow VALUES
 --INSERT OVO
-	(1, 'OVO', 'Itinerante', 'abc\\030',  
-  	CAST(ARRAY [('Apertura', 'El emocionante y ajetreado mundo está representado por la música de samba y las luces brillantes, luego una 		calma repentina, las luces brillantes cambian a luz natural cálida y la samba pesada se convierte en una canción de guitarra calmante'),
+	(1, 'OVO', 'Itinerante', 'http://127.0.0.1:8080/img/ovo.jpg',  
+  	CAST(ARRAY [('Apertura','El emocionante y ajetreado mundo está representado por la música de samba y las luces brillantes, luego una calma repentina, las luces brillantes cambian a luz natural cálida y la samba pesada se convierte en una canción de guitarra calmante'),
 	('Malabarismo de Pies y Juegos Icarianos','Un grupo de hormigas hacen malabares con kiwis, maíz, rebanadas de berenjena y otras		hormigas, todas en sus pies.'),
-	('Balance de Mano', 'Una libélula solitaria se balancea precariamente en un bloque alto y giratorio.'),
-	('Correas Aéreas', 'Las artistas vuelan sobre la audiencia suspendidas de cuerdas que cuelgan de un transportador con un elemento 		rotativo sobre sus cabezas. Es un vuelo en cuatro dimensiones que exige precisión además de las habilidades y la fuerza física 		necesarias para moverse a alta velocidad en 360 grados.'),
-	('Diábolo', 'Una luciérnaga manipula y lanza múltiples diabolos a la vez.'),
-	('Creatura', 'Parte sinuosa, parte insecto, la Criatura danza en un tema que es todo suyo, el se curva, tuerce en nudos sus 		miembros elásticos en constante movimiento.'),
-	('Marco Aéreo', 'Un hombre fuerte y una muñeca con cara de porcelana que despiertan por una descarga eléctrica emergen de su caja 		musical y cobran vida. Los dos artistas escalan a la cima del aparado de 4 metros de altura. En un número basado en la confianza mutua, 	el atrapador se convierte en un trapecio humano y lanza a su compañera en el aire donde realiza saltos mortales cada vez más intrincados.'),
-	('Contorsión', 'Una araña usa la misma cuerda vertical que las mariposas para crear múltiples posturas flexibles, mientras que otra en el suelo usa los apoyabrazos para mantener el equilibrio mientras la espalda y las piernas se retuercen en múltiples posiciones.'),
+	('Balance de Mano','Una libélula solitaria se balancea precariamente en un bloque alto y giratorio.'),
+	('Correas Aéreas','Las artistas vuelan sobre la audiencia suspendidas de cuerdas que cuelgan de un transportador con un elemento rotativo sobre sus cabezas. Es un vuelo en cuatro dimensiones que exige precisión además de las habilidades y la fuerza física necesarias para moverse a alta velocidad en 360 grados.'),
+	('Diábolo','Una luciérnaga manipula y lanza múltiples diabolos a la vez.'),
+	('Creatura','Parte sinuosa, parte insecto, la Criatura danza en un tema que es todo suyo, el se curva, tuerce en nudos sus miembros elásticos en constante movimiento.'),
+	('Marco Aéreo','Un hombre fuerte y una muñeca con cara de porcelana que despiertan por una descarga eléctrica emergen de su caja musical y cobran vida. Los dos artistas escalan a la cima del aparado de 4 metros de altura. En un número basado en la confianza mutua, 	el atrapador se convierte en un trapecio humano y lanza a su compañera en el aire donde realiza saltos mortales cada vez más intrincados.'),
+	('Contorsión','Una araña usa la misma cuerda vertical que las mariposas para crear múltiples posturas flexibles, mientras que otra en el suelo usa los apoyabrazos para mantener el equilibrio mientras la espalda y las piernas se retuercen en múltiples posiciones.'),
 	('Trío Acrobático', 'dos artistas varones usan técnicas similares a las de la gimnasia acrobática (acrosport) para lanzar al aire a una mujer.'),
-	('Slack Wire', 'En un cable suelto (y algunas veces en movimiento), una araña se balancea con sus piernas y manos, y en un punto monta un monociclo.'),
-	('Piernas', 'Un baile único, múltiples piernas emergen a través de agujeros en el escenario.'),
-	('Trampolín, Power Track y Muro', 'Los grillos rebotan en un trampolín largo en el suelo llamado una vía de poder, realizan giros a una velocidad asombrosa. Los grillos también utilizan un trampolín para saltar a la pared, en la pared el salto y aterrizar en el trampolín.'),
+	('Slack Wire','En un cable suelto (y algunas veces en movimiento), una araña se balancea con sus piernas y manos, y en un punto monta un monociclo.'),
+	('Piernas','Un baile único, múltiples piernas emergen a través de agujeros en el escenario.'),
+	('Trampolín, Power Track y Muro','Los grillos rebotan en un trampolín largo en el suelo llamado una vía de poder, realizan giros a una velocidad asombrosa. Los grillos también utilizan un trampolín para saltar a la pared, en la pared el salto y aterrizar en el trampolín.'),
 	('Banquete', 'El final del espectáculo.')] AS ACTO[]),
   	CAST(ARRAY [('DEBORAH', 'COLKE','DIRECTOR'),
 	('GRINGO', 'CARDIA','ESCENARIO'),('BERNA','CEPPAS','COMPOSITOR'),('LIZ','VANDAL','VESTUARIO')] AS DatosExtra[]),
   	ARRAY [ 'Brisa Do Mar','Extranjero','Hormigas(juegos de malabares de pies y de Icarian)','Capullo (tejido)','Frevo Zumbido(Diabolos)','Orvalho (balanceo de manos)','Carimbo da Creatura(Creatura)','Dueto de amor(Correas Duo)','Scarabee','Cuna rusa','Sexy Web','Piernas','Chicas de pulgas','Acro trio','Superhéroe (Slackwire)','Secret Samba Luv','Parede (Muro)','Banquete (Banquete y Arcos)'],
-	'Ovo es una producción de circo itinerante del Cirque du Soleil que se estrenó en Montreal , Canadá , en 2009. La creadora y directora de Ovo , Deborah Colker , se inspiró en el mundo de los insectos . La idea para Ovo no era ser sobre los actos, ni el baile, ni los insectos, sino sobre el movimiento. El movimiento de la vida impregna todo el espectáculo con criaturas que vuelan, saltan, saltan y se arrastran. La compositora Berna Ceppas le dio vida adicional a Ovo con una música inspirada en la música de Brasil . Ovo significa "huevo" en portugués y representa el hilo subyacente a través del show. Gráficamente, dentro del logo de Ovo , hay un insecto. Las dos O representan los ojos y la V forma la nariz y las antenas.', null),
+	'Ovo es una producción de circo itinerante del Cirque du Soleil que se estrenó en Montreal , Canadá , en 2009. La creadora y directora de Ovo , Deborah Colker , se inspiró en el mundo de los insectos . La idea para Ovo no era ser sobre los actos, ni el baile, ni los insectos, sino sobre el movimiento. El movimiento de la vida impregna todo el espectáculo con criaturas que vuelan, saltan, saltan y se arrastran. La compositora Berna Ceppas le dio vida adicional a Ovo con una música inspirada en la música de Brasil . Ovo significa "huevo" en portugués y representa el hilo subyacente a través del show. Gráficamente, dentro del logo de Ovo , hay un insecto. Las dos O representan los ojos y la V forma la nariz y las antenas.', 
+		1,'2009-04-23', null),
 --INSERT AMALUNA
-	(2, 'Amaluna', 'Itinerante', 'abc\\030',  
+	(2, 'Amaluna', 'Itinerante', 'http://127.0.0.1:8080/img/amaluna.jpg',  
   	CAST(ARRAY [('Concurso de Magia', 'La diosa Prospera reúne a todas las personas de la isla para celebrar el viaje de su hija Miranda hacia la condición de mujer a través de esta secuencia de baile de apertura'),
 	('Uniciclo','Dos artistas realizarían trucos en pequeños monociclos juntos, lanzándose entre ellos y con los monociclos.'),
 	('Correas Aéreas', 'La diosa de la tormenta se eleva sobre el escenario y la audiencia en un acto en solitario mientras Prospera evoca una tormenta que trae a un grupo de hombres a la isla, incluido Romeo, el nuevo amor de Miranda.'),
@@ -35,12 +36,12 @@ INSERT INTO public.cirqueshow VALUES
 	('Malabares', 'En Cali, la lagartija mascota de Miranda se despoja de su piel y realizó un increíble acto de malabarismo con pelotas que a veces están en llamas, todo sobre el tazón de agua.'),
 	('Banquine', 'Una tradición acrobática italiana que se remonta a la Edad Media que combina gimnasia y ballet. Exhibiendo la agilidad del cuerpo humano. Los artistas realizan una secuencia de hazañas y pirámides humanas con sus movimientos perfectamente sincronizados.')] AS ACTO[]),
   	CAST(ARRAY [('DIANE', 'PAULUS','DIRECTOR'),
-	('SCOTT PASK', 'CARDIA','ESCENARIO'),('GUY','DUBUC','COMPOSITOR'),('MÉRÉDITH','CARON','VESTUARIO')] AS DatosExtra[]),
+	('SCOTT', 'PASK','ESCENARIO'),('GUY','DUBUC','COMPOSITOR'),('MÉRÉDITH','CARON','VESTUARIO')] AS DatosExtra[]),
   	ARRAY [ 'Todos vienen juntos','Tempest ','Reunión encantada','Canción de Barras Desiguales','Esperanza','O Ma Ley','Burn Me Up ','Susurro','Ena Fee Alyne','Criatura de la luz ','Mutaciones','Run','Sexy Web','Piernas','Chicas de pulgas','Acro trio','Superhéroe (Slackwire)','Secret Samba Luv','Parede (Muro)','Banquete (Banquete y Arcos)'],
 	'Amaluna es un espectáculo itinerante del Cirque du Soleil , creado y dirigido por Diane Paulus . Se estrenó en Montreal , Quebec, Canadá, el 19 de abril de 2012. Inspirado libremente por William Shakespeare s The Tempest ,la historia tiene lugar en una isla gobernada por diosas. Durante una tormenta, un grupo de hombres son arrastrados a la orilla. La hija de la reina se enamora de uno de los jóvenes, y las pruebas de su amor son la base de la narrativa principal del programa. El programa es notable por tener un reparto que es 70% femenino.', 
-	null),
+	1,'2012-04-19',null),
 --INSERT ALEGRÍA
-	(3, 'Alegría', 'Itinerante', 'abc\\030',  
+	(3, 'Alegría', 'Itinerante', 'http://127.0.0.1:8080/img/alegria.jpg',  
   	CAST(ARRAY [('Trapecio Sincronizado', 'Sentados en sus trapecios individuales, dos aerialistas ejecutan en una demostración de armonía y belleza. En esta rutina, el atrevido dúo desafía la ley de la gravedad con sus torsiones y maniobras en el aire, aumentando cada vez más las hazañas acrobáticas.'),
 	('Payasos','Los payasos demuestran una danza muy alegre.'),
 	('Powertrack', 'Los Bronx son los jóvenes y los duros; son la generación por venir. Individualmente así como pandilla, sus hazañas acrobáticas en el circuito rápido son la medida de su poder. Son fuertes, aunque también sensuales y elegantes. Son una fuerza imponente a la vez que una celebración de la juventud.'),
@@ -57,9 +58,9 @@ INSERT INTO public.cirqueshow VALUES
 	('MICHEL', 'CRETE','ESCENARIO'),('RENÉ','DUPÉRÉ','COMPOSITOR'),('DOMINIQUE','LEMIEUX','VESTUARIO')] AS DatosExtra[]),
   	ARRAY [ 'Alegría (Final)','Vai Vedrai (Trapecio Sincronizado)','Kalandéro','Querer (Instalación de Barra Alta)','Irna (Power Track)','Taruka (Contorsionismo)','Jeux Denfants (Intermedio)','Mirko (Apertura)','Icare (Barra Alta)','Ibis','Valsapena(Power Track)','Nocturne (Tormenta de Nieve)','Cerceaux (Manipulación/Aros)','Malioumba (Hombre Volador)'],
 	'Alegría fue el show más popular y más querido por todo el público del Cirque du Soleil. Desde su estreno en abril de 1994, se ha presentado más de 7.000 veces y visto por más de 14 millones de espectadores en más de 250 ciudades alrededor del mundo. Alegría se originó para ser un espectáculo superior con gira en carpa. Sin embargo, Alegría tomó un breve respiro y pasó a ser un show residente en la MGM Beau Rivage casino desde mayo de 1999 a octubre de 2000, año en el que retomó su gira mundial en carpa. Comenzando con su tour 2009 - 2010 América del Norte, el show fue convertido en formato de arena (sin carpa), que le permitió visitar ciudades que antes eran inaccesibles para el tour debido a su gran carpa. Realizó su última función el 29 de diciembre de 2018 en Ambéres (Bélgica).', 
-	null),
+	1,'1994-10-11',null),
 --INSERT KURIOS
-	(4, 'Kurios', 'Itinerante', 'abc\\030',  
+	(4, 'Kurios', 'Itinerante', 'http://127.0.0.1:8080/img/kurios.jpg',  
   	CAST(ARRAY [('Chaos Synchro 1900 (Juggling / Drums)', 'Un malabarista, percusionistas y bailarines realizan una fusión de acrobacias, excéntricos, acróbatas.'),
 	('Russian Cradle Duo','Un catcher arroja a su compañero al aire, donde ella realiza saltos más y más intrincados.'),
 	('Bicicleta aérea', 'Una mujer monta una bicicleta que despega al aire y realiza varios trucos parecidos a un trapecio.'),
@@ -76,7 +77,8 @@ INSERT INTO public.cirqueshow VALUES
   	CAST(ARRAY [('MICHEL', 'LAPRISE','DIRECTOR'),
 	('STÉPHANE', 'ROY','ESCENARIO'),('RAPHAEL','BEAU','COMPOSITOR'),('PHILLIPPE','GUILLOTEL','VESTUARIO')] AS DatosExtra[]),
   	ARRAY [ '11h11 (Apertura)','Telegrama Steampunk (Bicicleta Aérea)','Bella Donna Twist (Chaos Synchro 1900)','Gravedad levitas (cuna rusa)','Monde inversé (mundo al revés)','Hypnotique (Contorción)','Salida (Teatro de manos / Transición a Rola Bola)','Vuelo temible (Rola Bola)','Nubes (Acro Net)','Créature de siam (Aerial Straps Duo)','Wat U No Wen (Banquine)','Usted debe estar bromeando (final)'],
-	'Kurios es unaproducción itinerante del Cirque du Soleil que se estrenó el 24 de abril de 2014 en Montreal, Quebec , Canadá, bajo el título completo de Kurios: Gabinete de Curiosidades . Creado y dirigido por Michel Laprise, mira a un inventor mundial de finales del siglo XIX que inventa una máquina que desafía las leyes del tiempo, el espacio y la dimensión para reinventar todo a su alrededor conelementos steampunk con personajes de otra dimensión. Que interactúan con él y un homenaje al poder de la imaginación humana.', null);
+	'Kurios es unaproducción itinerante del Cirque du Soleil que se estrenó el 24 de abril de 2014 en Montreal, Quebec , Canadá, bajo el título completo de Kurios: Gabinete de Curiosidades . Creado y dirigido por Michel Laprise, mira a un inventor mundial de finales del siglo XIX que inventa una máquina que desafía las leyes del tiempo, el espacio y la dimensión para reinventar todo a su alrededor conelementos steampunk con personajes de otra dimensión. Que interactúan con él y un homenaje al poder de la imaginación humana.',
+	1,'2014-04-24', null);
 
 INSERT INTO public.personaje VALUES
 --INSERT PERSONAJES DE OVO
@@ -86,7 +88,7 @@ INSERT INTO public.personaje VALUES
 	(4,'La Libélula','La libélula revolotea a lo largo de toda la actuación y realiza el acto de equilibrio de la mano.',1),
 	(5,'Arañas','Cuatro arañas proporcionan misterio y precaución a lo largo del espectáculo.',1),
 	(6,'Pulgas','Tres pulgones saltan con destellos de rojo y amarillo mientras realizan acro-trío.',1),
-	(7,'Hormigas','Las hormigas llevan kiwi y maíz con ellos en su viaje mientras realizan malabares con el pie.',1)
+	(7,'Hormigas','Las hormigas llevan kiwi y maíz con ellos en su viaje mientras realizan malabares con el pie.',1),
 	(8,'Mariposas','El dúo las mariposas vuelan por el aire.',1),
 	(9,'La Luciérnaga','La luciérnaga revolotea acerca de actuar con diabolos.',1),
 	(10,'El Mosquito','El mosquito agrega carácter a la actuación al tiempo que forma parte del powertrack, el trampolín y el acto de pared.',1),
