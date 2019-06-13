@@ -70,15 +70,13 @@ create table LugarGeo(
 	tipo_geo varchar(1) check (tipo_geo='M' or tipo_geo='E' or tipo_geo='P'),
 	idiomas varchar(32) array[3], /* Obligatorio para pais */
 	moneda varchar(5), /* Obligatorio para pais */
-	contine varchar(2) check (contine='AM' or contine='AS' or contine='EU' or 
-							  contine='OC' or contine='AF'), /* Obligatorio para pais */
+	contine varchar(2) check (contine='AM' or contine='AS' or contine='EU' or contine='OC' or contine='AF'), /* Obligatorio para pais */
 	id_Lugar numeric references LugarGeo(id)
 );
 
 create table LugarPresent(
 	id numeric(4) not null primary key,
-	tipo varchar(6) not null check(tipo='Arena' or tipo='Teatro' or tipo='Gym' 
-								   or tipo='Hotel' or tipo='Otro'),
+	tipo varchar(6) not null check(tipo='Arena' or tipo='Teatro' or tipo='Gym' or tipo='Hotel' or tipo='Otro'),
 	nombre varchar(128) not null,
 	capacidad numeric not null,
 	direccion dir,
@@ -129,8 +127,7 @@ create table S_L (
 
 create table Presenta(
 	id numeric(4) not null primary key,
-	fecha date not null,
-	hora timestamp not null,
+	fecha timestamp not null,
 	estatus bool not null, /* 0:No realizado, 1:Realizado */
 	id_Show numeric(4) references CirqueShow(id), /* Obligatorio para residente */
 	id_SL numeric(4) references S_L(id), /* Obligatorio para itinerante */
@@ -141,8 +138,7 @@ create table Entrada(
 	id numeric(10) not null primary key,
 	precio numeric(3) not null, /* Moneda del pais */
 	tipo varchar(3) check (tipo='A' or tipo='B' or tipo='C' or tipo='VIP'),
-	tipoPerson varchar(12) check (tipoPerson='Menor' or tipoPerson='Tercera edad' or 
-								   tipoPerson='Adulto') not null,
+	tipoPerson varchar(12) check (tipoPerson='Menor' or tipoPerson='Tercera edad' or tipoPerson='Adulto') not null,
 	fecha_Emision date not null,
 	hora_emision timestamp not null,
 	id_Presenta numeric(4) not null references Presenta(id),
