@@ -1,12 +1,3 @@
-create type Persona as(
-	nombre varchar(32), /* Obligatorio */
-	nombre2 varchar(32),
-	apellido varchar(32), /* Obligatorio */
-	apellido2 varchar(32),
-	genero varchar(1), /* Obligatorio, solo M,F,O */
-	fech_nac date /* Obligatorio */
-);
-
 create type DatosExtra as(
 	nombre varchar(128), /* Obligatorio */
 	apellido varchar(128), /* Obligatorio */
@@ -35,18 +26,28 @@ create table Hist_Precio(
 
 create table Artist(
 	id numeric(4) not null primary key,
+	nombre varchar(32) not null, 
+	nombre2 varchar(32),
+	apellido varchar(32) not null,
+	apellido2 varchar(32),
+	genero varchar(1) not null check (tipo_geo='M' or tipo_geo='F' or tipo_geo='O'),
+	fech_nac date not null,
 	idiomas varchar(32) array[3] not null,
 	passport numeric(10) array[3] not null,
-	apodo varchar(32),
-	datos_per persona not null
+	apodo varchar(32)
 );
 
 create table Aspirante(
 	id numeric(4) not null primary key,
+	nombre varchar(32) not null, 
+	nombre2 varchar(32),
+	apellido varchar(32) not null,
+	apellido2 varchar(32),
+	genero varchar(1) not null check (tipo_geo='M' or tipo_geo='F' or tipo_geo='O'),
+	fech_nac date not null,
 	idiomas varchar(32) array[3] not null,
 	passport numeric(10) array[3] not null,
-	telefonos numeric array[3] not null,
-	datos_per persona not null
+	telefonos numeric array[3] not null
 );
 
 create table Disciplina(
