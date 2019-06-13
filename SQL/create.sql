@@ -128,7 +128,7 @@ create table S_L (
 );
 
 create table Presenta(
-	id numeric(3) not null primary key,
+	id numeric(4) not null primary key,
 	fecha date not null,
 	hora timestamp not null,
 	estatus bool not null, /* 0:No realizado, 1:Realizado */
