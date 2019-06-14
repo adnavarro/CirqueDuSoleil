@@ -30,7 +30,7 @@ create table Artist(
 	nombre2 varchar(32),
 	apellido varchar(32) not null,
 	apellido2 varchar(32),
-	genero varchar(1) not null check (tipo_geo='M' or tipo_geo='F' or tipo_geo='O'),
+	genero varchar(1) not null check (genero='M' or genero='F' or genero='O'),
 	fech_nac date not null,
 	idiomas varchar(32) array[3] not null,
 	passport numeric(10) array[3] not null,
@@ -43,7 +43,7 @@ create table Aspirante(
 	nombre2 varchar(32),
 	apellido varchar(32) not null,
 	apellido2 varchar(32),
-	genero varchar(1) not null check (tipo_geo='M' or tipo_geo='F' or tipo_geo='O'),
+	genero varchar(1) not null check (genero='M' or genero='F' or genero='O'),
 	fech_nac date not null,
 	idiomas varchar(32) array[3] not null,
 	passport numeric(10) array[3] not null,
@@ -67,7 +67,7 @@ create table D_A(
 create table LugarGeo(
 	id numeric(4) not null primary key,
 	nombre varchar(128) not null,
-	tipo_geo varchar(1) check (tipo_geo='M' or tipo_geo='E' or tipo_geo='P'),
+	tipo_geo varchar(1) not null check (tipo_geo='C' or tipo_geo='P'),
 	idiomas varchar(32) array[3], /* Obligatorio para pais */
 	moneda varchar(5), /* Obligatorio para pais */
 	contine varchar(2) check (contine='AM' or contine='AS' or contine='EU' or contine='OC' or contine='AF'), /* Obligatorio para pais */
