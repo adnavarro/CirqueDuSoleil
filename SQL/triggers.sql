@@ -1,4 +1,4 @@
---TRIGGER PARA VALIDAR QUE LA MONEDA Y EL CONTINENTE DE UN PAIS NO SEA NULO
+--TRIGGER PARA VALIDAR QUE LA MONEDA Y EL CONTINENTE DE UN PAÍS NO SEA NULO
 create function val_LugarGeo_monCon() returns trigger as $tr_LugarGeoMonCon$
 begin
 	--Chequea que este la moneda
@@ -16,7 +16,7 @@ $tr_LugarGeoMonCon$ language plpgsql;
 create trigger tr_LugarGeoMonCon before insert on LugarGeo
 for each row when (new.tipo_geo='P') execute procedure val_LugarGeo_monCon();
 
---TRIGGER PARA VALIDAR QUE CADA CIUDAD TENGA UN PAIS ASOCIADO
+--TRIGGER PARA VALIDAR QUE CADA CIUDAD TENGA UN PAÍS ASOCIADO
 create function val_LugarGeo_CiuPai() returns trigger as $tr_LugarGeoCiuPai$
 begin
 	--Chequea que este el país asociado
@@ -53,3 +53,32 @@ $tr_EntradaMenMay$ language plpgsql;
 
 create trigger tr_EntradaMenMay before insert on Entrada
 for each row when (new.tipoPerson='Menor') execute procedure val_Entrada_MenMay();
+
+--TRIGGER PARA VALIDAR QUE SHOWS RESIDENTES TENGAN LUGAR DE PRESENTACIÓN
+create function val_Show() returns trigger as $tr_show$
+begin
+	--Chequea que el lugar de presentación no sea nulo
+	if new.id_LugarPresent is null then
+		raise exception 'Un show residente debe tener un lugar de presentacion';
+	end if;
+	return new;
+end;
+$tr_show$ language plpgsql;
+
+create trigger tr_show before insert on CirqueShow
+for each row when (new.tipo='Residente') execute procedure val_Show();
+
+--TRIGGER PARA CERRAR EL ÚLTIMO HISTORICO DE PRECIOS ANTES DE CREAR OTRO
+create function cierra_Precio() returns trigger as $tr_HistPrecio$
+begin
+	if new.id>1 then
+		Update Hist_Precio
+		set fech_fin = now()
+		where fech_fin is null;
+	end if;
+	return new;
+end;
+$tr_HistPrecio$ language plpgsql;
+
+create trigger tr_HistPrecio before insert on Hist_Precio
+for each row execute procedure cierra_Precio();
