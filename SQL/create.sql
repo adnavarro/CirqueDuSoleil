@@ -67,7 +67,11 @@ create table D_A(
 create table LugarGeo(
 	id numeric(4) not null primary key,
 	nombre varchar(128) not null,
+<<<<<<< HEAD
 	tipo_geo varchar(1) not null check (tipo_geo='C' or tipo_geo='P'),
+=======
+	tipo_geo varchar(1) check (tipo_geo='C' or tipo_geo='P'),
+>>>>>>> 6642ef9232358e63e63e696ca6cb65a217b1ed7a
 	idiomas varchar(32) array[3], /* Obligatorio para pais */
 	moneda varchar(5), /* Obligatorio para pais */
 	contine varchar(2) check (contine='AM' or contine='AS' or contine='EU' or contine='OC' or contine='AF'), /* Obligatorio para pais */
@@ -139,8 +143,7 @@ create table Entrada(
 	precio numeric(3) not null, /* Moneda del pais */
 	tipo varchar(3) check (tipo='A' or tipo='B' or tipo='C' or tipo='VIP'),
 	tipoPerson varchar(12) check (tipoPerson='Menor' or tipoPerson='Tercera edad' or tipoPerson='Adulto') not null,
-	fecha_Emision date not null,
-	hora_emision timestamp not null,
+	fecha_emision timestamp not null,
 	id_Presenta numeric(4) not null references Presenta(id),
 	id_Entrada numeric(10) references Entrada(id)
 );
