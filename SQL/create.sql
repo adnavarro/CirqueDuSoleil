@@ -69,9 +69,10 @@ create table LugarGeo(
 	nombre varchar(128) not null,
 	tipo_geo varchar(1) not null check (tipo_geo='C' or tipo_geo='P'),
 	idiomas varchar(32) array[3], /* Obligatorio para pais */
-	moneda varchar(5), /* Obligatorio para pais */
-	contine varchar(2) check (contine='AM' or contine='AS' or contine='EU' or contine='OC' or contine='AF'), /* Obligatorio para pais */
-	id_Lugar numeric references LugarGeo(id)
+	moneda varchar(20), /* Obligatorio para pais */
+	contine varchar(2) check (contine='AM' or contine='AS' or contine='EU' 
+							  or contine='OC' or contine='AF'), /* Obligatorio para pais */
+	id_Lugar numeric references LugarGeo(id) /* Obligatorio para ciudad */
 );
 
 create table LugarPresent(
@@ -141,7 +142,7 @@ create table Entrada(
 	tipoPerson varchar(12) check (tipoPerson='Menor' or tipoPerson='Tercera edad' or tipoPerson='Adulto') not null,
 	fecha_emision timestamp not null,
 	id_Presenta numeric(4) not null references Presenta(id),
-	id_Entrada numeric(10) references Entrada(id)
+	id_Entrada numeric(10) references Entrada(id) /* Obligatorio para menores */
 );
 
 create table CalenAudicion(
