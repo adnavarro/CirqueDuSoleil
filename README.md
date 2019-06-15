@@ -20,3 +20,18 @@ Para visualizar las imagenes en Power Bi necesitas ejecutar el servidor local en
 ```sh
 http-serve
 ```
+
+## Lista de shows del para el proyecto
+
+### ACTIVOS:
+- [ ] Kurios
+- [ ] Alegria
+- [ ] Volta
+- [ ] Amaluna
+- [ ] OVO
+- [ ] Bazzar
+
+### RETIRADOS:
+- [ ] Nouvelle Experience (90-93)
+- [ ] Delirium (06-08)
+- [ ] IRIS (11-13) 
