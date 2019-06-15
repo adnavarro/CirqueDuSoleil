@@ -19,7 +19,7 @@ INSERT INTO public.cirqueshow VALUES
 	('GRINGO', 'CARDIA','ESCENARIO'),('BERNA','CEPPAS','COMPOSITOR'),('LIZ','VANDAL','VESTUARIO')] AS DatosExtra[]),
   	ARRAY [ 'Brisa Do Mar','Extranjero','Hormigas(juegos de malabares de pies y de Icarian)','Capullo (tejido)','Frevo Zumbido(Diabolos)','Orvalho (balanceo de manos)','Carimbo da Creatura(Creatura)','Dueto de amor(Correas Duo)','Scarabee','Cuna rusa','Sexy Web','Piernas','Chicas de pulgas','Acro trio','Superhéroe (Slackwire)','Secret Samba Luv','Parede (Muro)','Banquete (Banquete y Arcos)'],
 	'Ovo es una producción de circo itinerante del Cirque du Soleil que se estrenó en Montreal , Canadá , en 2009. La creadora y directora de Ovo , Deborah Colker , se inspiró en el mundo de los insectos . La idea para Ovo no era ser sobre los actos, ni el baile, ni los insectos, sino sobre el movimiento. El movimiento de la vida impregna todo el espectáculo con criaturas que vuelan, saltan, saltan y se arrastran. La compositora Berna Ceppas le dio vida adicional a Ovo con una música inspirada en la música de Brasil . Ovo significa "huevo" en portugués y representa el hilo subyacente a través del show. Gráficamente, dentro del logo de Ovo , hay un insecto. Las dos O representan los ojos y la V forma la nariz y las antenas.', 
-		1,'2009-04-23', null),
+		TRUE,'2009-04-23', null),
 --INSERT AMALUNA
 	(2, 'Amaluna', 'Itinerante', 'http://127.0.0.1:8080/img/amaluna.jpg',  
   	CAST(ARRAY [('Concurso de Magia', 'La diosa Prospera reúne a todas las personas de la isla para celebrar el viaje de su hija Miranda hacia la condición de mujer a través de esta secuencia de baile de apertura'),
@@ -39,7 +39,7 @@ INSERT INTO public.cirqueshow VALUES
 	('SCOTT', 'PASK','ESCENARIO'),('GUY','DUBUC','COMPOSITOR'),('MÉRÉDITH','CARON','VESTUARIO')] AS DatosExtra[]),
   	ARRAY [ 'Todos vienen juntos','Tempest ','Reunión encantada','Canción de Barras Desiguales','Esperanza','O Ma Ley','Burn Me Up ','Susurro','Ena Fee Alyne','Criatura de la luz ','Mutaciones','Run','Sexy Web','Piernas','Chicas de pulgas','Acro trio','Superhéroe (Slackwire)','Secret Samba Luv','Parede (Muro)','Banquete (Banquete y Arcos)'],
 	'Amaluna es un espectáculo itinerante del Cirque du Soleil , creado y dirigido por Diane Paulus . Se estrenó en Montreal , Quebec, Canadá, el 19 de abril de 2012. Inspirado libremente por William Shakespeare s The Tempest ,la historia tiene lugar en una isla gobernada por diosas. Durante una tormenta, un grupo de hombres son arrastrados a la orilla. La hija de la reina se enamora de uno de los jóvenes, y las pruebas de su amor son la base de la narrativa principal del programa. El programa es notable por tener un reparto que es 70% femenino.', 
-	1,'2012-04-19',null),
+	TRUE,'2012-04-19',null),
 --INSERT ALEGRÍA
 	(3, 'Alegría', 'Itinerante', 'http://127.0.0.1:8080/img/alegria.jpg',  
   	CAST(ARRAY [('Trapecio Sincronizado', 'Sentados en sus trapecios individuales, dos aerialistas ejecutan en una demostración de armonía y belleza. En esta rutina, el atrevido dúo desafía la ley de la gravedad con sus torsiones y maniobras en el aire, aumentando cada vez más las hazañas acrobáticas.'),
@@ -58,7 +58,7 @@ INSERT INTO public.cirqueshow VALUES
 	('MICHEL', 'CRETE','ESCENARIO'),('RENÉ','DUPÉRÉ','COMPOSITOR'),('DOMINIQUE','LEMIEUX','VESTUARIO')] AS DatosExtra[]),
   	ARRAY [ 'Alegría (Final)','Vai Vedrai (Trapecio Sincronizado)','Kalandéro','Querer (Instalación de Barra Alta)','Irna (Power Track)','Taruka (Contorsionismo)','Jeux Denfants (Intermedio)','Mirko (Apertura)','Icare (Barra Alta)','Ibis','Valsapena(Power Track)','Nocturne (Tormenta de Nieve)','Cerceaux (Manipulación/Aros)','Malioumba (Hombre Volador)'],
 	'Alegría fue el show más popular y más querido por todo el público del Cirque du Soleil. Desde su estreno en abril de 1994, se ha presentado más de 7.000 veces y visto por más de 14 millones de espectadores en más de 250 ciudades alrededor del mundo. Alegría se originó para ser un espectáculo superior con gira en carpa. Sin embargo, Alegría tomó un breve respiro y pasó a ser un show residente en la MGM Beau Rivage casino desde mayo de 1999 a octubre de 2000, año en el que retomó su gira mundial en carpa. Comenzando con su tour 2009 - 2010 América del Norte, el show fue convertido en formato de arena (sin carpa), que le permitió visitar ciudades que antes eran inaccesibles para el tour debido a su gran carpa. Realizó su última función el 29 de diciembre de 2018 en Ambéres (Bélgica).', 
-	1,'1994-10-11',null),
+	TRUE,'1994-10-11',null),
 --INSERT KURIOS
 	(4, 'Kurios', 'Itinerante', 'http://127.0.0.1:8080/img/kurios.jpg',  
   	CAST(ARRAY [('Chaos Synchro 1900 (Juggling / Drums)', 'Un malabarista, percusionistas y bailarines realizan una fusión de acrobacias, excéntricos, acróbatas.'),
@@ -78,7 +78,7 @@ INSERT INTO public.cirqueshow VALUES
 	('STÉPHANE', 'ROY','ESCENARIO'),('RAPHAEL','BEAU','COMPOSITOR'),('PHILLIPPE','GUILLOTEL','VESTUARIO')] AS DatosExtra[]),
   	ARRAY [ '11h11 (Apertura)','Telegrama Steampunk (Bicicleta Aérea)','Bella Donna Twist (Chaos Synchro 1900)','Gravedad levitas (cuna rusa)','Monde inversé (mundo al revés)','Hypnotique (Contorción)','Salida (Teatro de manos / Transición a Rola Bola)','Vuelo temible (Rola Bola)','Nubes (Acro Net)','Créature de siam (Aerial Straps Duo)','Wat U No Wen (Banquine)','Usted debe estar bromeando (final)'],
 	'Kurios es unaproducción itinerante del Cirque du Soleil que se estrenó el 24 de abril de 2014 en Montreal, Quebec , Canadá, bajo el título completo de Kurios: Gabinete de Curiosidades . Creado y dirigido por Michel Laprise, mira a un inventor mundial de finales del siglo XIX que inventa una máquina que desafía las leyes del tiempo, el espacio y la dimensión para reinventar todo a su alrededor conelementos steampunk con personajes de otra dimensión. Que interactúan con él y un homenaje al poder de la imaginación humana.',
-	1,'2014-04-24', null);
+	TRUE,'2014-04-24', null);
 
 INSERT INTO public.personaje VALUES
 --INSERT PERSONAJES DE OVO
@@ -121,6 +121,6 @@ INSERT INTO public.personaje VALUES
 	(34,'Klara, el telégrafo de lo invisible','Klara puede recibir ondas alfa girando sobre sus talones y apuntando su falda de aro en varias direcciones.',4),
 	(35,'Mini Lili','Ella representa la mente inconsciente del Sr. Microcosmos, su yo intuitivo, su lado frágil y poético.',4),
 	(36,'Jean-Claude','Gemelos unidos que son la encarnación de la unidad y la separación.',4),
-	(37,'The Kurios','El Buscador se rodea de una brigada de asistentes, entre ellos el Winch Kurios y la Succión Cup Kurios.',4)
+	(37,'The Kurios','El Buscador se rodea de una brigada de asistentes, entre ellos el Winch Kurios y la Succión Cup Kurios.',4),
 	(38,'Los curiosianos','Son los habitantes de un país imaginario llamado Curiosistán y aparecen en el mundo del Buscador para encender su imaginación.',4);
 
