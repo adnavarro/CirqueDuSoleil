@@ -25,7 +25,8 @@ INSERT INTO public.lugargeo values
   (28,'Fukuoka','C',null,null,null,7),
   (29,'Sendai','C',null,null,null,7),
   -- SINGAPUR
-  (30,'Singapore','C',null,null,null,7);
+  (30,'Singapore','P',ARRAY['Inglés','malayo','chino estándar','mandarín','tamil'],'Dólar de Singapur','AS',null),
+  (31,'Singapore','C',null,null,null,7);
 
 -- Otro => Gran Carpa
 INSERT INTO public.lugarpresent values
@@ -46,16 +47,16 @@ INSERT INTO public.lugarpresent values
   (15,'Otro','Edmonton EXPO Centre',2500, ROW('118 Ave NW', 7515 , 'Edmonton, AB T5B 0J2, Canada'), 24),
   (16,'Otro','Portland Expo Center',2500, ROW('N Marine Dr', 2060 , 'Portland, OR 97217, USA'), 2),
   (17,'Otro','Concord Pacific Place',2500, ROW('Pacific Blvd', 88 , 'Vancouver, BC V6Z 2R6, Canada'), 25),
-  -- EDITAR LUEGO
-  (18,'Otro','Tokyo EDITAR LUEGO',2500, ROW('Pacific Blvd', 88 , 'Vancouver, BC V6Z 2R6, Canada'), 8),
-  (19,'Otro','Osaka EDITAR LUEGO',2500, ROW('Pacific Blvd', 88 , 'Vancouver, BC V6Z 2R6, Canada'), 26),
-  (20,'Otro','Nagoya EDITAR LUEGO',2500, ROW('Pacific Blvd', 88 , 'Vancouver, BC V6Z 2R6, Canada'), 27),
-  (21,'Otro','Fukuoka EDITAR LUEGO',2500, ROW('Pacific Blvd', 88 , 'Vancouver, BC V6Z 2R6, Canada'), 28),
-  (22,'Otro','Sendai EDITAR LUEGO',2500, ROW('Pacific Blvd', 88 , 'Vancouver, BC V6Z 2R6, Canada'), 29),
-  (23,'Otro','Singapore EDITAR LUEGO',2500, ROW('Pacific Blvd', 88 , 'Vancouver, BC V6Z 2R6, Canada'), 30),
-  (24,'Otro','Sydney EDITAR LUEGO',2500, ROW('Pacific Blvd', 88 , 'Vancouver, BC V6Z 2R6, Canada'), 5),
-  (25,'Otro','Brisbane EDITAR LUEGO',2500, ROW('Pacific Blvd', 88 , 'Vancouver, BC V6Z 2R6, Canada'), 4),
-  (26,'Otro','Melbourne EDITAR LUEGO',2500, ROW('Pacific Blvd', 88 , 'Vancouver, BC V6Z 2R6, Canada'), 6);
+  (18,'Otro','Odaiba Big Top',2500, ROW('1 Aomi', 1 , '1 Aomi, R Area, Koto-ku, Tokyo'), 8),
+  (19,'Otro','Nakanoshima Big Top',2500, ROW('4 Nakanoshima', 5300005 , 'Kita-ku, Osaka, Osaka Prefecture
+'), 26),
+  (20,'Otro','Nagoya Big top',2500, ROW('3 Chome-25-12 Nishiki', 4600003 , 'Naka Ward, Nagoya, Aichi, Japan'), 27),
+  (21,'Otro','Fukuoka Big Top',2500, ROW('4 Chome-10-18 Maidashi', , 8120054 , 'Higashi Ward, Fukuoka, Japan'), 28),
+  (22,'Otro','Sendai Big Top',2500, ROW('3-7-1 Kokubun-cho, Aoba-ku', 9808671, 'Sendai-shi, Miyagi-ken'), 29),
+  (23,'Otro','Marina Bay Sands',2500, ROW('10 Bayfront Ave, Singapore', 018956, 'Bayfront Avenue, Next to Marina Bay Sands'), 31),
+  (24,'Otro','The Entertainment Quarter',2500, ROW('220, 122 Lang Rd', 2021 , 'Moore Park NSW, Australia'), 5),
+  (25,'Otro','Northshore Hamilton',2500, ROW('Hamilton QLD', 4007, 'Australia'), 4),
+  (26,'Otro','Flemington Racecourse',2500, ROW('448 Epsom Rd', 3031 , 'Flemington VIC, Australia'), 6);
 
 
 INSERT INTO public.presenta values
