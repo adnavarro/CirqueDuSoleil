@@ -24,14 +24,14 @@ http-serve
 ## Lista de shows del para el proyecto
 
 ### ACTIVOS:
-- [ ] Kurios
-- [ ] Alegria
-- [ ] Volta
-- [ ] Amaluna
-- [ ] OVO
-- [ ] Bazzar
+- [ ] OVO 1 -- 1000
+- [ ] Amaluna 1001 -- 2000
+- [ ] Alegria 2001 -- 3000
+- [ ] Kurios 3001 -- 4000
+- [ ] Bazzar 5001 -- 6000
+- [ ] Volta 6001 -- 7000
 
 ### RETIRADOS:
-- [ ] Nouvelle Experience (90-93)
-- [ ] Delirium (06-08)
-- [ ] IRIS (11-13) 
+- [ ] IRIS (11-13) 4001 -- 5000
+- [ ] Nouvelle Experience (90-93) 7001 -- 8000
+- [ ] Delirium (06-08) 8001 -- 9000
