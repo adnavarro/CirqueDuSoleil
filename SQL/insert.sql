@@ -33,7 +33,8 @@
   (33,'Fukuoka','C',null,null,null,8),
   (34,'Sendai','C',null,null,null,8),
   (35,'Singapore','P',ARRAY['Inglés','malayo','chino estándar','mandarín','tamil'],'Dólar de Singapur','AS',null),
-  (36,'Singapore','C',null,null,null,35);
+  (36,'Singapore','C',null,null,null,35),
+  (37,'Tampines','C',null,null,null,35);
 
 INSERT INTO public.lugarpresent VALUES
  	(1,'Teatro','Teatro Dolby',100,('6801 Hollywood Blvd, Hollywood',90028,'Teatro muy reconocido.'),10),
@@ -290,7 +291,12 @@ INSERT INTO public.S_L values
  	(29,4,6),
  	(30,4,5),
  	(31,4,7),
- 	(32,4,27);
+ 	(32,4,27),
+	(33,4,2),
+	(34,4,3),
+	(35,4,10),
+	(36,4,12),
+	(37,4,37);
 
 INSERT INTO public.presenta values
 --Presentaciones de OVO en 2012
