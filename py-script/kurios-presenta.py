@@ -12,7 +12,7 @@
 from random import random
 
 def siguiente_dia(dia, mes, ano):
-  dia += 2 if random() > 0.5 else 3  # Dos o tes veces a la semana
+  dia += 2 if random() > 0.6 else 3  # Dos o tes veces a la semana
   if mes == 1 and dia >= 31:
     dia = 1
     mes += 1
@@ -55,6 +55,117 @@ def siguiente_dia(dia, mes, ano):
 archivo = open('kurios-presentaciones.txt', 'w+')
 
 i = 3001
+
+# Datos de relleno
+archivo.write("-- 2012\n")
+
+
+archivo.write("-- Relleno - From 24 Apr to 10 Jun 2012\n")
+dia = 24
+mes = 4
+ano = 2012
+while i < 20000:
+  if ano > 2012 or mes > 6 or (mes == 6 and dia >= 10):
+    break
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,33,null),\n".format(i, dia, mes, ano))
+  dia, mes, ano = siguiente_dia(dia, mes, ano)
+  i += 1
+
+archivo.write("-- Relleno - From 7 jul to 9 sep 2012\n")
+dia = 7
+mes = 7
+ano = 2012
+while i < 20000:
+  if ano > 2012 or mes > 9 or (mes == 9 and dia >= 9):
+    break
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,34,null),\n".format(i, dia, mes, ano))
+  dia, mes, ano = siguiente_dia(dia, mes, ano)
+  i += 1
+
+archivo.write("-- Relleno - From 26 sep to 28 nov 2012\n")
+dia = 26
+mes = 9
+ano = 2012
+while i < 20000:
+  if ano > 2012 or mes > 11 or (mes == 11 and dia >= 28):
+    break
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,35,null),\n".format(i, dia, mes, ano))
+  dia, mes, ano = siguiente_dia(dia, mes, ano)
+  i += 1
+
+archivo.write("-- 2013\n")
+
+
+# Se repiten lugares de 2015
+
+archivo.write("-- Relleno - From 1 feb to 10 apr 2013\n")
+dia = 1
+mes = 2
+ano = 2013
+while i < 20000:
+  if ano > 2013 or mes > 4 or (mes == 4 and dia >= 10):
+    break
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,8,null),\n".format(i, dia, mes, ano))
+  dia, mes, ano = siguiente_dia(dia, mes, ano)
+  i += 1
+
+archivo.write("-- Relleno - From 18 may to 23 jul 2013\n")
+dia = 18
+mes = 5
+ano = 2013
+while i < 20000:
+  if ano > 2013 or mes > 7 or (mes == 7 and dia >= 23):
+    break
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,9,null),\n".format(i, dia, mes, ano))
+  dia, mes, ano = siguiente_dia(dia, mes, ano)
+  i += 1
+
+archivo.write("-- Relleno - From 28 ago to 15 oct 2013\n")
+dia = 28
+mes = 8
+ano = 2013
+while i < 20000:
+  if ano > 2013 or mes > 10 or (mes == 10 and dia >= 15):
+    break
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,10,null),\n".format(i, dia, mes, ano))
+  dia, mes, ano = siguiente_dia(dia, mes, ano)
+  i += 1
+
+archivo.write("-- Relleno - From 16 nov to 27 dic 2013\n")
+dia = 16
+mes = 11
+ano = 2013
+while i < 20000:
+  if ano > 2013 or mes > 12 or (mes == 12 and dia >= 27):
+    break
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,11,null),\n".format(i, dia, mes, ano))
+  dia, mes, ano = siguiente_dia(dia, mes, ano)
+  i += 1
+
+archivo.write("-- 2014\n")
+
+archivo.write("-- Relleno - From 2 mar to 7 jun 2014\n")
+dia = 2
+mes = 3
+ano = 2014
+while i < 20000:
+  if ano > 2014 or mes > 6 or (mes == 6 and dia >= 7):
+    break
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,36,null),\n".format(i, dia, mes, ano))
+  dia, mes, ano = siguiente_dia(dia, mes, ano)
+  i += 1
+
+archivo.write("-- Relleno - From 23 ago to 11 nov 2014\n")
+dia = 23
+mes = 8
+ano = 2014
+while i < 20000:
+  if ano > 2014 or mes > 11 or (mes == 11 and dia >= 11):
+    break
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,37,null),\n".format(i, dia, mes, ano))
+  dia, mes, ano = siguiente_dia(dia, mes, ano)
+  i += 1
+
 
 archivo.write("-- 2015\n")
 
