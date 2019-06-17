@@ -73,7 +73,7 @@ create trigger tr_show before insert on CirqueShow
 for each row when (new.tipo='Residente') execute procedure val_Show();
 
 --TRIGGER PARA CERRAR EL ÚLTIMO HISTORICO DE PRECIOS ANTES DE CREAR OTRO
-create function cierra_Precio() returns trigger as $tr_HistPrecio$
+/*create function cierra_Precio() returns trigger as $tr_HistPrecio$
 begin
 	if new.id>1 then
 		Update Hist_Precio
@@ -85,7 +85,7 @@ end;
 $tr_HistPrecio$ language plpgsql;
 
 create trigger tr_HistPrecio before insert on Hist_Precio
-for each row execute procedure cierra_Precio();
+for each row execute procedure cierra_Precio();*/
 
 --TRIGGER PARA VALIDAR QUE UNA PRESENTACION ITINERANTE TENGA LUGAR GEOGRAFICO, LUGAR DE PRESENTACION Y SHOW
 create function val_Presenta_Itine() returns trigger as $tr_PresentaItine$
@@ -94,9 +94,9 @@ begin
 	if new.id_SL is null then
 		raise exception 'Esta presentación debe tener un show y un lugar asociado';
 	end if;
-	if new.id_LugarPresent is null then
+	/*if new.id_LugarPresent is null then
 		raise exception 'Esta presentación debe tener un lugar de presentación asociado';
-	end if;
+	end if;*/
 	
 	select id_show into idshow
 	from S_L
