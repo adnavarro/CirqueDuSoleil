@@ -1,6 +1,10 @@
---TRIGGER PARA VALIDAR QUE LA MONEDA Y EL CONTINENTE DE UN PAÍS NO SEA NULO
+--TRIGGER PARA VALIDAR QUE LA MONEDA, EL CONTINENTE Y EL IDIOMA DE UN PAÍS NO SEA NULO
 create function val_LugarGeo_monCon() returns trigger as $tr_LugarGeoMonCon$
 begin
+	--Chequea que el idioma no sea nulo
+	if new.idiomas is null then
+		raise exception 'Al menos debe haber un idioma';
+	end if;
 	--Chequea que este la moneda
 	if new.moneda is null then
 		raise exception 'La moneda no puede ser nula para un país';
@@ -74,7 +78,7 @@ begin
 	if new.id>1 then
 		Update Hist_Precio
 		set fech_fin = now()
-		where fech_fin is null;
+		where fech_fin is null and tipo=new.tipo;
 	end if;
 	return new;
 end;
@@ -82,3 +86,32 @@ $tr_HistPrecio$ language plpgsql;
 
 create trigger tr_HistPrecio before insert on Hist_Precio
 for each row execute procedure cierra_Precio();
+
+--TRIGGER PARA VALIDAR QUE UNA PRESENTACION ITINERANTE TENGA LUGAR GEOGRAFICO, LUGAR DE PRESENTACION Y SHOW
+create function val_Presenta_Itine() returns trigger as $tr_PresentaItine$
+declare idshow numeric(4); declare tip varchar(12);
+begin
+	if new.id_SL is null then
+		raise exception 'Esta presentación debe tener un show y un lugar asociado';
+	end if;
+	if new.id_LugarPresent is null then
+		raise exception 'Esta presentación debe tener un lugar de presentación asociado';
+	end if;
+	
+	select id_show into idshow
+	from S_L
+	where id=new.id_SL;
+	
+	select tipo into tip
+	from CirqueShow
+	where id=idshow;
+	
+	if tip<>'Itinerante' then
+		raise exception 'El show selecionado no es itinerante';
+	end if;
+	return new;
+end;
+$tr_PresentaItine$ language plpgsql;
+
+create trigger tr_PresentaItine before insert on Presenta
+for each row execute procedure val_Presenta_Itine();
