@@ -89,7 +89,7 @@ ano = 2012
 while i < 20000:
   if ano > 2012 or mes > 11 or (mes == 11 and dia >= 28):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,35,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,34,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
@@ -151,7 +151,7 @@ ano = 2014
 while i < 20000:
   if ano > 2014 or mes > 6 or (mes == 6 and dia >= 7):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,36,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,35,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
@@ -162,7 +162,7 @@ ano = 2014
 while i < 20000:
   if ano > 2014 or mes > 11 or (mes == 11 and dia >= 11):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,37,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,36,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
@@ -190,7 +190,7 @@ ano = 2015
 while i < 20000:
   if ano > 2015 or mes > 5 or (mes == 5 and dia >= 24):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,32,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,31,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
@@ -378,7 +378,7 @@ ano = 2017
 while i < 20000:
   if ano > 2017 or mes > 10 or (mes == 10 and dia >= 8):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,21,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,33,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
   
@@ -391,7 +391,7 @@ ano = 2017
 while i < 20000:
   if ano > 2017 or mes > 12 or (mes == 12 and dia >= 31):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,22,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,21,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
   
@@ -405,7 +405,7 @@ ano = 2018
 while i < 20000:
   if ano > 2018 or mes > 7 or (mes == 7 and dia >= 8):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,23,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,22,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
@@ -418,7 +418,7 @@ ano = 2018
 while i < 20000:
   if ano > 2018 or mes > 11 or (mes == 11 and dia >= 4):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,24,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,23,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
@@ -431,7 +431,7 @@ ano = 2018
 while i < 20000:
   if ano > 2019 or (ano == 2019 and mes > 1) or (mes == 1 and dia >= 27):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,25,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,24,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
   
@@ -445,7 +445,7 @@ ano = 2019
 while i < 20000:
   if ano > 2019 or mes > 3 or (mes == 3 and dia >= 31):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,26,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,25,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
@@ -458,7 +458,7 @@ ano = 2019
 while i < 20000:
   if ano > 2019 or mes > 5 or (mes == 5 and dia >= 29):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,27,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,26,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
@@ -472,12 +472,12 @@ ano = 2019
 while i < 20000:
   if ano > 2019 or mes > 8 or (mes == 8 and dia >= 18):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',FALSE,null,28,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',FALSE,null,27,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
 
-# Sydney, AU – From 2 Oct to 3 Nov 2019
+
 archivo.write("-- Sydney, AU - From 2 Oct to 3 Nov 2019\n")
 dia = 2
 mes = 10
@@ -485,14 +485,14 @@ ano = 2019
 while i < 20000:
   if ano > 2019 or mes > 11 or (mes == 11 and dia >= 3):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',FALSE,null,29,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',FALSE,null,28,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
 archivo.write("-- 2020\n")
 
 
-# Brisbane, AU – From 10 Jan to 26 Jan 2020
+
 archivo.write("-- Brisbane, AU - From 10 Jan to 26 Jan 2020\n")
 dia = 10
 mes = 1
@@ -500,12 +500,12 @@ ano = 2020
 while i < 20000:
   if ano > 2020 or mes > 1 or (mes == 1 and dia >= 26):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',FALSE,null,30,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',FALSE,null,29,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
 
-# Melbourne, AU – From 12 Mar to 29 Mar 2020
+
 archivo.write("-- Melbourne, AU - From 12 Mar to 29 Mar 2020\n")
 dia = 12
 mes = 3
@@ -513,7 +513,7 @@ ano = 2019
 while i < 20000:
   if ano > 2019 or mes > 3 or (mes == 3 and dia >= 29):
     break
-  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',FALSE,null,31,null),\n".format(i, dia, mes, ano))
+  archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',FALSE,null,30,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
