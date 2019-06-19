@@ -61,7 +61,6 @@ create table Disciplina(
 create table D_A(
 	id_Disci numeric(4) not null references Disciplina(id),
 	id_Artist numeric(4) not null references Artist(id),
-	descrip text,
 	constraint id_DA primary key(id_Disci, id_Artist)
 );
 
