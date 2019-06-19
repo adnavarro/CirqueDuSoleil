@@ -1,3 +1,4 @@
+
 create type DatosExtra as(
 	nombre varchar(128), /* Obligatorio */
 	apellido varchar(128), /* Obligatorio */
@@ -47,7 +48,7 @@ create table Aspirante(
 	fech_nac date not null,
 	idiomas varchar(32) array[3] not null,
 	passport numeric(10) array[3] not null,
-	telefonos numeric array[3] not null
+	telefonos varchar(25) array[3] not null
 );
 
 create table Disciplina(
@@ -163,3 +164,4 @@ create table A_A(
 	id_CalenAudicion numeric(4) not null references CalenAudicion(id),
 	constraint id_Inscrip primary key(id_Aspirante, id_CalenAudicion)
 );
+
