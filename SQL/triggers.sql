@@ -73,7 +73,7 @@ create trigger tr_show before insert on CirqueShow
 for each row when (new.tipo='Residente') execute procedure val_Show();
 
 --TRIGGER PARA CERRAR EL ÚLTIMO HISTORICO DE PRECIOS ANTES DE CREAR OTRO
-/*create function cierra_Precio() returns trigger as $tr_HistPrecio$
+create function cierra_Precio() returns trigger as $tr_HistPrecio$
 begin
 	if new.id>1 then
 		Update Hist_Precio
@@ -85,18 +85,15 @@ end;
 $tr_HistPrecio$ language plpgsql;
 
 create trigger tr_HistPrecio before insert on Hist_Precio
-for each row execute procedure cierra_Precio();*/
+for each row execute procedure cierra_Precio();
 
 --TRIGGER PARA VALIDAR QUE UNA PRESENTACION ITINERANTE TENGA LUGAR GEOGRAFICO, LUGAR DE PRESENTACION Y SHOW
 create function val_Presenta_Itine() returns trigger as $tr_PresentaItine$
 declare idshow numeric(4); declare tip varchar(12);
 begin
 	if new.id_SL is null then
-		raise exception 'Esta presentación debe tener un show y un lugar asociado';
+		raise exception 'Error: Datos incompletos... Recuerda poner los datos del lugar y show';
 	end if;
-	/*if new.id_LugarPresent is null then
-		raise exception 'Esta presentación debe tener un lugar de presentación asociado';
-	end if;*/
 	
 	select id_show into idshow
 	from S_L
@@ -107,11 +104,13 @@ begin
 	where id=idshow;
 	
 	if tip<>'Itinerante' then
-		raise exception 'El show selecionado no es itinerante';
+		raise exception 'Show seleccionado no es itinerante';
+	elsif new.id_LugarPresent is null then
+		raise exception 'Debes tener un lugar de presentación';
 	end if;
 	return new;
 end;
 $tr_PresentaItine$ language plpgsql;
 
 create trigger tr_PresentaItine before insert on Presenta
-for each row execute procedure val_Presenta_Itine();
+for each row when (new.id_Show=null) execute procedure val_Presenta_Itine();
