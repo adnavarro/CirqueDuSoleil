@@ -1,3 +1,5 @@
+-- Views requeridad para hacer los reportes
+
 CREATE VIEW presen AS 
 SELECT c.id as id_show, p.id as id_presen, c.nombre, p.fecha
 FROM cirqueshow c
