@@ -1,4 +1,35 @@
- INSERT INTO public.lugargeo values
+INSERT INTO public.disciplina values
+	(1,'Gimnasia acrobática','Atleta','Disciplina que combina la gimnasia con acrobacias.'),
+	(2,'Gimnasia artística','Atleta','Disciplina que inyecta belleza artística a la gimnasia.'),
+	(3,'Clavados','Atleta','Disciplina que conlleva saber caer con estilo.'),
+	(4,'Gimnasia rítmica','Atleta','Disciplina que le otorga cierto ritmo a la gimnasia.'),
+	(5,'Natación sincronizada','Atleta','Disciplina que exige nadar con un grupo de manera sincronizada.'),
+	(6,'Trampolín','Atleta','Disciplina que exige saber saltar en un trampolín de forma artística'),
+	(7,'Tumbling','Atleta','Disciplina que deriva del trampolín.'),
+	(8,'Artes marciales','Atleta','Disciplina que exige un conocimiento avanzado de artes marciales.'),
+	(9,'Saltos con cuerdas','Atleta','Disciplina que requiere saber saltar la cuerda de manera avanzada.'),
+	(10,'Cheerleading','Atleta','Disciplina que pide animar al equipo.'),
+	(11,'Patinaje artístico','Atleta','Disciplina que combina el patinaje y la belleza del arte.'),
+	(12,'Payasos','Payasos y Actores físicos','Disciplina que requiere un nivel sobre-humano de payasadas.'),
+	(13,'Actores Físicos','Payasos y Actores físicos','Disciplina que exige saber usar el lenguaje corporal para transmitir emociones.'),
+	(14,'Baile clásico','Bailarines','Disciplina que pide conocimientos de bailes clásicos.'),
+	(15,'Baile contemporáneo','Bailarines','Disciplina que pide conocimientos de bailes contemporáneos.'),
+	(16,'Bailes étnicos y tradicionales','Bailarines','Disciplina que exige la maestría de bailes típicos.'),
+	(17,'Hip-hop y breakdance','Bailarines','Disciplina que exige conocimientos meta-físicos de baies callejeros y gangstas.'),
+	(18,'Claqué','Bailarines','Disciplina que involucra un golpeteo con el tacón y la punta de los zapatos.'),
+	(19,'Baile jazz','Bailarines','Disciplina que exige bailar al ritmo del jazz.'),
+	(20,'Instrumentos de percusión','Músicos','Disciplina que exige el uso de instrumentos en los que el sonido se origina al ser golpeado.'),
+	(21,'Instrumentos de teclado','Músicos','Disciplina que requiere el uso de teclado.'),
+	(22,'Instrumentos de cuerda','Músicos','Disciplina que requiere el uso de instrumentos de cuerda.'),
+	(23,'Instrumentos de viento de metal','Músicos','Disciplina que exige el uso de instrumentos en los que el sonido se genera en los labios del músico.'),
+	(24,'Instrumentos de viento de madera','Músicos','Disciplina que exige el uso de instrumentos en los que el sonido se genera en el propio instrumento.'),
+	(25,'Multinstrumentista','Músicos','Disciplina que exige el uso de muchos instrumentos.'),
+	(26,'Artistas de Circo','Artistas de Circo','Disciplina que exige profesionalidad en artes cirquenses.'),
+    (27,'Cantantes','Cantantes','Disciplina que requiere poseer una voz que permita cantar.'),
+    (28,'Deportes de acción','Deportes de acción','Disciplina que exige ser especialista en deportes de acción.');
+
+
+INSERT INTO public.lugargeo values
  	(1,'EEUU','P',ARRAY[('Inglés')],'Dólar Estadounidense','AM', null),
  	(2,'Santa Monica, CA','C',null,null,null,1),
  	(3,'Portland, OR','C',null,null,null,1),
