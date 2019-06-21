@@ -35,3 +35,26 @@ http-serve
 - [ ] IRIS (11-13) 4001 -- 5000
 - [ ] Nouvelle Experience (90-93) 7001 -- 8000
 - [ ] Delirium (06-08) 8001 -- 9000
+
+
+## Procedimientos de optimizacion
+
+### Insertar una presentación para un show
+
+- [ ] Seleccionar un show de la lista de shows ( )
+ - 
+
+### Contratar un artista
+
+- [ ] Seleccionar audicion de lista de audiciones (disciplina, fechas) 
+  - [ ] Seleccionar participante de lista de participantes (audicion)
+    - [ ] Marcar participante como aprovado (participante)
+    - [x] Copiar sus datos a los artistas (participante, apodo)
+
+### Otros procesos
+
+- [ ] Vender entradas
+- [ ] Crear una audicion
+- [ ] Cambiar valor de las entradas
+- [ ] Registrar datos de forma bonita
+- [ ] 
