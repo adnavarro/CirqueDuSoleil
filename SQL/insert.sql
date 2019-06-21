@@ -16,7 +16,7 @@
   (15,'Chicago, IL','C',null,null,null,1),
   (16,'Costa Mesa, CA','C',null,null,null,1),
   (17,'Los Angeles, CA','C',null,null,null,1),
-  (19,'Atlanta, GA','C',null,nullnh,null,1),
+  (19,'Atlanta, GA','C',null,null,null,1),
   (20,'Boston, MA','C',null,null,null,1),
   (21,'Washington, DC','C',null,null,null,1),
   (22,'New York, NY','C',null,null,null,1),
