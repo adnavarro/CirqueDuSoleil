@@ -1,5 +1,3 @@
---SE TIENE QUE HABER CREADO LA FUNCIÓN 
- 
  SELECT copiar_aspiratne_artista(1,null);
  SELECT copiar_aspiratne_artista(2,null);
  SELECT copiar_aspiratne_artista(3,null);
@@ -106,6 +104,7 @@
  SELECT copiar_aspiratne_artista(104,'The New Wonder');
  SELECT copiar_aspiratne_artista(105,'The New Wonder');
  SELECT copiar_aspiratne_artista(106,'The New Wonder');
+ SELECT copiar_aspiratne_artista(107,'The New Wonder'); 
  SELECT copiar_aspiratne_artista(108,'The New Wonder');
  SELECT copiar_aspiratne_artista(109,'The New Wonder');
  SELECT copiar_aspiratne_artista(110,'The New Wonder');
@@ -245,3 +244,4 @@
  SELECT copiar_aspiratne_artista(1243,null);
  SELECT copiar_aspiratne_artista(1244,null);
  SELECT copiar_aspiratne_artista(1245,null);
+
