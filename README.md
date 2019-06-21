@@ -57,4 +57,20 @@ http-serve
 - [ ] Crear una audicion
 - [ ] Cambiar valor de las entradas
 - [ ] Registrar datos de forma bonita
-- [ ] 
+
+## Comandos de consola (pgsql)
+
+Nota: Pongo los archivos en el disco C porque windows no queria agarrarlo en otro lado
+Nota2: El encoding se lo pongo al principio porque windows no queria funcionar, si sus SO coopera no hace falta
+
+```pgsql
+\encoding UTF8
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+\i C:/CirqueDuSoleil/create.sql;
+\i C:/CirqueDuSoleil/triggers.sql;
+\i C:/CirqueDuSoleil/functions.sql;
+\i C:/CirqueDuSoleil/insert.sql;
+\i C:/CirqueDuSoleil/insert-aspirantes.sql;
+\i C:/CirqueDuSoleil/insert-artistas.sql;
+```
