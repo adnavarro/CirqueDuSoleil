@@ -92,7 +92,7 @@ while i < 20000:
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
-archivo.write("--Vancouver, BC - From 23 Nov 2012 to 20 Dec 2013\n")
+archivo.write("--Vancouver, BC - From 23 Nov 2012 to 20 Dec 2012\n")
 dia = 23
 mes = 11
 ano = 2012
@@ -144,7 +144,7 @@ dia = 18
 mes = 7
 ano = 2013
 while i < 20000:
-  if ano > 2013 or mes > 8 or (mes == 8 and dia >= 18):
+  if ano > 2013 or mes > 8 or (mes == 8 and dia >= 25):
     break
   archivo.write("({:d},'{:02d}-{:02d}-{:d} 20:00:00',TRUE,null,44,null),\n".format(i, dia, mes, ano))
   dia, mes, ano = siguiente_dia(dia, mes, ano)
@@ -161,7 +161,7 @@ while i < 20000:
   dia, mes, ano = siguiente_dia(dia, mes, ano)
   i += 1
 
-archivo.write("--San Francisco, CA - From 13 Nov 2013 to 12 Dec 2014\n")
+archivo.write("--San Francisco, CA - From 13 Nov 2013 to 12 Dec 2013\n")
 dia = 13
 mes = 11
 ano = 2013
