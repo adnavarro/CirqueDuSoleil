@@ -41,8 +41,20 @@ http-serve
 
 ### Insertar una presentación para un show
 
-- [ ] Seleccionar un show de la lista de shows ( )
- - 
+- [x] Ver lista de shows acrivos
+- [ ] Sugerir fecha (show)
+- [ ] Insertar presentacion de residente (show, fecha)
+- [x] Ver lugares para itinerantes (show itinerante)
+- [x] Insertar presentacion de itinerante (show, lugar, fecha)
+
+#### Insertar un show itinerante
+Ver shos activos, paises, ciudades e insertar
+```pgsql
+SELECT * FROM shows_activos;
+SELECT id, nombre FROM lugargeo WHERE contine = '<<Continente>>';
+SELECT id, nombre FROM lugargeo WHERE id_lugar = '<<Id Pais>>';
+CALL insertar_presentacion(<<Id Show>>, <<Id Ciudad>>, '<<Fecha y hora formato pg>>');
+```
 
 ### Contratar un artista
 
@@ -73,4 +85,5 @@ CREATE SCHEMA public;
 \i C:/CirqueDuSoleil/insert.sql;
 \i C:/CirqueDuSoleil/insert-aspirantes.sql;
 \i C:/CirqueDuSoleil/insert-artistas.sql;
+\i C:/CirqueDuSoleil/VIEW.sql;
 ```
