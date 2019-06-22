@@ -1,11 +1,36 @@
 -- Archivo de funciones y procedimientos para el funcionamiento del negocio
 -- No confundir con las funciones de triggers
 
+
+-- Seleccionar un show de la lista de shows activos
+-- @return idShow numeric
+--CREATE OR REPLACE FUNCTION insert_presentacion()
+--RETURNS public.CirqueShow.id%TYPE $$
+--DECLARE
+--BEGIN
+--  SELECT id, nombre FROM public.CirqueShow;
+--END;
+--$$ LANGUAGE plpgsql;
+--
+---- Insertar una presentacion para un show
+--CREATE OR REPLACE FUNCTION insert_presentacion()
+--RETURNS text AS $$
+--DECLARE
+--BEGIN
+--  SELECT id, nombre FROM public.CirqueShow;
+--
+--  -- Quiere guardar los cambios?
+--  ROLLBACK;
+--  COMMIT;
+--END;
+--$$ LANGUAGE plpgsql;
+
+
 -- Procedimiento para copiar los datos de un aspirante a la tabla de artista
 -- @param myid numeric
 -- @param apodo varchar
-CREATE OR REPLACE FUNCTION copiar_aspiratne_artista(myid numeric, apodo varchar) 
-RETURNS void AS $$
+CREATE OR REPLACE PROCEDURE 
+copiar_aspiratne_artista(myid numeric, apodo varchar DEFAULT '') AS $$
 DECLARE
   var_id public.aspirante.id%TYPE;
   var_nombre public.aspirante.nombre%TYPE;
@@ -29,5 +54,5 @@ BEGIN
   INSERT INTO public.artist VALUES (var_id, var_nombre, var_nombre2, var_apellido, var_apellido2, var_genero, var_fech_nac, var_idiomas, var_passport, apodo);
 END;
 $$ LANGUAGE plpgsql;
+-- CALL copiar_aspiratne_artista(55, 'El Puma')
 
--- SELECT copiar_aspiratne_artista(55, 'El Puma')
