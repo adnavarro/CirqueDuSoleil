@@ -51,6 +51,7 @@ begin
 			raise exception 'El niño no puede estar asociado a otro menor';
 		end if;
 
+		-- Validar que el adulto esté en la misma presentación que el niño
 		if pres <> new.id_Presenta then
 			raise exception 'Debe asociar al menor con un adulto de la misma presentación';
 		end if;
