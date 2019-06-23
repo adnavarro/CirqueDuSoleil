@@ -37,6 +37,20 @@ http-serve
 - [ ] Delirium (06-08) 8001 -- 9000
 
 
+## Reportes
+
+- [x] Lista de shows
+- [x] Detalle de show
+- [x] Calendario de show
+- [x] Historico de show
+- [ ] Ficha de artista
+- [ ] Audiciones
+- [ ] Detalle de audiciones
+- [ ] Detalle de audiciones
+- [ ] Detalle de audiciones
+- [ ] Entrada
+
+
 ## Procedimientos de optimizacion
 
 ### Insertar una presentación para un show
