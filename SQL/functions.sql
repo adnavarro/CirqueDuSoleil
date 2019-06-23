@@ -173,8 +173,6 @@ BEGIN
     INSERT INTO public.presenta VALUES
  	    (var_maxid,myfecha,(myfecha < (SELECT NOW())),null,var_idsl,null);
   END IF;
-
-  COMMIT;
 END;
 $$ LANGUAGE plpgsql;
 -- USO
@@ -187,6 +185,8 @@ $$ LANGUAGE plpgsql;
   -- Insertar residente en el pasado (Para desarrollo)
     -- CALL insertar_presentacion(5, '20-05-2010 20:00', 0, false);
 --
+
+-- Validar calendario semanal de residentes y horarios
 
 -- Procedimiento para copiar los datos de un aspirante a la tabla de artista
 -- @param myid numeric
@@ -276,3 +276,109 @@ $$ LANGUAGE plpgsql;
   --Vender una entrada en otro dia para un menor
     -- CALL vender_entrada(1, 53.5, 'VIP', 'Menor', '20-10-2020 20:00', 5);
 --
+
+CREATE OR REPLACE FUNCTION get_presentaciones_disponibles2(myIdshow numeric)
+RETURNS TABLE(id numeric, idShow numeric, nombre varchar, fecha timestamp) AS $$
+BEGIN
+    RETURN QUERY SELECT DISTINCT p.id, s.id AS idShow, s.nombre, p.fecha 
+      FROM public.CirqueShow AS s, public.Presenta p, s_l
+      WHERE ((s.id = p.id_Show) OR (s.id = s_l.id_show AND s_l.id = p.id_SL)) 
+        AND p.estatus = FALSE AND s.id = myIdshow;
+END;
+$$ LANGUAGE plpgsql;
+
+/******************************************************
+  *                                                   *
+  * Funciones para desarrollo (No usar en producción) *
+  *                                                   *
+******************************************************/
+
+-- Inserta una cantidad N de entradas en cada presentacion
+-- PRECUACIÓN puede demorar unos minutos
+CREATE OR REPLACE PROCEDURE
+dev_llenar_entradas(cantidadPorShow numeric(4)) AS $$
+DECLARE
+  var_presenta RECORD;
+  var_random numeric;
+  var_precio numeric;
+  var_tipo varchar;
+  var_fecha timestamp;
+  var_idpadre numeric;
+  var_cantidadporshow numeric;
+  var_maxpresenta numeric;
+  var_identrada public.entrada.id%TYPE;
+BEGIN
+  var_identrada := 1;
+  SELECT MAX(id) INTO var_maxpresenta FROM public.presenta;
+  -- Iterar todas las presentacions
+  FOR var_presenta IN SELECT id, fecha FROM public.presenta LOOP
+    SELECT RANDOM() INTO var_random;
+    IF var_random < 0.3 THEN
+      var_cantidadporshow := cantidadPorShow * 0.5;
+    ELSIF var_random < 0.7 THEN 
+      var_cantidadporshow := cantidadPorShow * 0.8;
+    ELSE
+      var_cantidadporshow := cantidadPorShow;
+    END IF;
+    IF cantidadPorShow >= 100 THEN 
+      var_cantidadporshow := var_cantidadporshow + (SELECT RANDOM() * cantidadPorShow * 0.1);
+    END IF;
+    -- Insertar entradas
+    FOR i IN 1..var_cantidadporshow LOOP
+      -- Datos de las entradas
+      var_precio := (SELECT RANDOM() * 100 + 50);
+      SELECT RANDOM() INTO var_random;
+      IF var_random < 0.5 THEN
+        var_tipo := 'A';
+        var_precio := var_precio;
+      ELSIF var_random < 0.75 THEN 
+        var_tipo := 'B';
+        var_precio := var_precio * 2;
+      ELSIF var_random < 0.9 THEN 
+        var_tipo := 'C';
+        var_precio := var_precio * 2.5;
+      ELSE
+        var_tipo := 'VIP';
+        var_precio := var_precio * 3.5;
+      END IF;
+      var_fecha := var_presenta.fecha - RANDOM() * interval '5 days' - interval '2 hours';
+      -- Insertar
+      SELECT RANDOM() INTO var_random;
+      IF var_random < 0.02 THEN
+        INSERT INTO public.Entrada VALUES 
+          (var_identrada,var_precio,var_tipo,'Adulto',var_fecha,var_presenta.id,NULL);
+        var_identrada := var_identrada + 1;
+        var_precio := var_precio * 0.9;
+        INSERT INTO public.Entrada VALUES 
+          (var_identrada,var_precio,var_tipo,'Menor',var_fecha,var_presenta.id,var_identrada-1);
+        var_identrada := var_identrada + 1;
+        INSERT INTO public.Entrada VALUES 
+          (var_identrada,var_precio,var_tipo,'Menor',var_fecha,var_presenta.id,var_identrada-2);
+        var_identrada := var_identrada + 1;
+      ELSIF var_random < 0.1 THEN
+        INSERT INTO public.Entrada VALUES 
+          (var_identrada,var_precio,var_tipo,'Adulto',var_fecha,var_presenta.id,NULL);
+        var_identrada := var_identrada + 1;
+        var_precio := var_precio * 0.9;
+        INSERT INTO public.Entrada VALUES 
+          (var_identrada,var_precio,var_tipo,'Menor',var_fecha,var_presenta.id,var_identrada-1);
+        var_identrada := var_identrada + 1;
+      ELSIF var_random < 0.2 THEN
+        var_precio := var_precio * 0.8;
+        INSERT INTO public.Entrada VALUES 
+          (var_identrada,var_precio,var_tipo,'Tercera edad',var_fecha,var_presenta.id,NULL);
+        var_identrada := var_identrada + 1;
+      ELSE
+        INSERT INTO public.Entrada VALUES 
+          (var_identrada,var_precio,var_tipo,'Adulto',var_fecha,var_presenta.id,NULL);
+        var_identrada := var_identrada + 1;
+      END IF;
+    END LOOP;
+    IF MOD(var_presenta.id, 100) = 0 THEN 
+      RAISE NOTICE '% porciento', ROUND((var_presenta.id / var_maxpresenta) * 100, 2);
+    END IF;
+  END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SELECT * FROM entrada;

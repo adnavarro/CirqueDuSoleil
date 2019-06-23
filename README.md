@@ -95,7 +95,7 @@ CALL vender_entrada(<<Id Presenta>>, <<Precio>>, '<<Tipo Ent>>' [, '<<Tipo Per>>
 
 ## Comandos de consola (pgsql)
 
-Nota: Pongo los archivos en el disco C porque windows no queria agarrarlo en otro lado
+Nota: Pongo los archivos directamente en el disco C porque windows no queria agarrarlo en otro lado
 Nota2: El encoding se lo pongo al principio porque windows no queria funcionar, si sus SO coopera no hace falta
 
 ```pgsql
@@ -108,5 +108,6 @@ CREATE SCHEMA public;
 \i C:/CirqueDuSoleil/insert.sql;
 \i C:/CirqueDuSoleil/insert-aspirantes.sql;
 \i C:/CirqueDuSoleil/insert-artistas.sql;
+\i C:/CirqueDuSoleil/insert-histoShowArt-D_A-A_H.sql;
 \i C:/CirqueDuSoleil/VIEW.sql;
 ```

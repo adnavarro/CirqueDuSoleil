@@ -119,3 +119,5 @@ $tr_PresentaItine$ language plpgsql;
 
 create trigger tr_PresentaItine before insert on Presenta
 for each row when (new.id_Show=null) execute procedure val_Presenta_Itine();
+
+-- Validar edades de artistas y aspiranets
