@@ -24,11 +24,11 @@ http-serve
 ## Lista de shows del para el proyecto
 
 ### ACTIVOS:
-- [ ] OVO 1 -- 1000
-- [ ] Amaluna 1001 -- 2000
-- [ ] Alegria 2001 -- 3000
-- [ ] Kurios 3001 -- 4000
-- [ ] Bazzar 5001 -- 6000
+- [x] OVO 1 -- 1000
+- [x] Amaluna 1001 -- 2000
+- [x] Alegria 2001 -- 3000
+- [x] Kurios 3001 -- 4000
+- [x] Bazzar 5001 -- 6000
 - [ ] Volta 6001 -- 7000
 
 ### RETIRADOS:
@@ -37,14 +37,29 @@ http-serve
 - [ ] Delirium (06-08) 8001 -- 9000
 
 
+## Reportes
+
+- [x] Lista de shows
+- [x] Detalle de show
+- [x] Calendario de show
+- [x] Historico de show
+- [ ] Ficha de artista
+- [ ] Audiciones
+- [ ] Detalle de audiciones
+- [ ] Detalle de audiciones
+- [ ] Detalle de audiciones
+- [ ] Entrada
+
+
 ## Procedimientos de optimizacion
 
 ### Insertar una presentación para un show
 
-- [x] Ver lista de shows acrivos
+- [x] Ver lista de shows activos
 - [ ] Sugerir fecha (show)
-- [ ] Insertar presentacion de residente (show, fecha)
+- [x] Insertar presentacion de residente (show, fecha)
 - [x] Ver lugares para itinerantes (show itinerante)
+- [x] Validar fechas por distancia de ciudades (show itinerante)
 - [x] Insertar presentacion de itinerante (show, lugar, fecha)
 
 #### Insertar un show itinerante
@@ -53,7 +68,7 @@ Ver shos activos, paises, ciudades e insertar
 SELECT * FROM shows_activos;
 SELECT id, nombre FROM lugargeo WHERE contine = '<<Continente>>';
 SELECT id, nombre FROM lugargeo WHERE id_lugar = '<<Id Pais>>';
-CALL insertar_presentacion(<<Id Show>>, <<Id Ciudad>>, '<<Fecha y hora formato pg>>');
+CALL insertar_presentacion(<<Id Show>>, '<<Fecha y hora formato pg>>'[, <<Id Ciudad>>, <<Validar fecha>>]);
 ```
 
 ### Contratar un artista
