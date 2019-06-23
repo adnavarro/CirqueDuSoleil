@@ -137,7 +137,7 @@ create table Presenta(
 
 create table Entrada(
 	id numeric(10) not null primary key,
-	precio numeric(3) not null, /* Moneda del pais */
+	precio numeric(7,2) not null, /* Moneda del pais */
 	tipo varchar(3) check (tipo='A' or tipo='B' or tipo='C' or tipo='VIP'),
 	tipoPerson varchar(12) check (tipoPerson='Menor' or tipoPerson='Tercera edad' or tipoPerson='Adulto') not null,
 	fecha_emision timestamp not null,

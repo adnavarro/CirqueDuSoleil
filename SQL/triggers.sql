@@ -36,19 +36,23 @@ for each row when (new.tipo_geo='C') execute procedure val_LugarGeo_CiuPai();
 
 --TRIGGER PARA VALIDAR QUE LA ENTRADA DE UN MENOR ESTE ASOCIADA CON UN MAYOR
 create function val_Entrada_MenMay() returns trigger as $tr_EntradaMenMay$
-declare tip varchar(12);
+declare tip varchar(12); pres numeric(4);
 begin
 	--Chequea si no tiene una entrada asociada
 	if new.id_Entrada is null then
 		raise exception 'El niño debe estar asociado con un adulto';
 	--Chequea si la entrada asociada no es de otro niño
 	else
-		select tipoPerson into tip
+		select tipoPerson, id_Presenta into tip, pres
 		from Entrada
 		where id=new.id_Entrada;
 		
 		if tip='Menor' then
 			raise exception 'El niño no puede estar asociado a otro menor';
+		end if;
+
+		if pres <> new.id_Presenta then
+			raise exception 'Debe asociar al menor con un adulto de la misma presentación';
 		end if;
 	end if;
 	return new;

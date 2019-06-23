@@ -186,6 +186,7 @@ $$ LANGUAGE plpgsql;
     -- CALL insertar_presentacion(5, '20-05-2020 20:00');
   -- Insertar residente en el pasado (Para desarrollo)
     -- CALL insertar_presentacion(5, '20-05-2010 20:00', 0, false);
+--
 
 -- Procedimiento para copiar los datos de un aspirante a la tabla de artista
 -- @param myid numeric
@@ -217,3 +218,26 @@ END;
 $$ LANGUAGE plpgsql;
 -- CALL copiar_aspiratne_artista(55, 'El Puma')
 
+-- Vender entradas
+CREATE OR REPLACE PROCEDURE
+vender_entrada(
+  idpresenta numeric, 
+  precio numeric, 
+  tipo varchar, 
+  tipoPerson varchar(12) DEFAULT 'Adulto',
+  fecha timestamp DEFAULT NOW(), 
+  idpadre numeric DEFAULT 0) AS $$
+BEGIN
+
+END;
+$$ LANGUAGE plpgsql;
+
+--create table Entrada(
+--	id numeric(10) not null primary key,
+--	precio numeric(7,2) not null, /* Moneda del pais */
+--	tipo varchar(3) check (tipo='A' or tipo='B' or tipo='C' or tipo='VIP'),
+--	tipoPerson varchar(12) check (tipoPerson='Menor' or tipoPerson='Tercera edad' or tipoPerson='Adulto') not --null,
+--	fecha_emision timestamp not null,
+--	id_Presenta numeric(4) not null references Presenta(id),
+--	id_Entrada numeric(10) references Entrada(id) /* Obligatorio para menores */
+--);
