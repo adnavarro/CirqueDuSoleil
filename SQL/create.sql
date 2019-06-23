@@ -129,7 +129,7 @@ create table S_L (
 create table Presenta(
 	id numeric(4) not null primary key,
 	fecha timestamp not null,
-	estatus bool not null, /* 0:No realizado, 1:Realizado */
+	estatus bool not null, /* False:No realizado, True:Realizado */
 	id_Show numeric(4) references CirqueShow(id), /* Obligatorio para residente */
 	id_SL numeric(4) references S_L(id), /* Obligatorio para itinerante */
 	id_LugarPresent numeric(4) references LugarPresent(id) /* Obligatorio para itinerante no carpa */
