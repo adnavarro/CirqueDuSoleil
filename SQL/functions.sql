@@ -34,10 +34,10 @@ CREATE OR REPLACE FUNCTION
 distancia_ciudades(idciudad1 numeric, idciudad2 numeric)
 RETURNS integer AS $$
 DECLARE
-  var_idpais1 public.LugarGeo.id%Type;
-  var_idpais2 public.LugarGeo.id%Type;
-  var_contine1 public.LugarGeo.contine%Type;
-  var_contine2 public.LugarGeo.contine%Type;
+  var_idpais1 public.LugarGeo.id%TYPE;
+  var_idpais2 public.LugarGeo.id%TYPE;
+  var_contine1 public.LugarGeo.contine%TYPE;
+  var_contine2 public.LugarGeo.contine%TYPE;
 BEGIN
   -- Validar ciudades
   SELECT id_Lugar INTO var_idpais1 FROM public.LugarGeo 
@@ -186,6 +186,7 @@ $$ LANGUAGE plpgsql;
     -- CALL insertar_presentacion(5, '20-05-2020 20:00');
   -- Insertar residente en el pasado (Para desarrollo)
     -- CALL insertar_presentacion(5, '20-05-2010 20:00', 0, false);
+--
 
 -- Procedimiento para copiar los datos de un aspirante a la tabla de artista
 -- @param myid numeric
@@ -207,7 +208,7 @@ BEGIN
     INTO var_id, var_nombre, var_nombre2, var_apellido, var_apellido2, var_genero, var_fech_nac, var_idiomas, var_passport
     FROM public.aspirante WHERE id = myid;
   IF NOT FOUND THEN
-    RAISE EXCEPTION 'aspirante con id: % no encontreado', myid;
+    RAISE EXCEPTION 'Aspirante con id: % no encontreado', myid;
   END IF;
   IF apodo IS NULL OR apodo = '' THEN
     apodo := NULL;
@@ -217,3 +218,61 @@ END;
 $$ LANGUAGE plpgsql;
 -- CALL copiar_aspiratne_artista(55, 'El Puma')
 
+-- Vender entradas para las presentaciones
+-- @param idpresenta numeric Id de la presentacion
+-- @param precio numeric
+-- @param tipo varchar Tipo de entrada
+-- @param [tipoPerson] varchar Opcional tipo de persona
+-- @param [fechaventa] timestamp Opcional fecha de la venta de esa entrada
+-- @param [idpadre] numeric Solo para menores
+CREATE OR REPLACE PROCEDURE
+vender_entrada(
+  idpresenta numeric, 
+  precio numeric, 
+  tipo varchar, 
+  tipoPerson varchar(12) DEFAULT 'Adulto',
+  fechaventa timestamp DEFAULT NOW(), 
+  idpadre numeric DEFAULT NULL) AS $$
+DECLARE
+  var_maxid public.Entrada.id%TYPE;
+  var_fechaini public.Presenta.fecha%TYPE;
+  var_fechafin public.Presenta.fecha%TYPE;
+  var_idshow public.Presenta.id_Show%TYPE;
+BEGIN
+  -- Selectionar intervalo de fechas
+  SELECT fecha - interval '1 week', fecha - interval '30 minutes', id_Show
+  INTO var_fechaini, var_fechafin, var_idshow FROM public.Presenta WHERE id = idpresenta;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Presentacion con id: % no encotrada', idpresenta;
+  END IF;
+
+  -- Hasta media hora antes  
+  IF fechaventa > var_fechafin THEN
+    RAISE EXCEPTION 'No se pueden vernder entradas después de %', var_fechafin;
+  END IF;
+
+  -- Si es itinerante Desde una semna antes de la presentación
+  IF var_idshow IS NULL AND fechaventa < var_fechaini THEN
+    RAISE EXCEPTION 'No se pueden vernder entradas antes de %, para un show itinerante', var_fechaini;
+  END IF;
+  
+  -- Insertar
+  SELECT MAX(id)+1 INTO var_maxid FROM public.Entrada;
+
+  IF var_maxid IS NULL THEN
+    var_maxid := 1; -- Primera venta
+  END IF;
+
+  INSERT INTO public.Entrada VALUES 
+  (var_maxid,precio,tipo,tipoPerson,fechaventa,idpresenta,idpadre);
+  -- Nota: Las validaciones de menores se hacen con el trigger
+END;
+$$ LANGUAGE plpgsql;
+-- USO
+  --Vender una entrada normal para hoy
+    -- CALL vender_entrada(1, 53.5, 'VIP');
+  --Vender una entrada de un menor para hoy
+    -- CALL vender_entrada(1, 53.5, 'VIP', 'Menor', NOW(), 1);
+  --Vender una entrada en otro dia para un menor
+    -- CALL vender_entrada(1, 53.5, 'VIP', 'Menor', '20-10-2020 20:00', 5);
+--

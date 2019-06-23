@@ -62,8 +62,8 @@ http-serve
 - [x] Validar fechas por distancia de ciudades (show itinerante)
 - [x] Insertar presentacion de itinerante (show, lugar, fecha)
 
-#### Insertar un show itinerante
-Ver shos activos, paises, ciudades e insertar
+#### Insertar un show
+Ver shows activos, paises, ciudades e insertar
 ```pgsql
 SELECT * FROM shows_activos;
 SELECT id, nombre FROM lugargeo WHERE contine = '<<Continente>>';
@@ -80,7 +80,15 @@ CALL insertar_presentacion(<<Id Show>>, '<<Fecha y hora formato pg>>'[, <<Id Ciu
 
 ### Otros procesos
 
-- [ ] Vender entradas
+- [x] Vender entradas
+- [ ] Validar disponibilidad
+Ver shows activos, presentaciones, vender entrada
+```pgsql
+SELECT * FROM shows_activos;
+SELECT * FROM presentaciones_disponibles WHERE idshow = <<Id de show>>;
+CALL vender_entrada(<<Id Presenta>>, <<Precio>>, '<<Tipo Ent>>' [, '<<Tipo Per>>, '<<Fecha>>', <<Id Padre>>]);
+```
+
 - [ ] Crear una audicion
 - [ ] Cambiar valor de las entradas
 - [ ] Registrar datos de forma bonita
