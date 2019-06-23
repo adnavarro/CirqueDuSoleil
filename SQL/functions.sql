@@ -324,9 +324,9 @@ BEGIN
       var_cantidadporshow := var_cantidadporshow + (SELECT RANDOM() * cantidadPorShow * 0.1);
     END IF;
     -- Insertar entradas
+    var_precio := (SELECT RANDOM() * 100 + 50);
     FOR i IN 1..var_cantidadporshow LOOP
       -- Datos de las entradas
-      var_precio := (SELECT RANDOM() * 100 + 50);
       SELECT RANDOM() INTO var_random;
       IF var_random < 0.5 THEN
         var_tipo := 'A';
