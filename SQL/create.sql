@@ -1,4 +1,3 @@
-
 create type DatosExtra as(
 	nombre varchar(128), /* Obligatorio */
 	apellido varchar(128), /* Obligatorio */
@@ -156,7 +155,6 @@ create table CalenAudicion(
 );
 
 create table A_A(
-	id_Inscrip numeric(4) not null unique,
 	resulta bool not null, /* 0:No aprobado, 1:Aprobado */
 	id_Aspirante numeric(4) not null references Aspirante(id),
 	id_CalenAudicion numeric(4) not null references CalenAudicion(id),
