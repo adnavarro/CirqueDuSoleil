@@ -1089,7 +1089,7 @@ INSERT INTO public.a_a values
 --A108
 	(122,TRUE,1994,5),
 --A201
-	(123,TRUE,1,1),
+	--(123,TRUE,1,1),
 	(124,TRUE,2,1),
 	(125,TRUE,3,1),
 	(126,TRUE,4,1),
