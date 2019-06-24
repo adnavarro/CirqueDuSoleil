@@ -147,7 +147,6 @@ create table Entrada(
 
 create table CalenAudicion(
 	id numeric(4) not null primary key,
-	fecha date not null,
 	hora_in timestamp not null,
 	hora_fin timestamp not null,
 	max_partici numeric(3) not null,

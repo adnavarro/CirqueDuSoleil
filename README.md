@@ -44,7 +44,7 @@ http-serve
 - [x] Calendario de show
 - [x] Historico de show
 - [ ] Ficha de artista
-- [ ] Audiciones
+- [x] Audiciones
 - [ ] Detalle de audiciones
 - [ ] Detalle de audiciones
 - [ ] Detalle de audiciones
@@ -112,6 +112,6 @@ CREATE SCHEMA public;
 \i C:/CirqueDuSoleil/insert.sql;
 \i C:/CirqueDuSoleil/insert-aspirantes.sql;
 \i C:/CirqueDuSoleil/insert-artistas.sql;
-\i C:/CirqueDuSoleil/insert-histoShowArt-D_A-A_H.sql;
+\i C:/CirqueDuSoleil/insert-A_H-D_A-A_A-Audiciones-Historial.sql;
 \i C:/CirqueDuSoleil/VIEW.sql;
 ```
