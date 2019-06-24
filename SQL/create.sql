@@ -162,4 +162,3 @@ create table A_A(
 	id_CalenAudicion numeric(4) not null references CalenAudicion(id),
 	constraint id_Inscrip primary key(id_Aspirante, id_CalenAudicion)
 );
-
