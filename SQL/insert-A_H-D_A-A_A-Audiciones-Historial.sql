@@ -1,3 +1,9 @@
+INSERT INTO public.hist_precio values
+	(1,'2007-01-01','A',50,null),
+	(2,'2007-01-01','B',100,null),
+	(3,'2007-01-01','C',130,null),
+	(4,'2007-01-01','VIP',225,null);
+
 INSERT INTO public.hist_show_per_art values
 --OVO
 	('2009-04-23',null,1,1), --MAESTRO FLIPO
