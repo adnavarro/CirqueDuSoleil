@@ -58,9 +58,11 @@ http-serve
 - [x] Ver lista de shows activos
 - [ ] Sugerir fecha (show)
 - [x] Insertar presentacion de residente (show, fecha)
+- [ ] Validar residentes con calendario semanal
 - [x] Ver lugares para itinerantes (show itinerante)
 - [x] Validar fechas por distancia de ciudades (show itinerante)
 - [x] Insertar presentacion de itinerante (show, lugar, fecha)
+- [ ] Generar calendario con rango de fechas, arreglo de horas y faltos de fecha
 
 #### Insertar un show
 Ver shows activos, paises, ciudades e insertar
@@ -89,7 +91,9 @@ SELECT * FROM presentaciones_disponibles WHERE idshow = <<Id de show>>;
 CALL vender_entrada(<<Id Presenta>>, <<Precio>>, '<<Tipo Ent>>' [, '<<Tipo Per>>, '<<Fecha>>', <<Id Padre>>]);
 ```
 
+- [ ] Asignar artistas a personajes
 - [ ] Crear una audicion
+- [ ] Generar inscripciones para audiciones
 - [ ] Cambiar valor de las entradas
 - [ ] Registrar datos de forma bonita
 
