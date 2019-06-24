@@ -1,6 +1,86 @@
 -- Archivo de funciones y procedimientos para el funcionamiento del negocio
 -- No confundir con las funciones de triggers
 
+
+-------------------------------------------
+-- Todo lo relacionado a listar contenido
+-------------------------------------------
+
+-- Listar shows activos
+-- @returns table
+CREATE OR REPLACE FUNCTION listar_shows_activos()
+RETURNS TABLE(id numeric, nombre varchar, tipo varchar) AS $$
+BEGIN
+  RETURN QUERY SELECT c.id, c.nombre, c.tipo 
+    FROM public.CirqueShow AS c WHERE c.estatus = TRUE;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- Listar presentaciones disponilbes
+-- @param myIdshow numeric id del show
+-- @returns table
+CREATE OR REPLACE FUNCTION listar_presentaciones_disponibles(myIdshow numeric)
+RETURNS TABLE(id numeric, nombre varchar, fecha timestamp) AS $$
+BEGIN
+  RETURN QUERY SELECT DISTINCT p.id, s.nombre, p.fecha 
+    FROM public.CirqueShow AS s, public.Presenta p, s_l
+    WHERE ((s.id = p.id_Show) OR (s.id = s_l.id_show AND s_l.id = p.id_SL)) 
+      AND p.estatus = FALSE AND s.id = myIdshow
+    ORDER BY p.fecha ASC;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- Listar paises en la base de datos
+-- @param [continente] varchar nombre corto o largo del continente
+-- @returns table
+CREATE OR REPLACE FUNCTION listar_paises(continen varchar DEFAULT NULL)
+RETURNS TABLE(id numeric, nombre varchar, continente varchar) AS $$
+BEGIN
+  IF continen IS NULL THEN
+    RETURN QUERY SELECT l.id, l.nombre, l.contine 
+      FROM public.LugarGeo AS l WHERE l.tipo_geo = 'P'
+      ORDER BY l.contine, l.nombre;
+  ELSE
+    IF continen = 'am' OR continen = 'America' OR continen = 'america' THEN
+      continen := 'AM';
+    ELSIF continen = 'af' OR continen = 'Africa' OR continen = 'africa' THEN
+      continen := 'AF';
+    ELSIF continen = 'as' OR continen = 'Asia' OR continen = 'asia' THEN
+      continen := 'AS';
+    ELSIF continen = 'eu' OR continen = 'Europa' OR continen = 'europa' THEN
+      continen := 'EU';
+    ELSIF continen = 'oc' OR continen = 'Oceania' OR continen = 'oceania' THEN
+      continen := 'OC';
+    END IF;
+    RETURN QUERY SELECT l.id, l.nombre, l.contine 
+      FROM public.LugarGeo AS l 
+      WHERE l.tipo_geo = 'P' AND l.contine = continen
+      ORDER BY l.nombre;
+  END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- Listar ciudades en la base de datos
+-- @param idpais numeric id del pais
+-- @returns table
+CREATE OR REPLACE FUNCTION listar_ciudades(idpais numeric)
+RETURNS TABLE(id numeric, nombre varchar) AS $$
+BEGIN
+  RETURN QUERY SELECT l.id, l.nombre FROM public.LugarGeo AS l 
+      WHERE l.tipo_geo = 'C' AND l.id_Lugar = idpais
+      ORDER BY l.nombre;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-------------------------------------------
+-- Todo lo relacionado a presentaciones
+-------------------------------------------
+
+
 -- Validar tiempo entre presentaiciones dada la condicion de distancia entre ciudades
 -- @param lastDate timestamp ultimo dia de la presentacion
 -- @param newDate timestamp nuevo dia que se desea ingresar
@@ -20,6 +100,27 @@ BEGIN
     RETURN (SELECT (newDate - lastDate) > interval '1 month');
   ELSIF distancia = 3 THEN
     RETURN (SELECT (newDate - lastDate) > interval '1.5 months');
+  END IF;
+  RETURN false;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Genera una fecha dadas las condiciones de distancia
+-- @param lastDate timestamp
+-- @param distancia integer
+-- @returns timestamp
+CREATE OR REPLACE FUNCTION 
+get_proxima_fecha(lastDate timestamp, distancia integer)
+RETURNS timestamp AS $$
+BEGIN
+  IF distancia = 0 THEN
+    RETURN (SELECT lastDate + interval '2.5 hours');
+  ELSIF distancia = 1 THEN
+    RETURN (SELECT lastDate + interval '1 week');
+  ELSIF distancia = 2 THEN
+    RETURN (SELECT lastDate + interval '1 month');
+  ELSIF distancia = 3 THEN
+    RETURN (SELECT lastDate + interval '1.5 months');
   END IF;
   RETURN false;
 END;
@@ -166,7 +267,9 @@ BEGIN
       SELECT distancia_ciudades(var_idultimolugar, idlugar) INTO var_distancia;
       -- Validar las fechas
       IF NOT (SELECT validar_fechas_presentaciones(var_ultimafecha, myfecha, var_distancia)) THEN
-        RAISE EXCEPTION 'La siguente ciudad y fecha para la presentacion no cumplen los parametros';
+        RAISE EXCEPTION 
+          'Dada la ultima presentación. Sugerimos probar con %', 
+          get_proxima_fecha(var_ultimafecha, var_distancia);
       END IF;
     END IF;
 
@@ -185,8 +288,73 @@ $$ LANGUAGE plpgsql;
   -- Insertar residente en el pasado (Para desarrollo)
     -- CALL insertar_presentacion(5, '20-05-2010 20:00', 0, false);
 --
-
 -- Validar calendario semanal de residentes y horarios
+
+
+-- Generar calendario dado rango de fechas 1 o 2 horas por dia e intervalo entre fechas
+-- @param idshow numeric
+-- @param idlugar numeric
+-- @param fecha_inicio date
+-- @param fecha_final date
+-- @param hora1 time
+-- @param [hora2] time 
+-- @param [diasintervalo] integer
+CREATE OR REPLACE PROCEDURE 
+generar_calendario(
+    idshow numeric, 
+    idlugar numeric,
+    fecha_inicio date, 
+    fecha_final date,
+    hora1 time,
+    hora2 time DEFAULT NULL,
+    diasintervalo integer DEFAULT 1/*Ideal seria poner [] dias de la semana*/) AS $$
+DECLARE
+  var_tiposhow public.CirqueShow.tipo%TYPE;
+  var_idpresentacion public.s_l.id%TYPE;
+  var_fecha timestamp;
+  var_intervalo integer;
+BEGIN
+  IF fecha_inicio >= fecha_final THEN
+    RAISE EXCEPTION 'Ingrese primero la fecha inicial y luego la final de la temporada';
+  END IF;
+  IF hora1 >= hora2 THEN
+    RAISE EXCEPTION 'Ingrese primero la hora menor y luego la mayor';
+  END IF;
+  
+  SELECT tipo INTO var_tiposhow
+    FROM public.CirqueShow WHERE id = idshow;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Show con id: % no encontreado', idshow;
+  END IF;
+  IF var_tiposhow = 'Residente' THEN
+    RAISE EXCEPTION 'Lo sentimos, de momento está funcion no esta disponible para shows residentes';
+  END IF;
+
+  SELECT p.id INTO var_idpresentacion FROM public.s_l, public.presenta p
+  WHERE p.id_SL = s_l.id AND p.fecha >= fecha_inicio AND p.fecha <= (fecha_final + TIME '23:59');
+
+  IF FOUND THEN
+    RAISE EXCEPTION 'No se pueden insertar presentaciones. Ya existen dentro de este rango';
+  ELSE
+    -- Generar el calendario
+    var_intervalo := fecha_final - fecha_inicio;
+    FOR i IN 0..var_intervalo BY diasintervalo LOOP
+      var_fecha := fecha_inicio + i * interval '1 day' + hora1;
+      CALL insertar_presentacion(idshow, var_fecha, idlugar, FALSE);
+      IF hora2 IS NOT NULL THEN
+        var_fecha := fecha_inicio + i * interval '1 day' + hora2;
+        CALL insertar_presentacion(idshow, var_fecha, idlugar, FALSE);
+      END IF;
+    END LOOP;
+  END IF;  
+END;
+$$ LANGUAGE plpgsql;
+-- CALL generar_calendario(4, 9, '20-10-2022', '30-10-2022', '16:00', '20:00', 2);
+-- SELECT p.id, p.fecha FROM public.s_l, public.presenta p WHERE p.id_SL = s_l.id AND p.id > 7012;
+
+-------------------------------------------
+-- Todo lo relacionado a Audiciones
+-------------------------------------------
 
 -- Procedimiento para copiar los datos de un aspirante a la tabla de artista
 -- @param myid numeric
@@ -217,6 +385,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 -- CALL copiar_aspiratne_artista(55, 'El Puma')
+
+-------------------------------------------
+-- Todo lo relacionado a Venta de entradas
+-------------------------------------------
 
 -- Vender entradas para las presentaciones
 -- @param idpresenta numeric Id de la presentacion
@@ -277,15 +449,13 @@ $$ LANGUAGE plpgsql;
     -- CALL vender_entrada(1, 53.5, 'VIP', 'Menor', '20-10-2020 20:00', 5);
 --
 
-CREATE OR REPLACE FUNCTION get_presentaciones_disponibles2(myIdshow numeric)
-RETURNS TABLE(id numeric, idShow numeric, nombre varchar, fecha timestamp) AS $$
-BEGIN
-    RETURN QUERY SELECT DISTINCT p.id, s.id AS idShow, s.nombre, p.fecha 
-      FROM public.CirqueShow AS s, public.Presenta p, s_l
-      WHERE ((s.id = p.id_Show) OR (s.id = s_l.id_show AND s_l.id = p.id_SL)) 
-        AND p.estatus = FALSE AND s.id = myIdshow;
-END;
-$$ LANGUAGE plpgsql;
+
+
+
+
+
+
+
 
 /******************************************************
   *                                                   *

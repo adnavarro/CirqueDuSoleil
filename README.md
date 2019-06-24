@@ -56,13 +56,13 @@ http-serve
 ### Insertar una presentación para un show
 
 - [x] Ver lista de shows activos
-- [ ] Sugerir fecha (show)
+- [x] Sugerir fecha itinerante (show)
 - [x] Insertar presentacion de residente (show, fecha)
 - [ ] Validar residentes con calendario semanal
 - [x] Ver lugares para itinerantes (show itinerante)
 - [x] Validar fechas por distancia de ciudades (show itinerante)
 - [x] Insertar presentacion de itinerante (show, lugar, fecha)
-- [ ] Generar calendario con rango de fechas, arreglo de horas y faltos de fecha
+- [x] Generar calendario con rango de fechas, arreglo de horas y faltos de fecha
 
 #### Insertar un show
 Ver shows activos, paises, ciudades e insertar
@@ -110,8 +110,5 @@ CREATE SCHEMA public;
 \i C:/CirqueDuSoleil/triggers.sql;
 \i C:/CirqueDuSoleil/functions.sql;
 \i C:/CirqueDuSoleil/insert.sql;
-\i C:/CirqueDuSoleil/insert-aspirantes.sql;
-\i C:/CirqueDuSoleil/insert-artistas.sql;
-\i C:/CirqueDuSoleil/insert-A_H-D_A-A_A-Audiciones-Historial.sql;
 \i C:/CirqueDuSoleil/VIEW.sql;
 ```
