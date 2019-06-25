@@ -64,33 +64,17 @@ http-serve
 - [x] Insertar presentacion de itinerante (show, lugar, fecha)
 - [x] Generar calendario con rango de fechas, arreglo de horas y faltos de fecha
 
-#### Insertar un show
-Ver shows activos, paises, ciudades e insertar
-```pgsql
-SELECT * FROM shows_activos;
-SELECT id, nombre FROM lugargeo WHERE contine = '<<Continente>>';
-SELECT id, nombre FROM lugargeo WHERE id_lugar = '<<Id Pais>>';
-CALL insertar_presentacion(<<Id Show>>, '<<Fecha y hora formato pg>>'[, <<Id Ciudad>>, <<Validar fecha>>]);
-```
-
 ### Contratar un artista
 
 - [ ] Seleccionar audicion de lista de audiciones (disciplina, fechas) 
-  - [ ] Seleccionar participante de lista de participantes (audicion)
-    - [ ] Marcar participante como aprovado (participante)
-    - [x] Copiar sus datos a los artistas (participante, apodo)
+- [ ] Seleccionar participante de lista de participantes (audicion)
+- [ ] Marcar participante como aprovado (participante)
+- [x] Copiar sus datos a los artistas (participante, apodo)
 
 ### Otros procesos
 
 - [x] Vender entradas
 - [ ] Validar disponibilidad
-Ver shows activos, presentaciones, vender entrada
-```pgsql
-SELECT * FROM shows_activos;
-SELECT * FROM presentaciones_disponibles WHERE idshow = <<Id de show>>;
-CALL vender_entrada(<<Id Presenta>>, <<Precio>>, '<<Tipo Ent>>' [, '<<Tipo Per>>, '<<Fecha>>', <<Id Padre>>]);
-```
-
 - [ ] Asignar artistas a personajes
 - [ ] Crear una audicion
 - [ ] Generar inscripciones para audiciones
@@ -110,5 +94,8 @@ CREATE SCHEMA public;
 \i C:/CirqueDuSoleil/triggers.sql;
 \i C:/CirqueDuSoleil/functions.sql;
 \i C:/CirqueDuSoleil/insert.sql;
+\i C:/CirqueDuSoleil/insert-aspirantes.sql;
+\i C:/CirqueDuSoleil/insert-artistas.sql;
+\i C:/CirqueDuSoleil/insert-A_H-D_A-A_A-Audiciones-Historial.sql;
 \i C:/CirqueDuSoleil/VIEW.sql;
 ```

@@ -278,17 +278,7 @@ BEGIN
   END IF;
 END;
 $$ LANGUAGE plpgsql;
--- USO
-  -- Insertar itinerante normal
-    -- CALL insertar_presentacion(1, '20-05-2020 20:00', 64);
-  -- Insertar itinerante en el pasado (Para desarrollo)
-    -- CALL insertar_presentacion(1, '20-05-2010 20:00', 64, false);
-  -- Insertar residente
-    -- CALL insertar_presentacion(5, '20-05-2020 20:00');
-  -- Insertar residente en el pasado (Para desarrollo)
-    -- CALL insertar_presentacion(5, '20-05-2010 20:00', 0, false);
---
--- Validar calendario semanal de residentes y horarios
+-- Falta: validar calendario semanal de residentes y horarios
 
 
 -- Generar calendario dado rango de fechas 1 o 2 horas por dia e intervalo entre fechas
@@ -349,8 +339,6 @@ BEGIN
   END IF;  
 END;
 $$ LANGUAGE plpgsql;
--- CALL generar_calendario(4, 9, '20-10-2022', '30-10-2022', '16:00', '20:00', 2);
--- SELECT p.id, p.fecha FROM public.s_l, public.presenta p WHERE p.id_SL = s_l.id AND p.id > 7012;
 
 -------------------------------------------
 -- Todo lo relacionado a Audiciones
@@ -440,14 +428,6 @@ BEGIN
   -- Nota: Las validaciones de menores se hacen con el trigger
 END;
 $$ LANGUAGE plpgsql;
--- USO
-  --Vender una entrada normal para hoy
-    -- CALL vender_entrada(1, 53.5, 'VIP');
-  --Vender una entrada de un menor para hoy
-    -- CALL vender_entrada(1, 53.5, 'VIP', 'Menor', NOW(), 1);
-  --Vender una entrada en otro dia para un menor
-    -- CALL vender_entrada(1, 53.5, 'VIP', 'Menor', '20-10-2020 20:00', 5);
---
 
 
 
@@ -470,6 +450,7 @@ dev_llenar_entradas(cantidadPorShow numeric(4)) AS $$
 DECLARE
   var_presenta RECORD;
   var_random numeric;
+  var_precioporpresentacion numeric;
   var_precio numeric;
   var_tipo varchar;
   var_fecha timestamp;
@@ -478,7 +459,10 @@ DECLARE
   var_maxpresenta numeric;
   var_identrada public.entrada.id%TYPE;
 BEGIN
-  var_identrada := 1;
+  SELECT MAX(id)+1 INTO var_identrada FROM public.entrada;
+  IF NOT FOUND THEN 
+    var_identrada := 1;
+  END IF;
   SELECT MAX(id) INTO var_maxpresenta FROM public.presenta;
   -- Iterar todas las presentacions
   FOR var_presenta IN SELECT id, fecha FROM public.presenta LOOP
@@ -494,8 +478,9 @@ BEGIN
       var_cantidadporshow := var_cantidadporshow + (SELECT RANDOM() * cantidadPorShow * 0.1);
     END IF;
     -- Insertar entradas
-    var_precio := (SELECT RANDOM() * 100 + 50);
+    var_precioporpresentacion := (SELECT RANDOM() * 100 + 50);
     FOR i IN 1..var_cantidadporshow LOOP
+      var_precio := var_precioporpresentacion;
       -- Datos de las entradas
       SELECT RANDOM() INTO var_random;
       IF var_random < 0.5 THEN
@@ -516,31 +501,31 @@ BEGIN
       SELECT RANDOM() INTO var_random;
       IF var_random < 0.02 THEN
         INSERT INTO public.Entrada VALUES 
-          (var_identrada,var_precio,var_tipo,'Adulto',var_fecha,var_presenta.id,NULL);
+          (var_identrada,ROUND(var_precio,2),var_tipo,'Adulto',var_fecha,var_presenta.id,NULL);
         var_identrada := var_identrada + 1;
         var_precio := var_precio * 0.9;
         INSERT INTO public.Entrada VALUES 
-          (var_identrada,var_precio,var_tipo,'Menor',var_fecha,var_presenta.id,var_identrada-1);
+          (var_identrada,ROUND(var_precio,2),var_tipo,'Menor',var_fecha,var_presenta.id,var_identrada-1);
         var_identrada := var_identrada + 1;
         INSERT INTO public.Entrada VALUES 
-          (var_identrada,var_precio,var_tipo,'Menor',var_fecha,var_presenta.id,var_identrada-2);
+          (var_identrada,ROUND(var_precio,2),var_tipo,'Menor',var_fecha,var_presenta.id,var_identrada-2);
         var_identrada := var_identrada + 1;
       ELSIF var_random < 0.1 THEN
         INSERT INTO public.Entrada VALUES 
-          (var_identrada,var_precio,var_tipo,'Adulto',var_fecha,var_presenta.id,NULL);
+          (var_identrada,ROUND(var_precio,2),var_tipo,'Adulto',var_fecha,var_presenta.id,NULL);
         var_identrada := var_identrada + 1;
         var_precio := var_precio * 0.9;
         INSERT INTO public.Entrada VALUES 
-          (var_identrada,var_precio,var_tipo,'Menor',var_fecha,var_presenta.id,var_identrada-1);
+          (var_identrada,ROUND(var_precio,2),var_tipo,'Menor',var_fecha,var_presenta.id,var_identrada-1);
         var_identrada := var_identrada + 1;
       ELSIF var_random < 0.2 THEN
         var_precio := var_precio * 0.8;
         INSERT INTO public.Entrada VALUES 
-          (var_identrada,var_precio,var_tipo,'Tercera edad',var_fecha,var_presenta.id,NULL);
+          (var_identrada,ROUND(var_precio,2),var_tipo,'Tercera edad',var_fecha,var_presenta.id,NULL);
         var_identrada := var_identrada + 1;
       ELSE
         INSERT INTO public.Entrada VALUES 
-          (var_identrada,var_precio,var_tipo,'Adulto',var_fecha,var_presenta.id,NULL);
+          (var_identrada,ROUND(var_precio,2),var_tipo,'Adulto',var_fecha,var_presenta.id,NULL);
         var_identrada := var_identrada + 1;
       END IF;
     END LOOP;
