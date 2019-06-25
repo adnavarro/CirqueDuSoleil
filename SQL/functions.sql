@@ -76,6 +76,80 @@ END;
 $$ LANGUAGE plpgsql;
 
 
+-- Listar disciplinas
+-- @param [mytipo] varchar
+-- @returns table
+-- SELECT * FROM listar_disciplinas();
+-- SELECT * FROM listar_disciplinas('Atleta');
+CREATE OR REPLACE FUNCTION listar_disciplinas(mytipo varchar DEFAULT NULL)
+RETURNS TABLE(id numeric, nombre varchar, tipo varchar) AS $$
+BEGIN
+  IF mytipo IS NOT NULL THEN
+    RETURN QUERY SELECT d.id, d.nombre, d.tipo FROM public.Disciplina d
+      WHERE d.tipo = mytipo ORDER BY d.nombre;
+  ELSE 
+    RETURN QUERY SELECT d.id, d.nombre, d.tipo 
+      FROM public.Disciplina d ORDER BY d.tipo, d.nombre;
+  END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- Listar audiciones por disciplina y ciudad
+-- @param iddisiplina numeric id del pais
+-- @param idciudad numeric id del pais
+-- @returns table
+-- SELECT * FROM listar_audiciones();
+-- SELECT * FROM listar_audiciones(null, 39);
+-- SELECT * FROM listar_audiciones(1);
+-- SELECT * FROM listar_audiciones(1, 39);
+CREATE OR REPLACE FUNCTION listar_audiciones(
+  iddisiplina numeric DEFAULT NULL, 
+  idciudad numeric DEFAULT NULL)
+RETURNS TABLE(id numeric, disciplina varchar, ciudad varchar, inicio timestamp) AS $$
+BEGIN
+  IF iddisiplina IS NOT NULL AND idciudad IS NOT NULL THEN
+    RETURN QUERY SELECT c.id, d.nombre, g.nombre, c.hora_in 
+      FROM public.Disciplina d, public.CalenAudicion c, public.LugarPresent l, public.LugarGeo g
+      WHERE c.id_LugarPreset = l.id AND c.id_Disci = d.id AND l.id_LugarGeo = g.id
+        AND d.id = iddisiplina AND g.id = idciudad
+      ORDER BY c.hora_in;
+  ELSIF iddisiplina IS NOT NULL THEN
+    RETURN QUERY SELECT c.id, d.nombre, g.nombre, c.hora_in 
+      FROM public.Disciplina d, public.CalenAudicion c, public.LugarPresent l, public.LugarGeo g
+      WHERE c.id_LugarPreset = l.id AND c.id_Disci = d.id AND l.id_LugarGeo = g.id
+        AND d.id = iddisiplina
+      ORDER BY g.nombre, c.hora_in;
+  ELSIF idciudad IS NOT NULL THEN
+    RETURN QUERY SELECT c.id, d.nombre, g.nombre, c.hora_in 
+      FROM public.Disciplina d, public.CalenAudicion c, public.LugarPresent l, public.LugarGeo g
+      WHERE c.id_LugarPreset = l.id AND c.id_Disci = d.id AND l.id_LugarGeo = g.id
+        AND g.id = idciudad
+      ORDER BY d.nombre, c.hora_in;
+  ELSE
+    RETURN QUERY SELECT c.id, d.nombre, g.nombre, c.hora_in 
+      FROM public.Disciplina d, public.CalenAudicion c, public.LugarPresent l, public.LugarGeo g
+      WHERE c.id_LugarPreset = l.id AND c.id_Disci = d.id AND l.id_LugarGeo = g.id
+      ORDER BY d.nombre, g.nombre, c.hora_in;
+  END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- Listar los aspirantes de una audicion
+-- @param idaudicion numeric
+-- @returns table
+-- SELECT * FROM listar_aspirantes(101);
+CREATE OR REPLACE FUNCTION listar_aspirantes(idaudicion numeric)
+RETURNS TABLE(id numeric, apellido varchar, nombre varchar, resultado boolean) AS $$
+BEGIN
+  RETURN QUERY SELECT a.id, a.apellido, a.nombre, A_A.resulta FROM A_A, Aspirante a
+    WHERE A_A.id_CalenAudicion = idaudicion AND A_A.id_Aspirante = a.id
+    ORDER BY a.apellido, a.nombre;
+END;
+$$ LANGUAGE plpgsql;
+
+
 -------------------------------------------
 -- Todo lo relacionado a presentaciones
 -------------------------------------------
@@ -372,7 +446,37 @@ BEGIN
   INSERT INTO public.artist VALUES (var_id, var_nombre, var_nombre2, var_apellido, var_apellido2, var_genero, var_fech_nac, var_idiomas, var_passport, apodo);
 END;
 $$ LANGUAGE plpgsql;
--- CALL copiar_aspiratne_artista(55, 'El Puma')
+-- CALL copiar_aspiratne_artista(55, 'El Puma');
+
+-- Aprobar un participante
+-- @param idaspirante numeric
+-- @param idaudicion numeric
+-- @param [apodo] varchar
+-- CALL aprobar_aspirante(56, 101);
+CREATE OR REPLACE PROCEDURE 
+aprobar_aspirante(idaspirante numeric, idaudicion numeric, apodo varchar DEFAULT '') AS $$
+DECLARE
+  var_resulta public.A_A.resulta%TYPE;
+  var_idartist public.Artist.id%TYPE;
+BEGIN
+  SELECT A_A.resulta INTO var_resulta FROM public.A_A 
+    WHERE A_A.id_CalenAudicion = idaudicion AND A_A.id_Aspirante = idaspirante;
+  IF NOT FOUND THEN 
+    RAISE EXCEPTION 'El participante % no audicionó en %', idaspirante, idaudicion;
+  ELSIF var_resulta THEN
+    RAISE EXCEPTION 'El participante % ya fue aceptado en esta audicion', idaspirante;
+  ELSE
+    -- Aprobar artista
+    UPDATE public.A_A SET resulta = TRUE 
+      WHERE A_A.id_CalenAudicion = idaudicion AND A_A.id_Aspirante = idaspirante;
+    SELECT a.id INTO var_idartist FROM public.Artist a WHERE a.id = idaspirante;
+    -- Inserta el artista solo si es la primera vez que queda
+    IF NOT FOUND THEN
+      CALL copiar_aspiratne_artista(55, apodo);
+    END IF;
+  END IF;
+END;
+$$ LANGUAGE plpgsql;
 
 -------------------------------------------
 -- Todo lo relacionado a Venta de entradas

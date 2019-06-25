@@ -66,9 +66,9 @@ http-serve
 
 ### Contratar un artista
 
-- [ ] Seleccionar audicion de lista de audiciones (disciplina, fechas) 
-- [ ] Seleccionar participante de lista de participantes (audicion)
-- [ ] Marcar participante como aprovado (participante)
+- [x] Seleccionar audicion de lista de audiciones (disciplina, ciudad) 
+- [x] Seleccionar participante de lista de participantes (audicion)
+- [x] Marcar participante como aprovado (participante)
 - [x] Copiar sus datos a los artistas (participante, apodo)
 
 ### Otros procesos
