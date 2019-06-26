@@ -43,9 +43,9 @@ http-serve
 - [x] Detalle de show
 - [x] Calendario de show
 - [x] Historico de show
-- [ ] Ficha de artista
+- [x] Ficha de artista
 - [x] Audiciones
-- [ ] Detalle de audiciones
+- [x] Detalle de audiciones
 - [ ] Entrada
 
 
