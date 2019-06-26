@@ -121,7 +121,7 @@ create table A_H(
 create table S_L (
 	id numeric(4) not null primary key,
 	id_Show numeric(4) not null references CirqueShow(id),
-	id_LugarGeo numeric (2) not null references LugarGeo(id),
+	id_LugarGeo numeric (4) not null references LugarGeo(id),
 	constraint Unico_SL unique(id_Show, id_LugarGeo)
 );
 

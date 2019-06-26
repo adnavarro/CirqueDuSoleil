@@ -140,7 +140,7 @@ INSERT INTO public.lugarpresent VALUES
  	(4,'Teatro','Gran Teatro de Québec',600,('269 Boulevard René-Lévesque',269014,'Es un complejo de artes en la ciudad de Quebec, Canadá.'),39),
  	(5,'Arena','Arena Shiriem',1000,('7400 Francis Square',91248,'Teatro muy reconocido.'),2),
  	(6,'Arena','Arena White Pal',1000,('8848 Hollywood Blvd, Hollywood',92458,'Teatro muy reconocido.'),3),
- 	(7,'Arena','Arena Lakers Playroom',1000,('5588 Hollywood Blvd, Hollywood',95489,'Teatro muy reconocido.'),10),
+ 	(7,'Arena','Arena Lakers Playroom',1000,('5588 Hollywood Blvd, Hollywood',95489,'Teatro muy reconocido.'),11),
  	(8,'Arena','Arena Horis',1000,('7558 Paris Garden',94578,'Teatro muy reconocido.'),13),
  	(9,'Arena','Arena Torino',1000,('6801 Hollywood Blvd, Hollywood',91595,'Teatro muy reconocido.'),14),
  	(10,'Arena','Arena Parker',1000,('0000 Hollywood Blvd, Hollywood',93575,'Teatro muy reconocido.'),15),
@@ -159,7 +159,7 @@ INSERT INTO public.lugarpresent VALUES
 
 INSERT INTO public.cirqueshow VALUES
 --INSERT OVO
-	(1,'OVO','Itinerante','http://127.0.0.1:8080/img/ovo.jpg',  
+	(1,'OVO','Itinerante','http://127.0.0.1:8000/static/img/ovo.jpg',  
   	CAST(ARRAY [('Apertura','El emocionante y ajetreado mundo está representado por la música de samba y las luces brillantes, luego una calma repentina, las luces brillantes cambian a luz natural cálida y la samba pesada se convierte en una canción de guitarra calmante.'),
 	('Malabarismo de Pies y Juegos Icarianos','Un grupo de hormigas hacen malabares con kiwis, maíz, rebanadas de berenjena y otras	hormigas, todas en sus pies.'),
 	('Balance de Mano','Una libélula solitaria se balancea precariamente en un bloque alto y giratorio.'),
@@ -179,7 +179,7 @@ INSERT INTO public.cirqueshow VALUES
 	'Ovo es una producción de circo itinerante del Cirque du Soleil que se estrenó en Montréal , Canadá , en 2009. La creadora y directora de Ovo , Deborah Colker , se inspiró en el mundo de los insectos . La idea para Ovo no era ser sobre los actos, ni el baile, ni los insectos, sino sobre el movimiento. El movimiento de la vida impregna todo el espectáculo con criaturas que vuelan, saltan, saltan y se arrastran. La compositora Berna Ceppas le dio vida adicional a Ovo con una música inspirada en la música de Brasil . Ovo significa huevo en portugués y representa el hilo subyacente a través del show. Gráficamente, dentro del logo de Ovo , hay un insecto. Las dos O representan los ojos y la V forma la nariz y las antenas.', 
 		true,'2009-04-23', null),
 --INSERT AMALUNA
-	(2,'Amaluna','Itinerante','http://127.0.0.1:8080/img/amaluna.jpg',  
+	(2,'Amaluna','Itinerante','http://127.0.0.1:8000/static/img/amaluna.jpg',  
   	CAST(ARRAY [('Concurso de Magia','La diosa Prospera reúne a todas las personas de la isla para celebrar el viaje de su hija Miranda hacia la condición de mujer a través de esta secuencia de baile de apertura'),
 	('Uniciclo','Dos artistas realizarían trucos en pequeños monociclos juntos, lanzándose entre ellos y con los monociclos.'),
 	('Correas Aéreas','La diosa de la tormenta se eleva sobre el escenario y la audiencia en un acto en solitario mientras Prospera evoca una tormenta que trae a un grupo de hombres a la isla, incluido Romeo, el nuevo amor de Miranda.'),
@@ -199,7 +199,7 @@ INSERT INTO public.cirqueshow VALUES
 	'Amaluna es un espectáculo itinerante del Cirque du Soleil , creado y dirigido por Diane Paulus . Se estrenó en Montréal , Québec, Canadá, el 19 de abril de 2012. Inspirado libremente por William Shakespeare s The Tempest ,la historia tiene lugar en una isla gobernada por diosas. Durante una tormenta, un grupo de hombres son arrastrados a la orilla. La hija de la reina se enamora de uno de los jóvenes, y las pruebas de su amor son la base de la narrativa principal del programa. El programa es notable por tener un reparto que es 70% femenino.', 
 	true,'2012-04-19',null),
 --INSERT ALEGRÍA
-	(3,'Alegría','Itinerante','http://127.0.0.1:8080/img/alegria.jpg',  
+	(3,'Alegría','Itinerante','http://127.0.0.1:8000/static/img/alegria.jpg',  
   	CAST(ARRAY [('Trapecio Sincronizado','Sentados en sus trapecios individuales, dos aerialistas ejecutan en una demostración de armonía y belleza. En esta rutina, el atrevido dúo desafía la ley de la gravedad con sus torsiones y maniobras en el aire, aumentando cada vez más las hazañas acrobáticas.'),
 	('Payasos','Los payasos demuestran una danza muy alegre.'),
 	('Powertrack','Los Bronx son los jóvenes y los duros; son la generación por venir. Individualmente así como pandilla, sus hazañas acrobáticas en el circuito rápido son la medida de su poder. Son fuertes, aunque también sensuales y elegantes. Son una fuerza imponente a la vez que una celebración de la juventud.'),
@@ -218,7 +218,7 @@ INSERT INTO public.cirqueshow VALUES
 	'Alegría fue el show más popular y más querido por todo el público del Cirque du Soleil. Desde su estreno en abril de 1994, se ha presentado más de 7.000 veces y visto por más de 14 millones de espectadores en más de 250 ciudades alrededor del mundo. Alegría se originó para ser un espectáculo superior con gira en carpa. Sin embargo, Alegría tomó un breve respiro y pasó a ser un show residente en la MGM Beau Rivage casino desde mayo de 1999 a octubre de 2000, año en el que retomó su gira mundial en carpa. Comenzando con su tour 2009 - 2010 América del Norte, el show fue convertido en formato de arena (sin carpa), que le permitió visitar ciudades que antes eran inaccesibles para el tour debido a su gran carpa. Realizó su última función el 29 de diciembre de 2018 en Ambéres (Bélgica).', 
 	true,'1994-10-11',null),
 --INSERT KURIOS
-	(4,'Kurios','Itinerante','http://127.0.0.1:8080/img/kurios.jpg',  
+	(4,'Kurios','Itinerante','http://127.0.0.1:8000/static/img/kurios.jpg',  
   	CAST(ARRAY [('Chaos Synchro 1900 (Juggling / Drums)','Un malabarista, percusionistas y bailarines realizan una fusión de acrobacias, excéntricos, acróbatas.'),
 	('Russian Cradle Duo','Un catcher arroja a su compañero al aire, donde ella realiza saltos más y más intrincados.'),
 	('Bicicleta aérea','Una mujer monta una bicicleta que despega al aire y realiza varios trucos parecidos a un trapecio.'),
@@ -238,7 +238,7 @@ INSERT INTO public.cirqueshow VALUES
 	'Kurios es una producción itinerante del Cirque du Soleil que se estrenó el 24 de abril de 2012 en Montréal, Québec , Canadá, bajo el título completo de Kurios: Gabinete de Curiosidades . Creado y dirigido por Michel Laprise, mira a un inventor mundial de finales del siglo XIX que inventa una máquina que desafía las leyes del tiempo, el espacio y la dimensión para reinventar todo a su alrededor conelementos steampunk con personajes de otra dimensión. Que interactúan con él y un homenaje al poder de la imaginación humana.',
 	true,'2012-04-24',null),
 --INSERT IRIS
-	(5,'Iris','Residente','http://127.0.0.1:8080/img/iris.jpg',  
+	(5,'Iris','Residente','http://127.0.0.1:8000/static/img/iris.jpg',  
   	CAST(ARRAY [('Dúo de correas aéreas','Los acrobátas empiezan a demostrar una fluidez rítmica en el aire.'),
 	('Sombras y contorsión','Los bailarines empiezan su baile con juego de luces y sombras.'),
 	('Mano a mano','Una danza personal se lleva a cabo.'),
@@ -261,7 +261,7 @@ INSERT INTO public.cirqueshow VALUES
 	'Iris era un espectáculo residente del Cirque du Soleil con sede en Los Ángeles, California. Se estrenó el 25 de septiembre de 2011, luego de las presentaciones preliminares que comenzaron el 21 de julio de 2011.',
 	false,'2011-09-25',1),
 --INSERT BAZZAR
-	(6,'Bazzar','Residente','http://127.0.0.1:8080/img/bazzar.jpg',  
+	(6,'Bazzar','Residente','http://127.0.0.1:8000/static/img/bazzar.jpg',  
   	CAST(ARRAY [('Bicicleta','Clic, clic, clic... Uno, dos, tres… las ruedas giran de nuevo. Los engranajes creativos se mueven. Los patinadores y ciclistas acrobáticos superhumanos encienden una sensación rítmica de rotación donde todo se conecta.'),
 	('Fuego','Un manipulador de fuego despeja el escenario, en una demostración brillante de entretención y trabajo en equipo.'),
 	('Mallakhamba','Por primera vez en la historia de Cirque du Soleil, los artistas muestran fortaleza y hazañas técnicas en un número de mallakhamb.'),
@@ -275,7 +275,7 @@ INSERT INTO public.cirqueshow VALUES
 	'Bazzar es un espectáculo residente del Cirque du Soleil con sede en Mumbai, India. Se estrenó el 14 de noviembre de 2008, que se encuentra basado en los mercados emergentes.',
 	true,'2008-11-14',2),
 --INSERT VOLTA
-	(7,'Volta','Itinerante','http://127.0.0.1:8080/img/volta.jpg',  
+	(7,'Volta','Itinerante','http://127.0.0.1:8000/static/img/volta.jpg',  
   	CAST(ARRAY [('Prólogo','Introducción de la obra.'),
   		('Saltar la cuerda','Los personajes saltan la cuerda.'),
 	('Caminata de precisión, patines y mano a mano en monociclo.','Ocurren danzas con monociclos.'),
@@ -308,7 +308,7 @@ INSERT INTO public.cirqueshow VALUES
 	'Volta es un show estrenado el 20 abril de 2007. Se basa en los deportes extremos.', 
 		true,'2007-04-20', null),
 --INSERT NOUVELLE EXPÉRIENCE
-	(8,'Nouvelle Expérience','Itinerante','http://127.0.0.1:8080/img/nouvelle.jpg',  
+	(8,'Nouvelle Expérience','Itinerante','http://127.0.0.1:8000/static/img/nouvelle.jpg',  
   	CAST(ARRAY [('Contorsión','Cuatro mujeres, vestidas de rosa, suben a una plataforma suspendida. Los cuatro giran y se doblan en posiciones increíbles.'),
   		('Tabla Coreana','Madame y la Corporación se acercan a un objeto parecido a un balancín en medio del escenario. Comienzan a saltar sobre los extremos, rebotando al ejecutante contrario en el aire. Pronto, comienzan a realizar giros y vueltas, e incluso forman torres colocando acróbatas sobre los hombros de otros acróbatas. '),
 	('Trapecio','Una mujer sube al escenario y se levanta hacia un trapecio.'),
@@ -339,7 +339,7 @@ INSERT INTO public.cirqueshow VALUES
 	'Nouvelle Expérience fue un espectáculo itinerante del Cirque du Soleil , que se estrenó el 8 de mayo de 1993.', 
 		false,'1993-05-08', null),
 --INSERT DELIRIUM
-	(9,'Delirium','Itinerante','http://127.0.0.1:8080/img/delirium.jpg',  
+	(9,'Delirium','Itinerante','http://127.0.0.1:8000/static/img/delirium.jpg',  
   	CAST(ARRAY [('Intro','Se da la bienvenida al público.'),
   		('Too High','Se desafía el límite de las alturas.'),
 	('3 Knocks','La audiencia quedará perpleja.'),
@@ -585,7 +585,7 @@ INSERT INTO public.S_L values
 (112,7,15),
 (113,7,19),
 (114,7,10),
-(115,7,16)
+(115,7,16),
 
 (116,8,38),
 (117,8,13),
@@ -1198,6 +1198,7 @@ INSERT INTO public.presenta values
 (1026,'18-06-2012 20:00:00',TRUE,null,37,null),
 (1027,'20-06-2012 20:00:00',TRUE,null,37,null),
 (1028,'22-06-2012 20:00:00',TRUE,null,37,null),
+
 (1029,'25-06-2012 20:00:00',TRUE,null,37,null),
 (1030,'28-06-2012 20:00:00',TRUE,null,37,null),
 (1031,'01-07-2012 20:00:00',TRUE,null,37,null),
