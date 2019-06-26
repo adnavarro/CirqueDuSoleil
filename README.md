@@ -69,14 +69,14 @@ http-serve
 - [x] Seleccionar participante de lista de participantes (audicion)
 - [x] Marcar participante como aprovado (participante)
 - [x] Copiar sus datos a los artistas (participante, apodo)
-- [ ] Validar edades de apirantes
+- [x] Validar edades de apirantes
 - [ ] Validar edades de artistas
 
 ### Audiciones
 
 - [x] Crear una audicion
-- [ ] Geneerar calendario de audiciones
-- [ ] Generar inscripciones para audiciones
+- [x] Generar inscripciones para audiciones
+- [ ] Validar disponibilidad
 
 ### Entradas
 

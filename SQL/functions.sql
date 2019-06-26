@@ -514,10 +514,31 @@ BEGIN
     var_maxid := 1;
   END IF;
   -- Validaciones con el trigger
-  INSERT INTO public.CalenAudicio VALUES 
+  INSERT INTO public.CalenAudicion VALUES 
   (var_maxid, hora_in, hora_fin, max_partici, cupos_disp, id_LugarPreset, id_Disci);
 END;
 $$ LANGUAGE plpgsql;
+
+-- Inscribir aspirante
+CREATE OR REPLACE PROCEDURE 
+inscribir_aspirante(idaudicion numeric, idaspirante numeric) AS $$
+DECLARE
+  var_fechaaudicion public.CalenAudicion.hora_in%TYPE;
+  var_fechanac public.Aspirante.fech_nac%TYPE;
+BEGIN
+  SELECT hora_in INTO STRICT var_fechaaudicion 
+  FROM public.CalenAudicion WHERE id = idaudicion;
+  SELECT fech_nac INTO STRICT var_fechanac 
+  FROM public.Aspirante WHERE id = idaspirante;
+  IF var_fechanac < (var_fechaaudicion - interval '30 years') THEN
+    raise exception 'Los aspirantes no pueden tener mas de 30 años al momento de la audicion';
+  ELSIF var_fechanac > (var_fechaaudicion - interval '18 years') THEN
+    raise exception 'Los aspirantes deben ser mayores de edad';
+  END IF;
+  INSERT INTO public.A_A VALUES (FALSE, idaspirante, idaudicion);
+END;
+$$ LANGUAGE plpgsql;
+
 
 -------------------------------------------
 -- Todo lo relacionado a Venta de entradas
