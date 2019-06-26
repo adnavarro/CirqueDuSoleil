@@ -29,12 +29,12 @@ http-serve
 - [x] Alegria 2001 -- 3000
 - [x] Kurios 3001 -- 4000
 - [x] Bazzar 5001 -- 6000
-- [ ] Volta 6001 -- 7000
+- [x] Volta 6001 -- 7000
 
 ### RETIRADOS:
-- [ ] IRIS (11-13) 4001 -- 5000
-- [ ] Nouvelle Experience (90-93) 7001 -- 8000
-- [ ] Delirium (06-08) 8001 -- 9000
+- [x] IRIS (11-13) 4001 -- 5000
+- [x] Nouvelle Experience (90-93) 7001 -- 8000
+- [x] Delirium (06-08) 8001 -- 9000
 
 
 ## Reportes
