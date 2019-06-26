@@ -1,6 +1,6 @@
 # CirqueDuSolei
 
-Proyecto de bases 2
+Proyecto de Sistemas de Bases de Datos II
 
 ## Requisitos
 
@@ -17,7 +17,8 @@ Proyecto de bases 2
 ### Nota:
 
 Para visualizar las imagenes en Power Bi necesitas ejecutar en consola (en la carpeta mysite del proyecto):
-```python manage.py runserver
+```
+python manage.py runserver
 ```
 
 ## Lista de shows del para el proyecto
