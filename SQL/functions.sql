@@ -1,6 +1,24 @@
 -- Archivo de funciones y procedimientos para el funcionamiento del negocio
 -- No confundir con las funciones de triggers
 
+-------------------------------------------
+-- Utilidades
+-------------------------------------------
+
+-- Obtener el ultimo id de una tabla
+-- @param mytable varchar
+-- @returns numeric
+CREATE OR REPLACE FUNCTION get_maxid(mytable varchar) RETURNS numeric AS $$
+DECLARE var_maxid numeric;
+BEGIN
+  SELECT MAX(id) INTO var_maxid FROM public.mytable;
+  IF NOT FOUND OR var_maxid IS NULL THEN
+    var_maxid := 1;
+  END IF;
+  RETURN var_maxid;
+END;
+$$ LANGUAGE plpgsql;
+
 
 -------------------------------------------
 -- Todo lo relacionado a listar contenido
@@ -478,6 +496,29 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- Crear una audicion en el calendario de audiciones
+CREATE OR REPLACE PROCEDURE 
+crear_aducion(
+	hora_in timestamp,
+	hora_fin timestamp,
+	max_partici numeric,
+	cupos_disp numeric,
+	id_LugarPreset numeric,
+	id_Disci numeric
+) AS $$
+DECLARE
+  var_maxid public.CalenAudicion.id%TYPE;
+BEGIN
+  SELECT MAX(id)+1 INTO var_maxid FROM public.CalenAudicion;
+  IF NOT FOUND OR var_maxid IS NULL THEN
+    var_maxid := 1;
+  END IF;
+  -- Validaciones con el trigger
+  INSERT INTO public.CalenAudicio VALUES 
+  (var_maxid, hora_in, hora_fin, max_partici, cupos_disp, id_LugarPreset, id_Disci);
+END;
+$$ LANGUAGE plpgsql;
+
 -------------------------------------------
 -- Todo lo relacionado a Venta de entradas
 -------------------------------------------
@@ -527,9 +568,23 @@ BEGIN
     var_maxid := 1; -- Primera venta
   END IF;
 
+  IF tipoPerson = 'Menor' THEN
+    precio := precio * 0.9;
+  ELSIF tipoPerson = 'Tercera edad' THEN
+    precio := precio * 0.8;
+  END IF;
+
   INSERT INTO public.Entrada VALUES 
   (var_maxid,precio,tipo,tipoPerson,fechaventa,idpresenta,idpadre);
   -- Nota: Las validaciones de menores se hacen con el trigger
+END;
+$$ LANGUAGE plpgsql;
+
+-- Obtener el ultimo id de las entradas (util para insertar un niño despues de un adulto)
+-- @returns numeric
+CREATE OR REPLACE FUNCTION get_ultima_entrada() RETURNS numeric AS $$
+BEGIN
+  RETURN QUERY SELECT MAX(id) INTO var_maxid FROM public.Entrada;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -564,7 +619,7 @@ DECLARE
   var_identrada public.entrada.id%TYPE;
 BEGIN
   SELECT MAX(id)+1 INTO var_identrada FROM public.entrada;
-  IF NOT FOUND THEN 
+  IF NOT FOUND OR var_identrada IS NULL THEN 
     var_identrada := 1;
   END IF;
   SELECT MAX(id) INTO var_maxpresenta FROM public.presenta;

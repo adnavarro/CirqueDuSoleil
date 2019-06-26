@@ -46,8 +46,6 @@ http-serve
 - [ ] Ficha de artista
 - [x] Audiciones
 - [ ] Detalle de audiciones
-- [ ] Detalle de audiciones
-- [ ] Detalle de audiciones
 - [ ] Entrada
 
 
@@ -59,6 +57,7 @@ http-serve
 - [x] Sugerir fecha itinerante (show)
 - [x] Insertar presentacion de residente (show, fecha)
 - [ ] Validar residentes con calendario semanal
+- [ ] Validar residentes entre enero-julio o septiembre-diciembre
 - [x] Ver lugares para itinerantes (show itinerante)
 - [x] Validar fechas por distancia de ciudades (show itinerante)
 - [x] Insertar presentacion de itinerante (show, lugar, fecha)
@@ -70,15 +69,25 @@ http-serve
 - [x] Seleccionar participante de lista de participantes (audicion)
 - [x] Marcar participante como aprovado (participante)
 - [x] Copiar sus datos a los artistas (participante, apodo)
+- [ ] Validar edades de apirantes
+- [ ] Validar edades de artistas
+
+### Audiciones
+
+- [x] Crear una audicion
+- [ ] Geneerar calendario de audiciones
+- [ ] Generar inscripciones para audiciones
+
+### Entradas
+
+- [x] Vender entradas y aplicar descuento si corresponde
+- [ ] Validar disponibilidad
+- [ ] Cambiar valor de las entradas
 
 ### Otros procesos
 
-- [x] Vender entradas
-- [ ] Validar disponibilidad
-- [ ] Asignar artistas a personajes
-- [ ] Crear una audicion
-- [ ] Generar inscripciones para audiciones
-- [ ] Cambiar valor de las entradas
+- [ ] Asignar artistas a personajes y guardarlo en su historico
+- [ ] Conversion monetaria :(
 - [ ] Registrar datos de forma bonita
 
 ## Comandos de consola (pgsql)

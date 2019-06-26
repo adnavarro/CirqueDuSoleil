@@ -121,3 +121,16 @@ create trigger tr_PresentaItine before insert on Presenta
 for each row when (new.id_Show=null) execute procedure val_Presenta_Itine();
 
 -- Validar edades de artistas y aspiranets
+
+-- TRIGGER PARA VALIDAR LAS HORAS DE LOS CALENDARIOS DE AUDICION
+create or replace function val_horas_audiciones() 
+returns trigger as $val_horas_audiciones$
+begin
+	if new.hora_in > new.hora_fin then
+		raise exception 'Ingrese primero la hora de inicio y luego la de finalización';
+	end if;
+end;
+$val_horas_audiciones$ language plpgsql;
+
+create trigger val_horas_audiciones before insert on CalenAudicion
+for each row execute procedure val_horas_audiciones();
