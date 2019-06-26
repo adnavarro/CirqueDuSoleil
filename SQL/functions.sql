@@ -9,13 +9,13 @@
 -- @param mytable varchar
 -- @returns numeric
 CREATE OR REPLACE FUNCTION get_maxid(mytable varchar) RETURNS numeric AS $$
-DECLARE var_maxid numeric;
+DECLARE
+  var_consulta varchar;
+  var_id numeric;
 BEGIN
-  SELECT MAX(id) INTO var_maxid FROM public.mytable;
-  IF NOT FOUND OR var_maxid IS NULL THEN
-    var_maxid := 1;
-  END IF;
-  RETURN var_maxid;
+  var_consulta := 'SELECT MAX(id) FROM ' || mytable || ';';
+  EXECUTE var_consulta INTO var_id;
+  RETURN var_id;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -584,7 +584,7 @@ $$ LANGUAGE plpgsql;
 -- @returns numeric
 CREATE OR REPLACE FUNCTION get_ultima_entrada() RETURNS numeric AS $$
 BEGIN
-  RETURN QUERY SELECT MAX(id) INTO var_maxid FROM public.Entrada;
+  RETURN MAX(id) FROM public.Entrada;
 END;
 $$ LANGUAGE plpgsql;
 
