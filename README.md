@@ -5,8 +5,8 @@ Proyecto de bases 2
 ## Requisitos
 
 1. [PostgreSQL](https://www.postgresql.org/)
-2. [node.js](https://nodejs.org/en/)
-3. [http-server](https://www.npmjs.com/package/http-server) *globalmente con npm*
+2. [Python](https://www.python.org/downloads/)
+3. [Django](https://docs.djangoproject.com/en/2.2/howto/windows/)
 4. [Power BI](https://powerbi.microsoft.com/en-us/)
 
 ## Base de datos
@@ -16,9 +16,8 @@ Proyecto de bases 2
 
 ### Nota:
 
-Para visualizar las imagenes en Power Bi necesitas ejecutar el servidor local en esta ruta
-```sh
-http-serve
+Para visualizar las imagenes en Power Bi necesitas ejecutar en consola (en la carpeta mysite del proyecto):
+```python manage.py runserver
 ```
 
 ## Lista de shows del para el proyecto
@@ -46,7 +45,7 @@ http-serve
 - [x] Ficha de artista
 - [x] Audiciones
 - [x] Detalle de audiciones
-- [ ] Entrada
+- [x] Entrada
 
 
 ## Procedimientos de optimizacion
@@ -106,5 +105,4 @@ CREATE SCHEMA public;
 \i C:/CirqueDuSoleil/insert-aspirantes.sql;
 \i C:/CirqueDuSoleil/insert-artistas.sql;
 \i C:/CirqueDuSoleil/insert-A_H-D_A-A_A-Audiciones-Historial.sql;
-\i C:/CirqueDuSoleil/VIEW.sql;
 ```
