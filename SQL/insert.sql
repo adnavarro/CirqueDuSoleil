@@ -151,14 +151,14 @@ INSERT INTO public.lugarpresent VALUES
   (15,'Arena','Honori Arena',1000,('6589 Hollywood Blvd, Hollywood',94568,'Arena muy reconocida.'),22),
   (16,'Arena','Korkoei',1000,('6848 Hollywood Blvd, Hollywood',94562,'Arena muy reconocida.'),23),
   (17,'Arena','Zapdos Arena',1000,('5487 Hollywood Blvd, Hollywood',91973,'Arena muy reconocida.'),24),
-  (18,'Arena','People Arena',1000,('5548 Hosono  NW 18th street,95824,'Arena muy reconocida.'),25),
+  (18,'Arena','People Arena',1000,('5548 Hosono  NW 18th street', 95824, 'Arena muy reconocida.'),25),
   (19,'Arena','Noan Arena',1000,('7777 Turkaei, Sorissa',90258,'Arena muy reconocida.'),41),
   (20,'Arena','Tsolos Arena',1000,('4569 HR street',98532,'Arena muy reconocida.'),42),
   (21,'Arena','Best Star Arena',1000,('5899 24Th Street ',91458,'Arena muy reconocida.'),43),
   (22,'Teatro','Teatro de la Bastilla',1000,('Place de la Bastille',75012,'La Ópera de la Bastilla es un teatro de ópera moderno de la ciudad de París, situada en el XII Distrito.'),50),
   (23,'Teatro','Teatro Tívoli',2740,(' Carrer de Casp, 8',08010,'El teatro Tívoli es una sala de espectáculos de Barcelona dedicada al teatro y al cine.'),84),
   (24,'Teatro','Teatro de Dubái',950,('Sheikh Mohammed bin Rashid Blvd',041298,'La Ópera de Dubái o Dubai Opera House es un centro cultural de la propuesta de Lagunas de distrito de Dubái, Emiratos Árabes Unidos.'),95),
-  (25,'Teatro','',1000,('Ginza, Chuo City',1040061,'Kabuki-za es el principal teatro de Kabuki de Tokio, Japón. Se encuentra en el barrio de Ginza. El Kabuki-za fue inaugurado por el periodista Fukuchi Gen'ichirō en la era Meiji.'),9);
+  (25,'Teatro','',1000,('Ginza, Chuo City',1040061,'Kabuki-za es el principal teatro de Kabuki de Tokio, Japón. Se encuentra en el barrio de Ginza. El Kabuki-za fue inaugurado por el periodista Fukuchi Gen ichirō en la era Meiji.'),9);
 
 
 INSERT INTO public.cirqueshow VALUES
