@@ -56,8 +56,8 @@ python manage.py runserver
 - [x] Ver lista de shows activos
 - [x] Sugerir fecha itinerante (show)
 - [x] Insertar presentacion de residente (show, fecha)
-- [ ] Validar residentes con calendario semanal
-- [ ] Validar residentes entre enero-julio o septiembre-diciembre
+- [X] Generar residentes con calendario semanal
+- [x] Validar residentes entre enero-julio o septiembre-diciembre
 - [x] Ver lugares para itinerantes (show itinerante)
 - [x] Validar fechas por distancia de ciudades (show itinerante)
 - [x] Insertar presentacion de itinerante (show, lugar, fecha)
@@ -70,23 +70,24 @@ python manage.py runserver
 - [x] Marcar participante como aprovado (participante)
 - [x] Copiar sus datos a los artistas (participante, apodo)
 - [x] Validar edades de apirantes
-- [ ] Validar edades de artistas
+- [x] Asignar artistas a personajes y guardarlo en su historico
+- [x] Validar edades de artistas
 
 ### Audiciones
 
 - [x] Crear una audicion
 - [x] Generar inscripciones para audiciones
-- [ ] Validar disponibilidad
+- [x] Validar disponibilidad cupos y capacidad
 
 ### Entradas
 
 - [x] Vender entradas y aplicar descuento si corresponde
 - [ ] Validar disponibilidad
-- [ ] Cambiar valor de las entradas
+- [x] Cambiar valor de las entradas
+- [x] Obtener precio
 
 ### Otros procesos
 
-- [ ] Asignar artistas a personajes y guardarlo en su historico
 - [ ] Conversion monetaria :(
 - [ ] Registrar datos de forma bonita
 
@@ -107,3 +108,5 @@ CREATE SCHEMA public;
 \i C:/CirqueDuSoleil/insert-artistas.sql;
 \i C:/CirqueDuSoleil/insert-A_H-D_A-A_A-Audiciones-Historial.sql;
 ```
+
+Cambiar 'null' por null en los aspirantes;

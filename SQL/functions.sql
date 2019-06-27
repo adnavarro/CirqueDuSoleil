@@ -117,10 +117,6 @@ $$ LANGUAGE plpgsql;
 -- @param iddisiplina numeric id del pais
 -- @param idciudad numeric id del pais
 -- @returns table
--- SELECT * FROM listar_audiciones();
--- SELECT * FROM listar_audiciones(null, 39);
--- SELECT * FROM listar_audiciones(1);
--- SELECT * FROM listar_audiciones(1, 39);
 CREATE OR REPLACE FUNCTION listar_audiciones(
   iddisiplina numeric DEFAULT NULL, 
   idciudad numeric DEFAULT NULL)
@@ -157,16 +153,43 @@ $$ LANGUAGE plpgsql;
 -- Listar los aspirantes de una audicion
 -- @param idaudicion numeric
 -- @returns table
--- SELECT * FROM listar_aspirantes(101);
 CREATE OR REPLACE FUNCTION listar_aspirantes(idaudicion numeric)
-RETURNS TABLE(id numeric, apellido varchar, nombre varchar, resultado boolean) AS $$
+RETURNS TABLE(id numeric, apellidos text, nombres text, resultado boolean) AS $$
 BEGIN
-  RETURN QUERY SELECT a.id, a.apellido, a.nombre, A_A.resulta FROM A_A, Aspirante a
+  RETURN QUERY SELECT a.id, (a.apellido || ' ' || COALESCE(a.apellido2, '')) AS ape, 
+      (a.nombre || ' ' || COALESCE(a.nombre2, '')) AS nom, A_A.resulta 
+    FROM A_A, Aspirante a
     WHERE A_A.id_CalenAudicion = idaudicion AND A_A.id_Aspirante = a.id
-    ORDER BY a.apellido, a.nombre;
+    ORDER BY ape, nom;
 END;
 $$ LANGUAGE plpgsql;
 
+
+-- Listar artistas
+-- @returns table
+CREATE OR REPLACE FUNCTION listar_artistas()
+RETURNS TABLE(id numeric, apellidos text, nombres text) AS $$
+BEGIN
+  RETURN QUERY 
+    SELECT a.id, (a.apellido || ' ' || COALESCE(a.apellido2, '')) AS ape, 
+      (a.nombre || ' ' || COALESCE(a.nombre2, '')) AS nom
+    FROM Artist a ORDER BY ape, nom;
+END;
+$$ LANGUAGE plpgsql;
+-- SELECT * FROM listar_artistas();
+
+
+-- Listar personajes de un show
+-- @param idshow numeric
+-- @returns table
+CREATE OR REPLACE FUNCTION listar_personajes(idshow numeric)
+RETURNS TABLE(id numeric, nombre varchar) AS $$
+BEGIN
+  RETURN QUERY 
+    SELECT p.id, p.nombre FROM Personaje p WHERE p.id_Show = idshow;
+END;
+$$ LANGUAGE plpgsql;
+-- SELECT * FROM listar_personajes();
 
 -------------------------------------------
 -- Todo lo relacionado a presentaciones
@@ -301,6 +324,7 @@ DECLARE
   var_idultimolugar public.LugarGeo.id%TYPE;
   var_ultimafecha public.presenta.fecha%TYPE;
   var_distancia integer;
+  var_mes integer;
 BEGIN
   -- Validar que la fecha sea posterior a hoy
   IF validarFecha AND myfecha < (SELECT NOW()) THEN
@@ -325,8 +349,13 @@ BEGIN
   
   -- Insertar Residente
   IF var_tiposhow = 'Residente' THEN
-    INSERT INTO public.presenta VALUES
- 	    (var_maxid,myfecha,(myfecha < (SELECT NOW())),idshow,null,null);
+    var_mes := EXTRACT(MONTH FROM myfecha);
+    IF (var_mes >= 1 AND var_mes <= 7) OR (var_mes >= 9 AND var_mes <= 12) THEN
+      INSERT INTO public.presenta VALUES
+ 	      (var_maxid,myfecha,(myfecha < (SELECT NOW())),idshow,null,null);
+    ELSE
+      RAISE EXCEPTION 'Las presentaciones de los shows residentes deben ser entre enero y julio o entre septimbre y diciembre';
+    END IF;
   END IF;
 
   -- Insertar Itinerante
@@ -382,17 +411,17 @@ $$ LANGUAGE plpgsql;
 -- @param [hora2] time 
 -- @param [diasintervalo] integer
 CREATE OR REPLACE PROCEDURE 
-generar_calendario(
+generar_calendario_itinerante(
     idshow numeric, 
     idlugar numeric,
     fecha_inicio date, 
     fecha_final date,
     hora1 time,
     hora2 time DEFAULT NULL,
-    diasintervalo integer DEFAULT 1/*Ideal seria poner [] dias de la semana*/) AS $$
+    diasintervalo integer DEFAULT 1) AS $$
 DECLARE
   var_tiposhow public.CirqueShow.tipo%TYPE;
-  var_idpresentacion public.s_l.id%TYPE;
+  var_idpresentacion public.presenta.id%TYPE;
   var_fecha timestamp;
   var_intervalo integer;
 BEGIN
@@ -409,7 +438,7 @@ BEGIN
     RAISE EXCEPTION 'Show con id: % no encontreado', idshow;
   END IF;
   IF var_tiposhow = 'Residente' THEN
-    RAISE EXCEPTION 'Lo sentimos, de momento está funcion no esta disponible para shows residentes';
+    RAISE EXCEPTION 'Lo sentimos, esta funcion no esta disponible para shows residentes';
   END IF;
 
   SELECT p.id INTO var_idpresentacion FROM public.s_l, public.presenta p
@@ -419,6 +448,7 @@ BEGIN
     RAISE EXCEPTION 'No se pueden insertar presentaciones. Ya existen dentro de este rango';
   ELSE
     -- Generar el calendario
+    --var_intervalo := EXTRACT(DAY FROM (fecha_final - fecha_inicio));
     var_intervalo := fecha_final - fecha_inicio;
     FOR i IN 0..var_intervalo BY diasintervalo LOOP
       var_fecha := fecha_inicio + i * interval '1 day' + hora1;
@@ -432,8 +462,65 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+
+-- Generar calendario con 3 dias y fecha de finalizacion
+-- @param idshow numeric
+-- @param fecha_i1 timestamp
+-- @param fecha_i2 timestamp
+-- @param fecha_i3 timestamp
+-- @param fecha_final timestamp
+CREATE OR REPLACE PROCEDURE 
+generar_calendario_residente(
+    idshow numeric,
+    fecha_i1 timestamp, 
+    fecha_i2 timestamp, 
+    fecha_i3 timestamp, 
+    fecha_final timestamp) AS $$
+DECLARE
+  var_tiposhow public.CirqueShow.tipo%TYPE;
+  var_idpresentacion public.presenta.id%TYPE;
+  var_fecha timestamp;
+  var_intervalo integer;
+BEGIN  
+  SELECT tipo INTO var_tiposhow
+    FROM public.CirqueShow WHERE id = idshow;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Show con id: % no encontreado', idshow;
+  END IF;
+  IF var_tiposhow = 'Itinerante' THEN
+    RAISE EXCEPTION 'Lo sentimos, esta funcion es solo para residentes';
+  END IF;
+
+  SELECT p.id INTO var_idpresentacion FROM public.presenta p
+  WHERE p.fecha >= fecha_i1;
+  --WHERE p.fecha >= fecha_i1 OR p.fecha >= fecha_i2 OR p.fecha >= fecha_i3;
+
+  IF FOUND THEN
+    RAISE EXCEPTION 'No se pueden insertar presentaciones. Ya existen dentro de este rango';
+  ELSE
+    -- Generar el calendario
+    
+    var_intervalo := EXTRACT(DAY FROM (fecha_final - fecha_i1));
+    FOR i IN 0..var_intervalo BY 7 LOOP
+      
+      var_fecha := fecha_i1 + i * interval '1 day';
+      CALL insertar_presentacion(idshow, var_fecha);
+      IF fecha_i2 IS NOT NULL THEN
+        var_fecha := fecha_i2 + i * interval '1 day';
+        CALL insertar_presentacion(idshow, var_fecha);
+      END IF;
+      IF fecha_i3 IS NOT NULL THEN
+        var_fecha := fecha_i3 + i * interval '1 day';
+        CALL insertar_presentacion(idshow, var_fecha);
+      END IF;
+    END LOOP;
+  END IF;  
+END;
+$$ LANGUAGE plpgsql;
+
+
 -------------------------------------------
--- Todo lo relacionado a Audiciones
+-- Todo lo relacionado a Audiciones y Artistas
 -------------------------------------------
 
 -- Procedimiento para copiar los datos de un aspirante a la tabla de artista
@@ -476,7 +563,16 @@ aprobar_aspirante(idaspirante numeric, idaudicion numeric, apodo varchar DEFAULT
 DECLARE
   var_resulta public.A_A.resulta%TYPE;
   var_idartist public.Artist.id%TYPE;
+  var_cupos public.CalenAudicion.cupos_disp%TYPE;
+  var_aprobados numeric;
 BEGIN
+  SELECT cupos_disp INTO STRICT var_cupos
+    FROM public.CalenAudicion WHERE id = idaudicion;
+  var_aprobados := COUNT(*) FROM A_A WHERE id_CalenAudicion = idaudicion AND resulta = TRUE;
+  IF var_aprobados >= var_cupos THEN
+    RAISE EXCEPTION 'Se agotaron los cupos disponibles para esta audición';
+  END IF;
+  
   SELECT A_A.resulta INTO var_resulta FROM public.A_A 
     WHERE A_A.id_CalenAudicion = idaudicion AND A_A.id_Aspirante = idaspirante;
   IF NOT FOUND THEN 
@@ -487,8 +583,8 @@ BEGIN
     -- Aprobar artista
     UPDATE public.A_A SET resulta = TRUE 
       WHERE A_A.id_CalenAudicion = idaudicion AND A_A.id_Aspirante = idaspirante;
-    SELECT a.id INTO var_idartist FROM public.Artist a WHERE a.id = idaspirante;
     -- Inserta el artista solo si es la primera vez que queda
+    SELECT a.id INTO var_idartist FROM public.Artist a WHERE a.id = idaspirante;
     IF NOT FOUND THEN
       CALL copiar_aspiratne_artista(55, apodo);
     END IF;
@@ -524,24 +620,89 @@ CREATE OR REPLACE PROCEDURE
 inscribir_aspirante(idaudicion numeric, idaspirante numeric) AS $$
 DECLARE
   var_fechaaudicion public.CalenAudicion.hora_in%TYPE;
+  var_capacidad public.CalenAudicion.max_partici%TYPE;
   var_fechanac public.Aspirante.fech_nac%TYPE;
 BEGIN
-  SELECT hora_in INTO STRICT var_fechaaudicion 
-  FROM public.CalenAudicion WHERE id = idaudicion;
+  SELECT hora_in, max_partici INTO STRICT var_fechaaudicion, var_capacidad
+    FROM public.CalenAudicion WHERE id = idaudicion;
   SELECT fech_nac INTO STRICT var_fechanac 
-  FROM public.Aspirante WHERE id = idaspirante;
+    FROM public.Aspirante WHERE id = idaspirante;
   IF var_fechanac < (var_fechaaudicion - interval '30 years') THEN
-    raise exception 'Los aspirantes no pueden tener mas de 30 años al momento de la audicion';
+    RAISE EXCEPTION 'Los aspirantes no pueden tener mas de 30 años al momento de la audicion';
   ELSIF var_fechanac > (var_fechaaudicion - interval '18 years') THEN
-    raise exception 'Los aspirantes deben ser mayores de edad';
+    RAISE EXCEPTION 'Los aspirantes deben ser mayores de edad';
   END IF;
-  INSERT INTO public.A_A VALUES (FALSE, idaspirante, idaudicion);
+  IF var_capacidad > (SELECT COUNT(*) FROM A_A WHERE id_CalenAudicion = idaudicion) THEN
+    INSERT INTO public.A_A VALUES (FALSE, idaspirante, idaudicion);
+  ELSE
+    RAISE EXCEPTION 'La audición llegó al maximo de participantes disponibles';
+  END IF;
 END;
 $$ LANGUAGE plpgsql;
 
 
+-- Asignar a un artista en un persjonaje
+-- @param idartista numeric
+-- @param idpersonaje numeric
+-- @param [fecha] date
+CREATE OR REPLACE PROCEDURE 
+cerrar_periodo_artista(idartista numeric, idpersonaje numeric, fecha date DEFAULT NOW()) AS $$
+DECLARE
+  var_fechain public.Hist_Show_Per_Art.fech_in%TYPE;
+BEGIN
+  -- Actualizar fecha fin
+  SELECT hpa.fech_in INTO var_fechain 
+  FROM public.Hist_Show_Per_Art hpa 
+  WHERE hpa.id_Artist = idartista AND hpa.id_Personaje = idpersonaje AND hpa.fech_fin IS NULL;
+  IF FOUND AND var_fechain IS NOT NULL THEN
+    IF var_fechain < fecha THEN
+      UPDATE public.Hist_Show_Per_Art SET fech_fin = fecha 
+      WHERE id_Artist = idartista AND id_Personaje = idpersonaje AND fech_in = var_fechain; 
+    ELSE
+      RAISE EXCEPTION 
+        'La fecha ingresada es anterior a la ultima fecha de inicio del artista, debe ser posterior a %', var_fechain;
+    END IF;
+  END IF;
+END;
+$$ LANGUAGE plpgsql;
+-- CALL cerrar_periodo_artista(45, 1, '01-07-2019');
+
+
+-- Asignar a un artista en un persjonaje
+-- @param idartista numeric
+-- @param idpersonaje numeric
+-- @param [fecha] date
+CREATE OR REPLACE PROCEDURE 
+asignar_artista_personaje(idartista numeric, idpersonaje numeric, fecha date DEFAULT NOW()) AS $$
+DECLARE
+  var_idpersonaje public.Hist_Show_Per_Art.id_Personaje%TYPE;
+  var_fechanac public.Artist.fech_nac%TYPE;
+BEGIN
+  -- Validar edades
+  SELECT fech_nac INTO STRICT var_fechanac 
+  FROM public.Artist WHERE id = idartista;
+  IF var_fechanac < (fecha - interval '33 years') THEN
+    raise exception 'Los artistas no pueden tener mas de 33 años al momento de desempeñar un personaje';
+  ELSIF var_fechanac > (fecha - interval '18 years') THEN
+    raise exception 'Los artistas deben ser mayores de edad';
+  END IF;
+  -- Actualizar fecha fin
+  SELECT hpa.id_Personaje INTO var_idpersonaje 
+  FROM public.Hist_Show_Per_Art hpa 
+  WHERE hpa.id_Artist = idartista AND hpa.fech_fin IS NULL;
+  IF FOUND AND var_idpersonaje IS NOT NULL THEN
+    CALL cerrar_periodo_artista(idartista, var_idpersonaje, fecha);
+  END IF;
+  -- Insertar en historico
+  INSERT INTO public.Hist_Show_Per_Art VALUES (fecha, NULL, idartista, idpersonaje);
+END;
+$$ LANGUAGE plpgsql;
+-- CALL asignar_artista_personaje(45, 1);
+-- SELECT * FROM Hist_Show_Per_Art WHERE id_Artist = 45;
+
+
 -------------------------------------------
--- Todo lo relacionado a Venta de entradas
+-- Todo lo relacionado a entradas
 -------------------------------------------
 
 -- Vender entradas para las presentaciones
@@ -610,6 +771,27 @@ END;
 $$ LANGUAGE plpgsql;
 
 
+-- Actualizar el precio de una entrada
+-- @param tipo varchar
+-- @param precio numeric
+CREATE OR REPLACE PROCEDURE actualizar_precio(tipo varchar, precio numeric) AS $$
+DECLARE
+  var_maxid public.Hist_Precio.id%TYPE;
+BEGIN
+  var_maxid := get_maxid('Hist_Precio') + 1;
+  INSERT INTO public.Hist_Precio VALUES 
+    (var_maxid, NOW(), UPPER(tipo), precio, NULL);
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- Obtener precio base de un tipo de entrada
+-- @returns numeric
+CREATE OR REPLACE FUNCTION get_precio(mytipo varchar) RETURNS numeric AS $$
+BEGIN
+  RETURN precio FROM Hist_Precio WHERE tipo = UPPER(mytipo) AND fech_fin IS NULL;
+END;
+$$ LANGUAGE plpgsql;
 
 
 

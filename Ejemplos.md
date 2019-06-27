@@ -119,3 +119,14 @@ distancia_ciudades(19, 93)
 ```pgsql
 CALL dev_llenar_entradas(400);
 ```
+
+
+# Reordenar
+
+-- SELECT * FROM listar_audiciones();
+-- SELECT * FROM listar_audiciones(null, 39);
+-- SELECT * FROM listar_audiciones(1);
+-- SELECT * FROM listar_audiciones(1, 39);
+-- SELECT * FROM listar_aspirantes(101);
+-- SELECT * FROM Hist_Precio;
+-- CALL actualizar_precio('A', 51);
