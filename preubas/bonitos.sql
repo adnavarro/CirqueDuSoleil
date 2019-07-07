@@ -8,8 +8,8 @@ FROM
 	CirqueShow c,
 	LugarGeo l,
   LugarGeo Lu,
-	Entrada e,
-	Presenta p
+	Presenta p,
+	Entrada e
 WHERE
 	p.id_Show = c.id AND
 	e.id_Presenta = p.id AND
@@ -32,3 +32,31 @@ FROM
   INNER JOIN Presenta p on s.id = p.id_SL
   INNER JOIN Entrada e on e.id_Presenta = p.id
 GROUP BY c.nombre, lu.nombre, date_part('year', p.fecha), semestre;
+
+
+-- Ingresos por año
+SELECT 
+	c.nombre,
+  date_part('year', p.fecha),
+  date_part('year', p.fecha + 1),
+	SUM(e.precio)
+FROM
+	CirqueShow c,
+	Presenta p,
+	Entrada e
+WHERE
+	p.id_Show = c.id AND
+	e.id_Presenta = p.id AND
+  p.fecha 
+GROUP BY c.nombre, date_part('year', p.fecha);
+UNION
+SELECT 
+	c.nombre as show,
+  date_part('year', p.fecha),
+	SUM(e.precio)
+FROM
+	CirqueShow c
+  INNER JOIN s_L s ON c.id = s.id_show
+  INNER JOIN Presenta p on s.id = p.id_SL
+  INNER JOIN Entrada e on e.id_Presenta = p.id
+GROUP BY c.nombre, date_part('year', p.fecha);
