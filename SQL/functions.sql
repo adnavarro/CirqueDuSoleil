@@ -812,7 +812,6 @@ dev_llenar_entradas(cantidadPorShow numeric(4)) AS $$
 DECLARE
   var_presenta RECORD;
   var_random numeric;
-  var_precioporpresentacion numeric;
   var_precio numeric;
   var_tipo varchar;
   var_fecha timestamp;
@@ -839,24 +838,21 @@ BEGIN
     IF cantidadPorShow >= 100 THEN 
       var_cantidadporshow := var_cantidadporshow + (SELECT RANDOM() * cantidadPorShow * 0.1);
     END IF;
-    -- Insertar entradas
-    var_precioporpresentacion := (SELECT RANDOM() * 100 + 50);
     FOR i IN 1..var_cantidadporshow LOOP
-      var_precio := var_precioporpresentacion;
       -- Datos de las entradas
       SELECT RANDOM() INTO var_random;
       IF var_random < 0.5 THEN
         var_tipo := 'A';
-        var_precio := var_precio;
+        var_precio := 50.00;
       ELSIF var_random < 0.75 THEN 
         var_tipo := 'B';
-        var_precio := var_precio * 2;
+        var_precio := 100.00;
       ELSIF var_random < 0.9 THEN 
         var_tipo := 'C';
-        var_precio := var_precio * 2.5;
+        var_precio := 130.00;
       ELSE
         var_tipo := 'VIP';
-        var_precio := var_precio * 3.5;
+        var_precio := 225.00;
       END IF;
       var_fecha := var_presenta.fecha - RANDOM() * interval '5 days' - interval '2 hours';
       -- Insertar
