@@ -37,8 +37,7 @@ GROUP BY c.nombre, lu.nombre, date_part('year', p.fecha), semestre;
 -- Ingresos por año
 SELECT 
 	c.nombre,
-  date_part('year', p.fecha),
-  date_part('year', p.fecha + 1),
+  date_part('year', p.fecha) as ano,
 	SUM(e.precio)
 FROM
 	CirqueShow c,
@@ -46,9 +45,8 @@ FROM
 	Entrada e
 WHERE
 	p.id_Show = c.id AND
-	e.id_Presenta = p.id AND
-  p.fecha 
-GROUP BY c.nombre, date_part('year', p.fecha);
+	e.id_Presenta = p.id
+GROUP BY c.nombre, ano
 UNION
 SELECT 
 	c.nombre as show,
