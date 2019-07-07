@@ -263,7 +263,7 @@ INSERT INTO public.cirqueshow VALUES
     'Scarlett voladora ( trapecio solitario )','Juguetes viejos','Film Noir / Pursuit ( Film noir scene)',
     'Techos ( Trampolines )','Scarlett Balancing ( Balanceo de manos sobre bastones)','Iris Finale y Arcos'],
   'Iris era un espectáculo residente del Cirque du Soleil con sede en Los Ángeles, California. Se estrenó el 25 de septiembre de 2011, luego de las presentaciones preliminares que comenzaron el 21 de julio de 2011.',
-  false,'2011-09-25',1),
+  false,'2011-09-25',3),
 --INSERT BAZZAR
   (6,'Bazzar','Residente','http://127.0.0.1:8000/static/img/bazzar.jpg',  
     CAST(ARRAY [('Bicicleta','Clic, clic, clic... Uno, dos, tres… las ruedas giran de nuevo. Los engranajes creativos se mueven. Los patinadores y ciclistas acrobáticos superhumanos encienden una sensación rítmica de rotación donde todo se conecta.'),
