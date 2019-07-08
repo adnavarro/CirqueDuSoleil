@@ -25,7 +25,8 @@ python manage.py runserver
 
 - [ ] top3 espectáculos por país y continente según total de asistentes (año, semestre);
   - [ ] por pais
-    - [ ] año semestre
+    - [ ] año 
+    - [x] semestre
   - [ ] por continente
     - [ ] año
     - [ ] semestre
@@ -59,7 +60,12 @@ CREATE SCHEMA public;
 \i C:/CirqueDuSoleil/insert-aspirantes.sql;
 \i C:/CirqueDuSoleil/insert-artistas.sql;
 \i C:/CirqueDuSoleil/insert-A_H-D_A-A_A-Audiciones-Historial.sql;
+
 ```
 
 
+```pgsql
 CALL dev_llenar_entradas(101);
+\i C:/CirqueDuSoleil/transicion.sql;
+
+```
