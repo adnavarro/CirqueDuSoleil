@@ -23,13 +23,13 @@ python manage.py runserver
 
 ## DataMart
 
-- [ ] top3 espectáculos por país y continente según total de asistentes (año, semestre);
-  - [ ] por pais
-    - [ ] año 
+- [x] top3 espectáculos por país y continente según total de asistentes (año, semestre);
+  - [x] por pais
+    - [x] año 
     - [x] semestre
-  - [ ] por continente
-    - [ ] año
-    - [ ] semestre
+  - [x] por continente
+    - [x] año
+    - [x] semestre
 - [ ] top3 espectáculos según ingresos generados (año, bienio);
   - [ ] año
   - [ ] bienio

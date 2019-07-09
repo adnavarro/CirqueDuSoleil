@@ -68,41 +68,131 @@ SELECT continente, nombre_pais FROM (
 ) AS PAISES;
 
 -- DATAMART
-SELECT nombre_show, numero_entradas, semestre 
-FROM trasicion_asistente 
-WHERE year = 2018 AND nombre_pais = 'EEUU' AND semestre = 2
-ORDER BY numero_entradas DESC
-LIMIT 3;
-
 CREATE OR REPLACE PROCEDURE
 llenar_datamart_asistentes() AS $$
 DECLARE
   record_lugar RECORD;
   record_tiempo RECORD;
   record_asistente RECORD;
-  show1 public.datamart.espectaculo_asistido1%TYPE;
-  show2 public.datamart.espectaculo_asistido2%TYPE;
-  show3 public.datamart.espectaculo_asistido3%TYPE;
-  cantidad1 public.datamart.cantidad_asistido1%TYPE;
-  cantidad2 public.datamart.cantidad_asistido2%TYPE;
-  cantidad3 public.datamart.cantidad_asistido3%TYPE;
+  var_shows varchar(32) ARRAY[3];
+  var_cantidades numeric(6) ARRAY[3];
 BEGIN
   FOR record_lugar IN SELECT id, pais, continente FROM public.datamart_lugar LOOP
     FOR record_tiempo IN SELECT id, semestre, year FROM public.datamart_tiempo LOOP
-      -- Pais semestre
-      IF (record_lugar.pais IS NOT NULL AND record_tiempo.semestre IS NOT NULL) 
-      THEN
-        FOR record_asistente IN 
-          SELECT nombre_show, numero_entradas, semestre
-          FROM trasicion_asistente 
+      -- PAIS SEMESTRE
+      IF (record_lugar.pais IS NOT NULL AND 
+        record_lugar.continente IS NOT NULL AND 
+        record_tiempo.semestre IS NOT NULL AND 
+        record_tiempo.year IS NOT NULL
+      ) THEN
+        SELECT ARRAY(SELECT nombre_show FROM trasicion_asistente 
           WHERE year = record_tiempo.year AND semestre = record_tiempo.semestre AND 
             continente = record_lugar.continente AND nombre_pais = record_lugar.pais
-          ORDER BY numero_entradas DESC LIMIT 3;
-        LOOP
-          -- Hacer cosas bonitas aquí
-        END LOOP;
+          ORDER BY numero_entradas DESC LIMIT 3
+        ) INTO var_shows;
+        SELECT ARRAY(SELECT numero_entradas FROM trasicion_asistente 
+          WHERE year = record_tiempo.year AND semestre = record_tiempo.semestre AND 
+            continente = record_lugar.continente AND nombre_pais = record_lugar.pais
+          ORDER BY numero_entradas DESC LIMIT 3
+        ) INTO var_cantidades;
+      END IF;
+      -- PAIS AÑO
+      IF (record_lugar.pais IS NOT NULL AND 
+        record_lugar.continente IS NOT NULL AND 
+        record_tiempo.semestre IS NULL AND 
+        record_tiempo.year IS NOT NULL
+      ) THEN
+        SELECT ARRAY(SELECT nombre_show FROM (
+            SELECT nombre_show, SUM(numero_entradas) AS entradas 
+            FROM trasicion_asistente 
+            WHERE year = record_tiempo.year AND  
+              continente = record_lugar.continente AND nombre_pais = record_lugar.pais
+            GROUP BY nombre_show
+            ORDER BY entradas DESC LIMIT 3
+          ) AS PAISYEAR
+        ) INTO var_shows;
+        SELECT ARRAY(SELECT entradas FROM (
+            SELECT nombre_show, SUM(numero_entradas) AS entradas 
+            FROM trasicion_asistente 
+            WHERE year = record_tiempo.year AND  
+              continente = record_lugar.continente AND nombre_pais = record_lugar.pais
+            GROUP BY nombre_show
+            ORDER BY entradas DESC LIMIT 3
+          ) AS PAISYEAR
+        ) INTO var_cantidades;
+      END IF;
+      -- CONTINENTE SEMESTRE
+      IF (record_lugar.pais IS NULL AND 
+        record_lugar.continente IS NOT NULL AND 
+        record_tiempo.semestre IS NOT NULL AND 
+        record_tiempo.year IS NOT NULL
+      ) THEN
+        SELECT ARRAY(SELECT nombre_show FROM (
+            SELECT nombre_show, SUM(numero_entradas) AS entradas 
+            FROM trasicion_asistente 
+            WHERE year = record_tiempo.year AND semestre = record_tiempo.semestre AND
+              continente = record_lugar.continente
+            GROUP BY nombre_show
+            ORDER BY entradas DESC LIMIT 3
+          ) AS CONTINENTESEMESTRE
+        ) INTO var_shows;
+        SELECT ARRAY(SELECT entradas FROM (
+            SELECT nombre_show, SUM(numero_entradas) AS entradas 
+            FROM trasicion_asistente 
+            WHERE year = record_tiempo.year AND semestre = record_tiempo.semestre AND
+              continente = record_lugar.continente
+            GROUP BY nombre_show
+            ORDER BY entradas DESC LIMIT 3
+          ) AS CONTINENTESEMESTRE
+        ) INTO var_cantidades;
+      END IF;
+      -- CONTINENTE AÑO
+      IF (record_lugar.pais IS NULL AND 
+        record_lugar.continente IS NOT NULL AND 
+        record_tiempo.semestre IS NULL AND 
+        record_tiempo.year IS NOT NULL
+      ) THEN
+        SELECT ARRAY(SELECT nombre_show FROM (
+            SELECT nombre_show, SUM(numero_entradas) AS entradas 
+            FROM trasicion_asistente 
+            WHERE year = record_tiempo.year AND continente = record_lugar.continente
+            GROUP BY nombre_show
+            ORDER BY entradas DESC LIMIT 3
+          ) AS CONTINENTESEMESTRE
+        ) INTO var_shows;
+        SELECT ARRAY(SELECT entradas FROM (
+            SELECT nombre_show, SUM(numero_entradas) AS entradas 
+            FROM trasicion_asistente 
+            WHERE year = record_tiempo.year AND continente = record_lugar.continente
+            GROUP BY nombre_show
+            ORDER BY entradas DESC LIMIT 3
+          ) AS CONTINENTESEMESTRE
+        ) INTO var_cantidades;
+      END IF;
+      -- INSERT
+      IF array_length(var_shows, 1) > 0 THEN
+        INSERT INTO datamart(
+          espectaculo_asistido1,
+          espectaculo_asistido2,
+          espectaculo_asistido3,
+          cantidad_asistido1,
+          cantidad_asistido2,
+          cantidad_asistido3,
+          id_lugar,
+          id_tiempo
+        ) VALUES (
+          var_shows[1],
+          var_shows[2],
+          var_shows[3],
+          var_cantidades[1],
+          var_cantidades[2],
+          var_cantidades[3],
+          record_lugar.id,
+          record_tiempo.id
+        );
       END IF;
     END LOOP;
   END LOOP;
 END;
 $$ LANGUAGE plpgsql;
+CALL llenar_datamart_asistentes();

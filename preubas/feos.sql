@@ -297,3 +297,65 @@ FROM
 
 SELECT DISTINCT year FROM trasicion_asistente ORDER BY year;
 
+SELECT nombre_show, numero_entradas, semestre 
+FROM trasicion_asistente 
+WHERE year = 2018 AND nombre_pais = 'EEUU' AND semestre = 1
+ORDER BY numero_entradas DESC
+LIMIT 3;
+SELECT nombre_show, numero_entradas, semestre 
+FROM trasicion_asistente 
+WHERE year = 2018 AND nombre_pais = 'EEUU' AND semestre = 2
+ORDER BY numero_entradas DESC
+LIMIT 3;
+
+SELECT nombre_show, SUM(numero_entradas) AS entradas, year 
+FROM trasicion_asistente 
+WHERE year = 2018 AND nombre_pais = 'EEUU'
+GROUP BY nombre_show, year
+ORDER BY entradas DESC
+LIMIT 3;
+
+SELECT ARRAY(
+  SELECT nombre_show FROM (
+    SELECT nombre_show, SUM(numero_entradas) AS entradas 
+    FROM trasicion_asistente 
+    WHERE year = 2018 AND nombre_pais = 'EEUU'
+    GROUP BY nombre_show
+    ORDER BY entradas DESC
+    LIMIT 3
+  ) AS PAISYEAR
+);
+
+SELECT ARRAY(SELECT nombre_show FROM (
+    SELECT nombre_show, SUM(numero_entradas) AS entradas 
+    FROM trasicion_asistente 
+    WHERE year = 2018 AND semestre = 1 AND
+      continente = 'AM'
+    GROUP BY nombre_show
+    ORDER BY entradas DESC LIMIT 3
+  ) AS CONTINENTESEMESTRE
+);
+
+SELECT nombre_show, SUM(numero_entradas) AS entradas 
+FROM trasicion_asistente 
+WHERE year = 2018 AND continente = 'AM'
+GROUP BY nombre_show
+ORDER BY entradas DESC LIMIT 3;
+
+SELECT nombre_show, numero_entradas, nombre_pais
+FROM trasicion_asistente 
+WHERE year = 2018 AND semestre = 1 AND
+  continente = 'AM'
+ORDER BY numero_entradas DESC LIMIT 3;
+
+CALL llenar_datamart_asistentes();
+SELECT espectaculo_asistido1 as show1,
+  espectaculo_asistido2 as show2,
+  espectaculo_asistido3 as show3,
+  cantidad_asistido1 as cant1,
+  cantidad_asistido2 as cant2,
+  cantidad_asistido3 as cant3,
+  id_lugar as l, id_tiempo as t
+FROM datamart;
+TRUNCATE datamart;
+
