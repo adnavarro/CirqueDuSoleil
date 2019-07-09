@@ -67,5 +67,5 @@ CREATE SCHEMA public;
 ```pgsql
 CALL dev_llenar_entradas(101);
 \i C:/CirqueDuSoleil/transicion.sql;
-
+\i C:/CirqueDuSoleil/datamart.sql;
 ```

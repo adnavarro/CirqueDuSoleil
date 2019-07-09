@@ -292,3 +292,8 @@ FROM
   INNER JOIN s_L s ON c.id = s.id_show
   INNER JOIN Presenta p on s.id = p.id_SL
   INNER JOIN Entrada e on e.id_Presenta = p.id;
+
+
+
+SELECT DISTINCT year FROM trasicion_asistente ORDER BY year;
+
