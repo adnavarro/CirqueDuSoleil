@@ -68,4 +68,41 @@ SELECT continente, nombre_pais FROM (
 ) AS PAISES;
 
 -- DATAMART
+SELECT nombre_show, numero_entradas, semestre 
+FROM trasicion_asistente 
+WHERE year = 2018 AND nombre_pais = 'EEUU' AND semestre = 2
+ORDER BY numero_entradas DESC
+LIMIT 3;
 
+CREATE OR REPLACE PROCEDURE
+llenar_datamart_asistentes() AS $$
+DECLARE
+  record_lugar RECORD;
+  record_tiempo RECORD;
+  record_asistente RECORD;
+  show1 public.datamart.espectaculo_asistido1%TYPE;
+  show2 public.datamart.espectaculo_asistido2%TYPE;
+  show3 public.datamart.espectaculo_asistido3%TYPE;
+  cantidad1 public.datamart.cantidad_asistido1%TYPE;
+  cantidad2 public.datamart.cantidad_asistido2%TYPE;
+  cantidad3 public.datamart.cantidad_asistido3%TYPE;
+BEGIN
+  FOR record_lugar IN SELECT id, pais, continente FROM public.datamart_lugar LOOP
+    FOR record_tiempo IN SELECT id, semestre, year FROM public.datamart_tiempo LOOP
+      -- Pais semestre
+      IF (record_lugar.pais IS NOT NULL AND record_tiempo.semestre IS NOT NULL) 
+      THEN
+        FOR record_asistente IN 
+          SELECT nombre_show, numero_entradas, semestre
+          FROM trasicion_asistente 
+          WHERE year = record_tiempo.year AND semestre = record_tiempo.semestre AND 
+            continente = record_lugar.continente AND nombre_pais = record_lugar.pais
+          ORDER BY numero_entradas DESC LIMIT 3;
+        LOOP
+          -- Hacer cosas bonitas aquí
+        END LOOP;
+      END IF;
+    END LOOP;
+  END LOOP;
+END;
+$$ LANGUAGE plpgsql;
