@@ -73,6 +73,12 @@ SELECT continente, nombre_pais FROM (
   SELECT DISTINCT continente, nombre_pais FROM trasicion_asistente ORDER BY continente, nombre_pais
 ) AS PAISES;
 
+--DISCIPLINAS
+INSERT INTO datamart_disiplina(nombre)
+SELECT nombre_disci FROM (
+  SELECT DISTINCT nombre_disci FROM transicion_disciplinaid ORDER BY nombre_disci
+) AS llenado_disci;
+
 -- DATAMART ASISTENTES
 CREATE OR REPLACE PROCEDURE
 llenar_datamart_asistentes() AS $$
