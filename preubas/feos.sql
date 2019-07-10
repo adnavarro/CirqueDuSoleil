@@ -359,3 +359,69 @@ SELECT espectaculo_asistido1 as show1,
 FROM datamart;
 TRUNCATE datamart;
 
+
+SELECT d.id,
+  d.espectaculo_asistido1 AS esp1,
+  d.cantidad_asistido1 AS cant1,
+  dl.pais AS pais,
+  dt.semestre AS sem,
+  dt.year AS ye
+FROM datamart d
+JOIN datamart_lugar dl ON d.id_lugar = dl.id
+JOIN datamart_tiempo dt ON d.id_tiempo = dt.id
+WHERE dl.pais = 'Alemania' AND dt.year = 2016;
+
+SELECT espectaculo, ingresos FROM trasicion_ingresos 
+WHERE year = 2016 ORDER BY ingresos DESC LIMIT 3;
+
+SELECT d.id,
+  d.espectaculo_ingreso1 AS esp1,
+  d.espectaculo_ingreso2 AS esp2,
+  d.espectaculo_ingreso3 AS esp3,
+  d.cantidad_ingreso1 AS cant1,
+  d.cantidad_ingreso2 AS cant2,
+  d.cantidad_ingreso3 AS cant3,
+  dt.year AS ye
+FROM datamart d
+JOIN datamart_tiempo dt ON d.id_tiempo = dt.id
+WHERE d.espectaculo_asistido1 IS NULL;
+
+
+SELECT DISTINCT year as ye, year + 1 as ne 
+FROM trasicion_ingresos 
+WHERE year + 1 <= (SELECT MAX(year) FROM trasicion_ingresos)
+ORDER BY ye;
+
+
+SELECT espectaculo, ingresos
+FROM trasicion_ingresos 
+WHERE year = 2015
+ORDER BY ingresos DESC LIMIT 3;
+SELECT espectaculo, ingresos
+FROM trasicion_ingresos 
+WHERE year = 2016
+ORDER BY ingresos DESC LIMIT 3;
+
+SELECT espectaculo, SUM(ingresos) as ingresos
+FROM trasicion_ingresos 
+WHERE year = 2015 OR year = 2016
+GROUP BY espectaculo
+ORDER BY ingresos DESC LIMIT 3;
+
+SELECT espectaculo, SUM(ingresos) as ingresos
+FROM trasicion_ingresos 
+WHERE year = split_part('2015-2016', '-', 1)::numeric OR 
+  year = split_part('2015-2016', '-', 2)::numeric
+GROUP BY espectaculo
+ORDER BY ingresos DESC LIMIT 3;
+
+SELECT d.id,
+  d.espectaculo_ingreso1 AS esp1,
+  d.espectaculo_ingreso2 AS esp2,
+  d.cantidad_ingreso1 AS cant1,
+  d.cantidad_ingreso2 AS cant2,
+  dt.year AS ye,
+  dt.bienio AS bi
+FROM datamart d
+JOIN datamart_tiempo dt ON d.id_tiempo = dt.id
+WHERE d.espectaculo_asistido1 IS NULL;

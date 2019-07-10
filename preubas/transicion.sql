@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS trasicion_asistente CASCADE;
+DROP TABLE IF EXISTS trasicion_ingresos CASCADE;
 
 create table trasicion_asistente(
   id SERIAL primary key,
@@ -9,7 +10,14 @@ create table trasicion_asistente(
   year numeric(5),
   semestre numeric(1)
 );
+create table trasicion_ingresos(
+  id SERIAL primary key,
+  espectaculo varchar(32),
+  year numeric(5),
+  ingresos numeric(9,2)
+);
 
+-- AISTENTES
 INSERT INTO trasicion_asistente (nombre_show,continente,nombre_pais,numero_entradas,year,semestre)
 SELECT show,continente,pais,count,ano,semestre
 FROM (
@@ -54,3 +62,29 @@ FROM(
     l.id_lugar=lu.id
   GROUP BY c.nombre, lu.contine, lu.nombre, ano, semestre
 ) AS RESIDENTES;
+
+-- INGRESOS
+INSERT INTO trasicion_ingresos (espectaculo, year, ingresos)
+SELECT 
+	c.nombre AS espectaculo,
+  date_part('year', p.fecha) as year,
+	SUM(e.precio) AS ingresos
+FROM
+	CirqueShow c,
+	Presenta p,
+	Entrada e
+WHERE
+	p.id_Show = c.id AND
+	e.id_Presenta = p.id
+GROUP BY espectaculo, year
+UNION
+SELECT 
+	c.nombre AS espectaculo,
+  date_part('year', p.fecha) as year,
+	SUM(e.precio) AS ingresos
+FROM
+	CirqueShow c
+  INNER JOIN s_L s ON c.id = s.id_show
+  INNER JOIN Presenta p on s.id = p.id_SL
+  INNER JOIN Entrada e on e.id_Presenta = p.id
+GROUP BY espectaculo, year;

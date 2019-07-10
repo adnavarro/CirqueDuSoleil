@@ -55,6 +55,12 @@ SELECT year, semestre FROM (
   SELECT DISTINCT year, semestre FROM trasicion_asistente ORDER BY year, semestre
 ) AS SEMESTRES;
 
+INSERT INTO datamart_tiempo(bienio)
+SELECT DISTINCT year || '-' || year + 1 as bienio 
+FROM trasicion_ingresos 
+WHERE year + 1 <= (SELECT MAX(year) FROM trasicion_ingresos)
+ORDER BY bienio;
+
 
 -- LUGAR
 INSERT INTO datamart_lugar(continente)
@@ -67,18 +73,19 @@ SELECT continente, nombre_pais FROM (
   SELECT DISTINCT continente, nombre_pais FROM trasicion_asistente ORDER BY continente, nombre_pais
 ) AS PAISES;
 
--- DATAMART
+-- DATAMART ASISTENTES
 CREATE OR REPLACE PROCEDURE
 llenar_datamart_asistentes() AS $$
 DECLARE
   record_lugar RECORD;
   record_tiempo RECORD;
-  record_asistente RECORD;
   var_shows varchar(32) ARRAY[3];
   var_cantidades numeric(6) ARRAY[3];
 BEGIN
   FOR record_lugar IN SELECT id, pais, continente FROM public.datamart_lugar LOOP
-    FOR record_tiempo IN SELECT id, semestre, year FROM public.datamart_tiempo LOOP
+    FOR record_tiempo IN SELECT id, semestre, year 
+      FROM public.datamart_tiempo WHERE bienio IS NULL
+    LOOP
       -- PAIS SEMESTRE
       IF (record_lugar.pais IS NOT NULL AND 
         record_lugar.continente IS NOT NULL AND 
@@ -196,3 +203,71 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 CALL llenar_datamart_asistentes();
+
+-- DATAMART INGRESOS
+CREATE OR REPLACE PROCEDURE
+llenar_datamart_ingresos() AS $$
+DECLARE
+  record_tiempo RECORD;
+  var_shows varchar(32) ARRAY[3];
+  var_ingresos numeric(9,2) ARRAY[3];
+BEGIN
+  FOR record_tiempo IN 
+    SELECT id, year, bienio FROM public.datamart_tiempo 
+    WHERE semestre IS NULL
+  LOOP
+    -- AÑOS
+    IF record_tiempo.year IS NOT NULL THEN
+      SELECT ARRAY(SELECT espectaculo FROM trasicion_ingresos 
+        WHERE year = record_tiempo.year 
+        ORDER BY ingresos DESC LIMIT 3
+      ) INTO var_shows;
+      SELECT ARRAY(SELECT ingresos FROM trasicion_ingresos 
+        WHERE year = record_tiempo.year 
+        ORDER BY ingresos DESC LIMIT 3
+      ) INTO var_ingresos;
+    -- BIENIOS
+    ELSIF record_tiempo.bienio IS NOT NULL THEN 
+      SELECT ARRAY(SELECT espectaculo FROM (
+          SELECT espectaculo, SUM(ingresos) as ingresos
+          FROM trasicion_ingresos 
+          WHERE year = split_part(record_tiempo.bienio, '-', 1)::numeric OR 
+            year = split_part(record_tiempo.bienio, '-', 2)::numeric
+          GROUP BY espectaculo
+          ORDER BY ingresos DESC LIMIT 3
+        ) AS BIENIOS
+      ) INTO var_shows;
+      SELECT ARRAY(SELECT ingresos FROM (
+          SELECT espectaculo, SUM(ingresos) as ingresos
+          FROM trasicion_ingresos 
+          WHERE year = split_part(record_tiempo.bienio, '-', 1)::numeric OR 
+            year = split_part(record_tiempo.bienio, '-', 2)::numeric
+          GROUP BY espectaculo
+          ORDER BY ingresos DESC LIMIT 3
+        ) AS BIENIOS
+      ) INTO var_ingresos;
+    END IF;
+    -- INSERT
+    IF array_length(var_shows, 1) > 0 THEN
+      INSERT INTO datamart(
+        espectaculo_ingreso1,
+        espectaculo_ingreso2,
+        espectaculo_ingreso3,
+        cantidad_ingreso1,
+        cantidad_ingreso2,
+        cantidad_ingreso3,
+        id_tiempo
+      ) VALUES (
+        var_shows[1],
+        var_shows[2],
+        var_shows[3],
+        var_ingresos[1],
+        var_ingresos[2],
+        var_ingresos[3],
+        record_tiempo.id
+      );
+    END IF;
+  END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+CALL llenar_datamart_ingresos();

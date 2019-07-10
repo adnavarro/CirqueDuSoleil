@@ -30,9 +30,9 @@ python manage.py runserver
   - [x] por continente
     - [x] año
     - [x] semestre
-- [ ] top3 espectáculos según ingresos generados (año, bienio);
-  - [ ] año
-  - [ ] bienio
+- [x] top3 espectáculos según ingresos generados (año, bienio);
+  - [x] año
+  - [x] bienio
 - [ ] espectáculo por tipo(itinerante, residente) con mayor crecimiento (asistentes) anual
   - [ ] itinerante
   - [ ] residente
@@ -68,4 +68,5 @@ CREATE SCHEMA public;
 CALL dev_llenar_entradas(101);
 \i C:/CirqueDuSoleil/transicion.sql;
 \i C:/CirqueDuSoleil/datamart.sql;
+
 ```

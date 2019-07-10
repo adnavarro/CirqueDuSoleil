@@ -53,11 +53,11 @@ GROUP BY c.nombre, ano
 UNION
 SELECT 
 	c.nombre as show,
-  date_part('year', p.fecha),
+  date_part('year', p.fecha) as ano,
 	SUM(e.precio)
 FROM
 	CirqueShow c
   INNER JOIN s_L s ON c.id = s.id_show
   INNER JOIN Presenta p on s.id = p.id_SL
   INNER JOIN Entrada e on e.id_Presenta = p.id
-GROUP BY c.nombre, date_part('year', p.fecha);
+GROUP BY c.nombre, ano;
