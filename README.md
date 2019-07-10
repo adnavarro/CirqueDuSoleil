@@ -39,7 +39,7 @@ python manage.py runserver
 
 
 - [ ] % de audiciones con resultados positivos por semestre (aquellas audiciones en las que la compañía logró captar los artistas requeridos); 
-- [ ] crecimiento anual por disiciplina (aspirantes inscritos en audiciones de un año vs el año anterior).
+- [x] crecimiento anual por disiciplina (aspirantes inscritos en audiciones de un año vs el año anterior).
 
 
 

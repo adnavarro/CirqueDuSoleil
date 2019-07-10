@@ -37,12 +37,11 @@ create table datamart(
   espectaculo_crecimiento_i varchar(32),
   espectaculo_crecimiento_r varchar(32),
   porcentaje_audiciones_positiva numeric(4,2),
-  porcentaje_crecimiento_disiplina numeric(4,2),
+  porcentaje_crecimiento_disiplina text,
   id_lugar integer,
   id_tiempo integer,
   id_disiplina integer
 );
-
 
 -- TIEMPO
 INSERT INTO datamart_tiempo(year)
@@ -277,3 +276,14 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 CALL llenar_datamart_ingresos();
+
+-- DATAMAR DISIPLINAS
+INSERT INTO datamart(porcentaje_crecimiento_disiplina, id_tiempo, id_disiplina)
+SELECT td.crecimiento, 
+  dt.id as id_tiempo,
+  dd.id as id_disiplina
+FROM transicion_disciplinaid td
+JOIN datamart_tiempo dt 
+  ON td.year = dt.year AND dt.semestre IS NULL AND dt.bienio IS NULL
+JOIN datamart_disiplina dd
+  ON td.nombre_disci = dd.nombre;

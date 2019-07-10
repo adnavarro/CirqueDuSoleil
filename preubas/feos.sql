@@ -425,3 +425,31 @@ SELECT d.id,
 FROM datamart d
 JOIN datamart_tiempo dt ON d.id_tiempo = dt.id
 WHERE d.espectaculo_asistido1 IS NULL;
+
+
+
+SELECT id, year FROM public.datamart_tiempo 
+WHERE semestre IS NULL AND bienio IS NULL;
+
+SELECT id, nombre FROM datamart_disiplina;
+
+SELECT
+  Crecimiento as cre,
+  year,
+  id_disci as idd
+FROM transicion_disciplinaid;
+
+SELECT td.crecimiento, 
+  dt.id as id_tiempo,
+  dd.id as id_disiplina
+FROM transicion_disciplinaid td
+JOIN datamart_tiempo dt 
+  ON td.year = dt.year AND dt.semestre IS NULL AND dt.bienio IS NULL
+JOIN datamart_disiplina dd
+  ON td.nombre_disci = dd.nombre;
+
+SELECT porcentaje_crecimiento_disiplina, year, nombre as cre 
+FROM datamart d
+JOIN datamart_disiplina dd ON d.id_disiplina = dd.id
+JOIN datamart_tiempo dt ON d.id_tiempo = dt.id;
+
