@@ -1,5 +1,7 @@
 DROP TABLE IF EXISTS trasicion_asistente CASCADE;
 DROP TABLE IF EXISTS trasicion_ingresos CASCADE;
+DROP TABLE IF EXISTS transicion_disciplinaid CASCADE;
+DROP TABLE IF EXISTS transicion_audicion CASCADE;
 
 create table trasicion_asistente(
   id SERIAL primary key,
@@ -16,7 +18,6 @@ create table trasicion_ingresos(
   year numeric(5),
   ingresos numeric(9,2)
 );
-
 CREATE TABLE transicion_disciplinaid (
   id SERIAL primary key,
   id_disci numeric(4),
@@ -24,6 +25,14 @@ CREATE TABLE transicion_disciplinaid (
   cantidad_ins numeric(4),
   year numeric(5),
   Crecimiento text
+);
+CREATE TABLE transicion_audicion (
+  id SERIAL primary key,
+  fecha timestamp,
+  year numeric(5),
+  semestre numeric(1),
+  cupos numeric(3),
+  aprobados numeric(3)
 );
 
 -- DISCIPLINA
@@ -123,3 +132,16 @@ FROM
   INNER JOIN Presenta p on s.id = p.id_SL
   INNER JOIN Entrada e on e.id_Presenta = p.id
 GROUP BY espectaculo, year;
+
+INSERT INTO transicion_audicion(fecha, year, semestre, cupos, aprobados)
+SELECT 
+  c.hora_in as fecha,
+  date_part('year',c.hora_in) as year,
+  (SELECT (CASE WHEN date_part('month', c.hora_in) < 7 THEN 1 ELSE 2 END) AS semestre),
+  cupos_disp as cupos,
+  COUNT(a_a.resulta) as aprobados
+FROM CalenAudicion c
+JOIN A_A ON c.id = a_a.id_CalenAudicion 
+WHERE resulta = TRUE
+GROUP BY fecha, year, semestre, cupos
+ORDER BY fecha;

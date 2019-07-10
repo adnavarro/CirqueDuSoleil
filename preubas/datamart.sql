@@ -36,7 +36,7 @@ create table datamart(
   cantidad_ingreso3 numeric(9,2),
   espectaculo_crecimiento_i varchar(32),
   espectaculo_crecimiento_r varchar(32),
-  porcentaje_audiciones_positiva numeric(4,2),
+  porcentaje_audiciones_positiva text,
   porcentaje_crecimiento_disiplina text,
   id_lugar integer,
   id_tiempo integer,
@@ -287,3 +287,23 @@ JOIN datamart_tiempo dt
   ON td.year = dt.year AND dt.semestre IS NULL AND dt.bienio IS NULL
 JOIN datamart_disiplina dd
   ON td.nombre_disci = dd.nombre;
+
+
+-- DATAMART AUDICIONES
+INSERT INTO datamart(porcentaje_audiciones_positiva, id_tiempo)
+SELECT 
+  (aprobados * 100 / cupos || '%') AS porcentaje,
+  dt.id AS id_tiempo
+FROM (
+  SELECT ta1.year, 
+    ta1.semestre,
+    COUNT(ta1.id) as cupos,
+    COUNT(ta2.id) as aprobados
+  FROM transicion_audicion ta1
+  LEFT JOIN transicion_audicion ta2 
+    ON ta1.id = ta2.id AND ta1.cupos = ta2.aprobados
+  GROUP BY ta1.year, ta1.semestre
+  ORDER BY ta1.year, ta1.semestre
+) AS AUDICIONES
+JOIN datamart_tiempo dt
+  ON AUDICIONES.year = dt.year AND AUDICIONES.semestre = dt.semestre;

@@ -453,3 +453,119 @@ FROM datamart d
 JOIN datamart_disiplina dd ON d.id_disiplina = dd.id
 JOIN datamart_tiempo dt ON d.id_tiempo = dt.id;
 
+
+SELECT 
+  date_part('year',c.hora_in) as "AÑO",
+  (SELECT (CASE WHEN date_part('month', c.hora_in) < 7 THEN 1 ELSE 2 END) AS "SEMESTRE")
+FROM CalenAudicion c
+GROUP BY "AÑO", "SEMESTRE"
+ORDER BY "AÑO", "SEMESTRE";
+
+SELECT 
+  date_part('year',c.hora_in) as "AÑO",
+  (SELECT (CASE WHEN date_part('month', c.hora_in) < 7 THEN 1 ELSE 2 END) AS "SEMESTRE"),
+  cupos_disp as cup
+FROM CalenAudicion c
+ORDER BY "AÑO", "SEMESTRE";
+
+SELECT 
+  date_part('year',c.hora_in) as "AÑO",
+  (SELECT (CASE WHEN date_part('month', c.hora_in) < 7 THEN 1 ELSE 2 END) AS "SEMESTRE"),
+  COUNT(cupos_disp) as cup,
+  COUNT(a_a.resulta)
+FROM CalenAudicion c
+JOIN A_A ON c.id = a_a.id_CalenAudicion 
+GROUP BY "AÑO", "SEMESTRE"
+ORDER BY "AÑO", "SEMESTRE";
+
+
+create table A_A(
+	resulta bool not null, /* 0:No aprobado, 1:Aprobado */
+	id_Aspirante numeric(4) not null references Aspirante(id),
+	id_CalenAudicion numeric(4) not null references CalenAudicion(id),
+	constraint id_Inscrip primary key(id_Aspirante, id_CalenAudicion)
+);
+
+SELECT 
+  c.hora_in as "AÑO",
+  cupos_disp as cup,
+  COUNT(a_a.resulta)
+FROM CalenAudicion c
+JOIN A_A ON c.id = a_a.id_CalenAudicion 
+GROUP BY "AÑO", cup
+ORDER BY "AÑO", "SEMESTRE";
+
+
+SELECT 
+  c.id,
+  c.hora_in as "AÑO",
+  cupos_disp as cup,
+  max_partici as ma,
+  COUNT(a_a.resulta) as r
+FROM CalenAudicion c
+JOIN A_A ON c.id = a_a.id_CalenAudicion 
+WHERE c.hora_in > timestamp '2015-01-01'
+GROUP BY "AÑO", cup, ma, id
+ORDER BY "AÑO";
+
+SELECT 
+  date_part('year',a.hora_in) as year,
+  (SELECT (CASE WHEN date_part('month', a.hora_in) < 7 THEN 1 ELSE 2 END) AS semestre),
+
+FROM (
+  
+) AS a;
+
+SELECT 
+  c.hora_in as fecha,
+  date_part('year',c.hora_in) as year,
+  (SELECT (CASE WHEN date_part('month', c.hora_in) < 7 THEN 1 ELSE 2 END) AS semestre),
+  cupos_disp as cup,
+  COUNT(a_a.resulta) as res
+FROM CalenAudicion c
+JOIN A_A ON c.id = a_a.id_CalenAudicion 
+WHERE resulta = TRUE
+GROUP BY fecha, year, semestre, cup
+ORDER BY fecha;
+
+
+
+SELECT year, 
+  semestre as sem,
+  COUNT(*)
+FROM transicion_audicion
+GROUP BY year, sem
+ORDER BY year, sem;
+
+SELECT ta1.year, 
+  ta1.semestre,
+  COUNT(ta1.id) as cupos,
+  COUNT(ta2.id) as aprobados
+FROM transicion_audicion ta1
+LEFT JOIN transicion_audicion ta2 
+  ON ta1.id = ta2.id AND ta1.cupos = ta2.aprobados
+GROUP BY ta1.year, ta1.semestre
+ORDER BY ta1.year, ta1.semestre;
+
+ROUND(100*(count(aspirantes.nume_audi)-LAG(count(aspirantes.nume_audi),1) OVER (ORDER BY date_part('year',c.hora_in)))
+		/ (lag(count(aspirantes.nume_audi), 1) over (order by date_part('year',c.hora_in))),2) || '%' as "Crecimiento"
+
+SELECT 
+  year, 
+  semestre, 
+  (aprobados * 100 / cupos || '%') AS crecimiento
+FROM (
+  SELECT ta1.year, 
+    ta1.semestre,
+    COUNT(ta1.id) as cupos,
+    COUNT(ta2.id) as aprobados
+  FROM transicion_audicion ta1
+  LEFT JOIN transicion_audicion ta2 
+    ON ta1.id = ta2.id AND ta1.cupos = ta2.aprobados
+  GROUP BY ta1.year, ta1.semestre
+  ORDER BY ta1.year, ta1.semestre
+) AS AUDICIONES;
+
+
+
+
